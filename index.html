@@ -331,19 +331,140 @@
             margin-right: 12px;
         }
 
-        /* ===== Books ===== */
-        .books-list {
-            list-style: none;
+        /* ===== Books Section ===== */
+        .books-section {
+            margin-bottom: 64px;
         }
 
-        .books-list li {
-            padding: 8px 0;
-            color: var(--text-secondary);
+        .books-intro {
+            margin-bottom: 32px;
         }
 
-        .books-list .author {
+        .books-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .books-stat {
+            text-align: center;
+        }
+
+        .books-stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .books-stat-label {
+            font-size: 0.75rem;
             color: var(--text-muted);
-            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .books-category {
+            margin-bottom: 32px;
+        }
+
+        .books-category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .books-category-icon {
+            font-size: 1.25rem;
+        }
+
+        .books-category-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .books-category-count {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 12px;
+        }
+
+        .book-item {
+            position: relative;
+            aspect-ratio: 2/3;
+            border-radius: 4px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .book-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-cover.error {
+            opacity: 0;
+        }
+
+        .book-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            text-align: center;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-placeholder.visible {
+            opacity: 1;
+        }
+
+        .book-placeholder-title {
+            font-size: 0.625rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .book-placeholder-author {
+            font-size: 0.5rem;
+            color: var(--text-muted);
         }
 
         /* ===== Bio Box ===== */
@@ -417,6 +538,14 @@
             .certifications-list {
                 grid-template-columns: 1fr;
             }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+
+            .books-stats {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -425,7 +554,6 @@
         
         <!-- ===== HERO ===== -->
         <section class="hero">
-            <!-- Replace src with your photo -->
             <img src="assets/me.jpg" alt="Joaquin Abondano" class="hero-photo">
             <div class="hero-content">
                 <h1>Joaquin Abondano</h1>
@@ -459,10 +587,9 @@
             <div class="timeline-item" style="margin-bottom: 0;">
                 <div class="timeline-date">2024 –</div>
                 <div class="timeline-content">
-                    <!-- Replace with Lucyd logo -->
-                    <img src="assets/lucyd_logo.png" alt="Innovative Eyewear" class="timeline-logo">
+                    <img src="assets/lucyd_logo.png" alt="Lucyd" class="timeline-logo">
                     <h3><a href="https://lucyd.co" target="_blank">Chief Operating Officer</a> at <a href="https://www.nasdaq.com/market-activity/stocks/lucy" target="_blank">Innovative Eyewear</a> (NASDAQ: LUCY)</h3>
-                    <p>Leading operations for the world's first ChatGPT-enabled smart eyewear company. Driving 163% YoY revenue growth through AI-powered supply chain optimization, global expansion into 27+ countries, and strategic brand partnerships with Reebok, Nautica, and Eddie Bauer.</p>
+                    <p>Leading operations for the world's first ChatGPT-enabled smart eyewear company. Driving 163% YoY revenue growth through AI-powered supply chain optimization, multi-channel sales across DTC, Amazon, and B2B wholesale, global expansion into 27+ countries, and strategic brand partnerships with Reebok, Nautica, and Eddie Bauer.</p>
                 </div>
             </div>
         </section>
@@ -648,14 +775,96 @@
         <hr>
 
         <!-- ===== BOOKS ===== -->
-        <section>
-            <h2>books</h2>
-            <p style="margin-bottom: 16px;">Some books that have shaped my thinking.</p>
-            <ul class="books-list">
-                <!-- ADD YOUR BOOKS HERE -->
-                <li>📚 <em>Your book list will go here</em></li>
-                <li>Upload your reading list and I'll format it for you.</li>
-            </ul>
+        <section class="books-section" id="books">
+            <h2>library</h2>
+            
+            <div class="books-intro">
+                <p>Books that have shaped my thinking across philosophy, history, business, and science.</p>
+                <div class="books-stats">
+                    <div class="books-stat">
+                        <span class="books-stat-number">80+</span>
+                        <span class="books-stat-label">Books Read</span>
+                    </div>
+                    <div class="books-stat">
+                        <span class="books-stat-number">500+</span>
+                        <span class="books-stat-label">Hours Listened</span>
+                    </div>
+                    <div class="books-stat">
+                        <span class="books-stat-number">7</span>
+                        <span class="books-stat-label">Categories</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Philosophy & Stoicism -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">🏛️</span>
+                    <h3 class="books-category-title">Philosophy & Stoicism</h3>
+                    <span class="books-category-count">12</span>
+                </div>
+                <div class="books-grid" id="philosophy-books"></div>
+            </div>
+
+            <!-- Biography & Leadership -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">👤</span>
+                    <h3 class="books-category-title">Biography & Leadership</h3>
+                    <span class="books-category-count">14</span>
+                </div>
+                <div class="books-grid" id="biography-books"></div>
+            </div>
+
+            <!-- History & Civilization -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">🌍</span>
+                    <h3 class="books-category-title">History & Civilization</h3>
+                    <span class="books-category-count">20</span>
+                </div>
+                <div class="books-grid" id="history-books"></div>
+            </div>
+
+            <!-- Business & Strategy -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">📈</span>
+                    <h3 class="books-category-title">Business & Strategy</h3>
+                    <span class="books-category-count">11</span>
+                </div>
+                <div class="books-grid" id="business-books"></div>
+            </div>
+
+            <!-- Science, Mind & AI -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">🧠</span>
+                    <h3 class="books-category-title">Science, Mind & AI</h3>
+                    <span class="books-category-count">17</span>
+                </div>
+                <div class="books-grid" id="science-books"></div>
+            </div>
+
+            <!-- Economics & Political Theory -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">⚖️</span>
+                    <h3 class="books-category-title">Economics & Political Theory</h3>
+                    <span class="books-category-count">5</span>
+                </div>
+                <div class="books-grid" id="economics-books"></div>
+            </div>
+
+            <!-- Literature & Memoir -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">📚</span>
+                    <h3 class="books-category-title">Literature & Memoir</h3>
+                    <span class="books-category-count">6</span>
+                </div>
+                <div class="books-grid" id="literature-books"></div>
+            </div>
         </section>
 
         <hr>
@@ -690,6 +899,137 @@
     <footer class="container">
         <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
     </footer>
+
+    <script>
+        // Book data organized by category
+        const books = {
+            philosophy: [
+                { title: "Meditations", author: "Marcus Aurelius", isbn: "0140449337" },
+                { title: "On the Shortness of Life", author: "Seneca", isbn: "0143036327" },
+                { title: "Letters from a Stoic", author: "Seneca", isbn: "0140442103" },
+                { title: "The Daily Stoic", author: "Ryan Holiday", isbn: "0735211736" },
+                { title: "How to Think Like a Roman Emperor", author: "Donald Robertson", isbn: "1250196620" },
+                { title: "Man's Search for Meaning", author: "Viktor Frankl", isbn: "080701429X" },
+                { title: "On the Good Life", author: "Cicero", isbn: "0140442448" },
+                { title: "On Duties", author: "Cicero", isbn: "0140440836" },
+                { title: "Discourses and Selected Writings", author: "Epictetus", isbn: "0140449469" },
+                { title: "The Enchiridion", author: "Epictetus", isbn: "0486433595" },
+                { title: "Beyond Good and Evil", author: "Nietzsche", isbn: "0140449230" },
+                { title: "Thus Spoke Zarathustra", author: "Nietzsche", isbn: "0140441182" }
+            ],
+            biography: [
+                { title: "Alexander Hamilton", author: "Ron Chernow", isbn: "0143034758" },
+                { title: "Washington: A Life", author: "Ron Chernow", isbn: "0143119966" },
+                { title: "Grant", author: "Ron Chernow", isbn: "0143110632" },
+                { title: "Titan", author: "Ron Chernow", isbn: "1400077303" },
+                { title: "Steve Jobs", author: "Walter Isaacson", isbn: "1451648537" },
+                { title: "Benjamin Franklin", author: "Walter Isaacson", isbn: "074325807X" },
+                { title: "Elon Musk", author: "Walter Isaacson", isbn: "1982181281" },
+                { title: "The Path to Power", author: "Robert Caro", isbn: "0679729453" },
+                { title: "Means of Ascent", author: "Robert Caro", isbn: "067973371X" },
+                { title: "Master of the Senate", author: "Robert Caro", isbn: "0394720954" },
+                { title: "The Last Lion: Alone", author: "William Manchester", isbn: "0385313314" },
+                { title: "Surrender", author: "Bono", isbn: "0525521046" },
+                { title: "Autobiography of Benjamin Franklin", author: "Benjamin Franklin", isbn: "0486290735" },
+                { title: "Deng Xiaoping", author: "Ezra Vogel", isbn: "0674725867" }
+            ],
+            history: [
+                { title: "The Decline and Fall of the Roman Empire", author: "Edward Gibbon", isbn: "0140437649" },
+                { title: "Emperor of Rome", author: "Mary Beard", isbn: "1631496530" },
+                { title: "The Peloponnesian War", author: "Thucydides", isbn: "0140440399" },
+                { title: "Our Oriental Heritage", author: "Will Durant", isbn: "1567310125" },
+                { title: "The Life of Greece", author: "Will Durant", isbn: "0671418009" },
+                { title: "Caesar and Christ", author: "Will Durant", isbn: "1567310141" },
+                { title: "The Age of Faith", author: "Will Durant", isbn: "0671012002" },
+                { title: "The Renaissance", author: "Will Durant", isbn: "1567310168" },
+                { title: "The Reformation", author: "Will Durant", isbn: "1567310176" },
+                { title: "The Age of Reason Begins", author: "Will Durant", isbn: "1567310184" },
+                { title: "The Age of Louis XIV", author: "Will Durant", isbn: "1567310192" },
+                { title: "The Age of Voltaire", author: "Will Durant", isbn: "1567310206" },
+                { title: "Rousseau and Revolution", author: "Will Durant", isbn: "1567310214" },
+                { title: "The Age of Napoleon", author: "Will Durant", isbn: "1567310222" },
+                { title: "The Lessons of History", author: "Will & Ariel Durant", isbn: "143914995X" },
+                { title: "The Rise and Fall of the Third Reich", author: "William Shirer", isbn: "1451651686" },
+                { title: "SPQR", author: "Mary Beard", isbn: "1631492225" },
+                { title: "Guns, Germs, and Steel", author: "Jared Diamond", isbn: "0393317552" },
+                { title: "1776", author: "David McCullough", isbn: "0743226720" },
+                { title: "The Civil War", author: "Julius Caesar", isbn: "0199540624" }
+            ],
+            business: [
+                { title: "Good Strategy Bad Strategy", author: "Richard Rumelt", isbn: "0307886239" },
+                { title: "The Effective Executive", author: "Peter Drucker", isbn: "0060833459" },
+                { title: "Poor Charlie's Almanack", author: "Charlie Munger", isbn: "1578645018" },
+                { title: "Zero to One", author: "Peter Thiel", isbn: "0804139296" },
+                { title: "The Innovator's Dilemma", author: "Clayton Christensen", isbn: "0062060244" },
+                { title: "Only the Paranoid Survive", author: "Andy Grove", isbn: "0385483821" },
+                { title: "High Output Management", author: "Andy Grove", isbn: "0679762884" },
+                { title: "The Hard Thing About Hard Things", author: "Ben Horowitz", isbn: "0062273205" },
+                { title: "Thinking in Bets", author: "Annie Duke", isbn: "0735216371" },
+                { title: "Thinking in Systems", author: "Donella Meadows", isbn: "1603580557" },
+                { title: "The Goal", author: "Eliyahu Goldratt", isbn: "0884271951" }
+            ],
+            science: [
+                { title: "Sapiens", author: "Yuval Noah Harari", isbn: "0062316117" },
+                { title: "Homo Deus", author: "Yuval Noah Harari", isbn: "0062464345" },
+                { title: "A Brief History of Intelligence", author: "Max Bennett", isbn: "0063286092" },
+                { title: "The Beginning of Infinity", author: "David Deutsch", isbn: "0143121359" },
+                { title: "The Fabric of Reality", author: "David Deutsch", isbn: "014027541X" },
+                { title: "Co-Intelligence", author: "Ethan Mollick", isbn: "059371671X" },
+                { title: "Dopamine Nation", author: "Anna Lembke", isbn: "152474672X" },
+                { title: "The Molecule of More", author: "Daniel Lieberman", isbn: "1946885118" },
+                { title: "Determined", author: "Robert Sapolsky", isbn: "0525560971" },
+                { title: "If Nietzsche Were a Narwhal", author: "Justin Gregg", isbn: "0316388092" },
+                { title: "The Body Keeps the Score", author: "Bessel van der Kolk", isbn: "0143127748" },
+                { title: "The Pattern Seekers", author: "Simon Baron-Cohen", isbn: "1541647149" },
+                { title: "The Righteous Mind", author: "Jonathan Haidt", isbn: "0307455777" },
+                { title: "The Anxious Generation", author: "Jonathan Haidt", isbn: "0593655036" },
+                { title: "Science and Human Behavior", author: "B.F. Skinner", isbn: "0029290406" },
+                { title: "Power and Progress", author: "Daron Acemoglu", isbn: "1541702530" },
+                { title: "Behave", author: "Robert Sapolsky", isbn: "0143110918" }
+            ],
+            economics: [
+                { title: "Why Nations Fail", author: "Daron Acemoglu", isbn: "0307719227" },
+                { title: "The Road to Serfdom", author: "F.A. Hayek", isbn: "0226320553" },
+                { title: "The End of History", author: "Francis Fukuyama", isbn: "0743284550" },
+                { title: "Capitalism and Freedom", author: "Milton Friedman", isbn: "0226264211" },
+                { title: "The Wealth of Nations", author: "Adam Smith", isbn: "0553585975" }
+            ],
+            literature: [
+                { title: "The Brothers Karamazov", author: "Fyodor Dostoevsky", isbn: "0374528373" },
+                { title: "Crime and Punishment", author: "Fyodor Dostoevsky", isbn: "0143058142" },
+                { title: "The Old Man and the Sea", author: "Ernest Hemingway", isbn: "0684801221" },
+                { title: "The Godfather", author: "Mario Puzo", isbn: "0451205766" },
+                { title: "Don Quixote", author: "Miguel de Cervantes", isbn: "0060934344" },
+                { title: "One Hundred Years of Solitude", author: "Gabriel García Márquez", isbn: "0060883286" }
+            ]
+        };
+
+        // Function to create book HTML
+        function createBookHTML(book) {
+            const amazonUrl = `https://www.amazon.com/dp/${book.isbn}`;
+            const coverUrl = `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`;
+            
+            return `
+                <a class="book-item" href="${amazonUrl}" target="_blank" rel="noopener noreferrer" title="${book.title} by ${book.author}">
+                    <img class="book-cover" src="${coverUrl}" alt="${book.title}" loading="lazy" 
+                         onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                    <div class="book-placeholder">
+                        <div class="book-placeholder-title">${book.title}</div>
+                        <div class="book-placeholder-author">${book.author}</div>
+                    </div>
+                </a>
+            `;
+        }
+
+        // Populate book grids
+        document.getElementById('philosophy-books').innerHTML = books.philosophy.map(createBookHTML).join('');
+        document.getElementById('biography-books').innerHTML = books.biography.map(createBookHTML).join('');
+        document.getElementById('history-books').innerHTML = books.history.map(createBookHTML).join('');
+        document.getElementById('business-books').innerHTML = books.business.map(createBookHTML).join('');
+        document.getElementById('science-books').innerHTML = books.science.map(createBookHTML).join('');
+        document.getElementById('economics-books').innerHTML = books.economics.map(createBookHTML).join('');
+        document.getElementById('literature-books').innerHTML = books.literature.map(createBookHTML).join('');
+    </script>
 
 </body>
 </html>
