@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joaquin Abondano – COO, Innovative Eyewear</title>
+    <meta name="description" content="Chief Operating Officer at Innovative Eyewear (NASDAQ: LUCY). Building AI-powered operations at the intersection of hardware, software, and smart wearables.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Joaquin Abondano">
+    <meta property="og:description" content="COO at Innovative Eyewear (NASDAQ: LUCY). Building AI-powered operations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jabondano.co">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #262626;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Layout ===== */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        section {
+            margin-bottom: 64px;
+        }
+
+        /* ===== Typography ===== */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ===== Header/Hero ===== */
+        .hero {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .hero-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+            background-color: var(--bg-tertiary);
+            flex-shrink: 0;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .social-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ===== Divider ===== */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* ===== Current Interests ===== */
+        .interests-list {
+            list-style: none;
+        }
+
+        .interests-list li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .interests-list li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .timeline-date {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            padding-top: 4px;
+        }
+
+        .timeline-content h3 {
+            color: var(--text-primary);
+        }
+
+        .timeline-content p {
+            font-size: 0.9375rem;
+        }
+
+        .timeline-logo {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background-color: var(--bg-tertiary);
+        }
+
+        /* ===== Projects Grid ===== */
+        .projects-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .project-card {
+            padding: 20px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .project-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-card h3::before {
+            content: "🔧";
+            font-size: 1rem;
+        }
+
+        .project-card.enterprise h3::before {
+            content: "📊";
+        }
+
+        .project-card.supply-chain h3::before {
+            content: "🏭";
+        }
+
+        /* ===== Skills ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .skill-category h3 {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            padding: 4px 0;
+        }
+
+        /* ===== Press Links ===== */
+        .press-list {
+            list-style: none;
+        }
+
+        .press-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .press-list li:last-child {
+            border-bottom: none;
+        }
+
+        .press-date {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-right: 12px;
+        }
+
+        /* ===== BOOKS SECTION ===== */
+        .books-section {
+            margin-bottom: 64px;
+        }
+
+        .books-intro {
+            margin-bottom: 32px;
+        }
+
+        .books-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .books-stat {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+
+        .books-stat-number {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .books-stat-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .books-category {
+            margin-bottom: 48px;
+        }
+
+        .books-category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .books-category-icon {
+            font-size: 1.25rem;
+        }
+
+        .books-category-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .books-category-count {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 16px;
+        }
+
+        .book-item {
+            position: relative;
+            aspect-ratio: 2/3;
+            border-radius: 4px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .book-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-cover.loaded {
+            opacity: 1;
+        }
+
+        .book-cover.error {
+            opacity: 0;
+        }
+
+        .book-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            text-align: center;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .book-placeholder.visible {
+            opacity: 1;
+        }
+
+        .book-placeholder-title {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .book-placeholder-author {
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Book tooltip on hover */
+        .book-item::after {
+            content: attr(data-title) " — " attr(data-author);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            max-width: 280px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-item:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        /* ===== Bio Box ===== */
+        .bio-box {
+            padding: 24px;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 32px;
+        }
+
+        .bio-box p {
+            font-size: 0.9375rem;
+        }
+
+        .personal-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .personal-detail {
+            font-size: 0.875rem;
+        }
+
+        .personal-detail span {
+            color: var(--text-muted);
+        }
+
+        /* ===== Roots Section ===== */
+        .roots-content {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.8;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .timeline-date {
+                font-size: 0.75rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+                gap: 10px;
+            }
+
+            .books-stats {
+                gap: 24px;
+            }
+
+            .book-item::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        
+        <!-- ===== HERO ===== -->
+        <section class="hero">
+            <img src="assets/me.jpg" alt="Joaquin Abondano" class="hero-photo">
+            <div class="hero-content">
+                <h1>Joaquin Abondano</h1>
+                <p class="tagline">Building AI-powered operations at the intersection of hardware, software, and smart wearables</p>
+                <div class="social-links">
+                    <a href="https://twitter.com/jabondano" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        @jabondano
+                    </a>
+                    <a href="https://linkedin.com/in/jabondano" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/jabondano" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="mailto:jabondano@gmail.com">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+                        Email
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== CURRENT ===== -->
+        <section>
+            <h2>current</h2>
+            <div class="timeline-item" style="margin-bottom: 0;">
+                <div class="timeline-date">2024 —</div>
+                <div class="timeline-content">
+                    <img src="assets/lucyd_logo.png" alt="Innovative Eyewear" class="timeline-logo">
+                    <h3><a href="https://lucyd.co" target="_blank">Chief Operating Officer</a> at <a href="https://www.nasdaq.com/market-activity/stocks/lucy" target="_blank">Innovative Eyewear</a> (NASDAQ: LUCY)</h3>
+                    <p>Leading operations for the world's first ChatGPT-enabled smart eyewear company. Driving 163% YoY revenue growth through AI-powered supply chain optimization, multi-channel sales across DTC, Amazon, and B2B wholesale, global expansion into 27+ countries, and strategic brand partnerships with Reebok, Nautica, and Eddie Bauer.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== CURRENT INTERESTS ===== -->
+        <section>
+            <h2>current interests</h2>
+            <ul class="interests-list">
+                <li>Voice as the next paradigm in human-computer interaction</li>
+                <li>AI agents and MCP servers as enterprise infrastructure</li>
+                <li>Patterns in how complex societies adapt—or don't</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <!-- ===== TIMELINE ===== -->
+        <section>
+            <h2>timeline</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2023 — 2024</div>
+                <div class="timeline-content">
+                    <h3>VP E-Commerce & Supply Chain, Innovative Eyewear</h3>
+                    <p>Drove first ChatGPT-enabled smart eyewear launch. Built e-commerce operations across Shopify, Amazon US/Germany. Managed China manufacturing relationships and implemented NetSuite ERP.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2012 — 2022</div>
+                <div class="timeline-content">
+                    <h3>VP Product Management & Co-founder, Groovy Toys LLC</h3>
+                    <p>Grew from startup to $20M+ revenue. Launched 500+ consumer products including mobile apps, multiplayer video games, and IoT toys. Managed cross-functional teams across Hong Kong, Colombia, and Florida. Clients included Walmart, Target, Canadian Tire, and Amazon.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2010 — 2020</div>
+                <div class="timeline-content">
+                    <h3>CEO, Funky Planet</h3>
+                    <p>E-commerce operation serving Target, Walmart, Amazon, Best Buy, Macy's. 200% increase in online orders. Led digital marketing across Google, Facebook, Amazon Ads yielding 20% ROI improvements.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2006 — 2008</div>
+                <div class="timeline-content">
+                    <h3>Business Development, Millbrook Ventures</h3>
+                    <p>Secured Environmental Impact Statement approval for $1.2B mixed-use development in upstate New York. Created DCF valuation models and investor pitch books for hedge fund partnerships.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2002 — 2006</div>
+                <div class="timeline-content">
+                    <h3>Purdue University</h3>
+                    <p>BS Management with Minor in Finance. Graduated in 3.5 years.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== AI PROJECTS ===== -->
+        <section>
+            <h2>ai & technical projects</h2>
+            <p style="margin-bottom: 24px;">I build AI-powered systems that automate business operations.</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>MCP Servers & Integrations</h3>
+                    <p>Built Model Context Protocol servers connecting Claude to enterprise systems. NetSuite for real-time inventory and financials. Shopify for order management. Airtable for product development workflows. Custom agents for content creation, supply chain optimization, and trade show strategy.</p>
+                </div>
+
+                <div class="project-card enterprise">
+                    <h3>Enterprise Systems</h3>
+                    <p>Full NetSuite ERP implementation for NASDAQ-listed company. CRM systems for customer lifecycle management across B2B and DTC channels. Real-time analytics dashboards for executive decision-making.</p>
+                </div>
+
+                <div class="project-card supply-chain">
+                    <h3>Supply Chain & Operations</h3>
+                    <p>China factory relationship development, AQL inspections, BOM optimization. Global logistics across ocean, air, and land fulfillment. Led ANSI Z87.1+, CSA Z94.3, EN 166 safety certifications for smart safety eyewear.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== PRESS ===== -->
+        <section>
+            <h2>press & publications</h2>
+            <ul class="press-list">
+                <li>
+                    <span class="press-date">Jun 2024</span>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-announces-significant-progress-in-international-expansion-302172622.html" target="_blank">"Announces Significant Progress in International Expansion"</a> — First COO quote
+                </li>
+                <li>
+                    <span class="press-date">Apr 2024</span>
+                    <a href="https://lucyd.co/blogs/blog/innovative-eyewear-inc-partners-with-new-look-vision-group-to-provide-smart-eyewear-in-canada" target="_blank">"Partners with New Look Vision Group"</a> — Canada's largest optical chain
+                </li>
+                <li>
+                    <span class="press-date">Apr 2024</span>
+                    <a href="https://lucyd.co/blogs/blog/innovative-eyewear-inc-signs-distribution-partnership-with-windsor-eyes-inc" target="_blank">"Signs Distribution Partnership with Windsor Eyes"</a>
+                </li>
+                <li>
+                    <span class="press-date">Apr 2023</span>
+                    <a href="https://lucyd.co/blogs/blog/innovative-eyewear-inc-launches-the-first-chatgpt-enabled-smart-eyewear" target="_blank">"Launches The First ChatGPT Enabled Smart Eyewear"</a>
+                </li>
+            </ul>
+            <p style="margin-top: 16px;"><a href="https://www.nasdaq.com/market-activity/stocks/lucy/press-releases" target="_blank">View all LUCY press releases →</a></p>
+        </section>
+
+        <hr>
+
+        <!-- ===== SKILLS ===== -->
+        <section>
+            <h2>expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Product & Operations</h3>
+                    <ul>
+                        <li>Product Management</li>
+                        <li>Supply Chain (China Mfg)</li>
+                        <li>Project Management</li>
+                        <li>OEM/ODM Development</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>E-Commerce & Growth</h3>
+                    <ul>
+                        <li>Amazon (FBA, Ads)</li>
+                        <li>Shopify Plus</li>
+                        <li>Digital Marketing</li>
+                        <li>SEO/SEM/Paid Social</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>AI & Automation</h3>
+                    <ul>
+                        <li>MCP Servers</li>
+                        <li>Claude/LLM Agents</li>
+                        <li>Workflow Automation</li>
+                        <li>NetSuite/Airtable</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Finance & Strategy</h3>
+                    <ul>
+                        <li>Financial Modeling</li>
+                        <li>Investor Relations</li>
+                        <li>SEC Reporting</li>
+                        <li>M&A Due Diligence</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== BOOKS ===== -->
+        <section class="books-section" id="books">
+            <h2>library</h2>
+            
+            <div class="books-intro">
+                <p>Books that have shaped my thinking across philosophy, history, business, and science.</p>
+                <div class="books-stats">
+                    <div class="books-stat">
+                        <span class="books-stat-number">80+</span>
+                        <span class="books-stat-label">Books Read</span>
+                    </div>
+                    <div class="books-stat">
+                        <span class="books-stat-number">500+</span>
+                        <span class="books-stat-label">Hours Listened</span>
+                    </div>
+                    <div class="books-stat">
+                        <span class="books-stat-number">7</span>
+                        <span class="books-stat-label">Categories</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Philosophy & Stoicism -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">🏛️</span>
+                    <h3 class="books-category-title">Philosophy & Stoicism</h3>
+                    <span class="books-category-count">12</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="Meditations" data-author="Marcus Aurelius">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0140449337-M.jpg" alt="Meditations" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Meditations</div><div class="book-placeholder-author">Marcus Aurelius</div></div>
+                    </div>
+                    <div class="book-item" data-title="On the Shortness of Life" data-author="Seneca">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143036327-M.jpg" alt="On the Shortness of Life" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">On the Shortness of Life</div><div class="book-placeholder-author">Seneca</div></div>
+                    </div>
+                    <div class="book-item" data-title="How to Grow Old" data-author="Cicero">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0691167702-M.jpg" alt="How to Grow Old" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">How to Grow Old</div><div class="book-placeholder-author">Cicero</div></div>
+                    </div>
+                    <div class="book-item" data-title="Confessions" data-author="St. Augustine">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0199537828-M.jpg" alt="Confessions" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Confessions</div><div class="book-placeholder-author">St. Augustine</div></div>
+                    </div>
+                    <div class="book-item" data-title="Siddhartha" data-author="Hermann Hesse">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0553208845-M.jpg" alt="Siddhartha" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Siddhartha</div><div class="book-placeholder-author">Hermann Hesse</div></div>
+                    </div>
+                    <div class="book-item" data-title="Man's Search for Meaning" data-author="Viktor Frankl">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0807014273-M.jpg" alt="Man's Search for Meaning" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Man's Search for Meaning</div><div class="book-placeholder-author">Viktor Frankl</div></div>
+                    </div>
+                    <div class="book-item" data-title="Awareness" data-author="Anthony De Mello">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0385249373-M.jpg" alt="Awareness" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Awareness</div><div class="book-placeholder-author">Anthony De Mello</div></div>
+                    </div>
+                    <div class="book-item" data-title="Becoming Nobody" data-author="Ram Dass">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1683642864-M.jpg" alt="Becoming Nobody" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Becoming Nobody</div><div class="book-placeholder-author">Ram Dass</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Prince" data-author="Niccolò Machiavelli">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0140449159-M.jpg" alt="The Prince" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Prince</div><div class="book-placeholder-author">Machiavelli</div></div>
+                    </div>
+                    <div class="book-item" data-title="A Theory of Human Motivation" data-author="Abraham Maslow">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1684113695-M.jpg" alt="A Theory of Human Motivation" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">A Theory of Human Motivation</div><div class="book-placeholder-author">Maslow</div></div>
+                    </div>
+                    <div class="book-item" data-title="On Living and Dying Well" data-author="Cicero">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0140455582-M.jpg" alt="On Living and Dying Well" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">On Living and Dying Well</div><div class="book-placeholder-author">Cicero</div></div>
+                    </div>
+                    <div class="book-item" data-title="Truth and Actuality" data-author="J. Krishnamurti">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0062504010-M.jpg" alt="Truth and Actuality" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Truth and Actuality</div><div class="book-placeholder-author">Krishnamurti</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biography & Leadership -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">👤</span>
+                    <h3 class="books-category-title">Biography & Leadership</h3>
+                    <span class="books-category-count">14</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="Titan" data-author="Ron Chernow">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1400077303-M.jpg" alt="Titan" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Titan</div><div class="book-placeholder-author">Ron Chernow</div></div>
+                    </div>
+                    <div class="book-item" data-title="Grant" data-author="Ron Chernow">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/159420487X-M.jpg" alt="Grant" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Grant</div><div class="book-placeholder-author">Ron Chernow</div></div>
+                    </div>
+                    <div class="book-item" data-title="Napoleon: A Life" data-author="Andrew Roberts">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143127853-M.jpg" alt="Napoleon" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Napoleon: A Life</div><div class="book-placeholder-author">Andrew Roberts</div></div>
+                    </div>
+                    <div class="book-item" data-title="Elon Musk" data-author="Walter Isaacson">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1982181281-M.jpg" alt="Elon Musk" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Elon Musk</div><div class="book-placeholder-author">Walter Isaacson</div></div>
+                    </div>
+                    <div class="book-item" data-title="Shoe Dog" data-author="Phil Knight">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1501135929-M.jpg" alt="Shoe Dog" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Shoe Dog</div><div class="book-placeholder-author">Phil Knight</div></div>
+                    </div>
+                    <div class="book-item" data-title="Team of Rivals" data-author="Doris Kearns Goodwin">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0743270754-M.jpg" alt="Team of Rivals" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Team of Rivals</div><div class="book-placeholder-author">Goodwin</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Path to Power" data-author="Robert Caro">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0679729453-M.jpg" alt="The Path to Power" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Path to Power</div><div class="book-placeholder-author">Robert Caro</div></div>
+                    </div>
+                    <div class="book-item" data-title="Means of Ascent" data-author="Robert Caro">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0679733715-M.jpg" alt="Means of Ascent" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Means of Ascent</div><div class="book-placeholder-author">Robert Caro</div></div>
+                    </div>
+                    <div class="book-item" data-title="Master of the Senate" data-author="Robert Caro">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0394720954-M.jpg" alt="Master of the Senate" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Master of the Senate</div><div class="book-placeholder-author">Robert Caro</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Last Lion: Alone" data-author="William Manchester">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0385313314-M.jpg" alt="The Last Lion" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Last Lion</div><div class="book-placeholder-author">Manchester</div></div>
+                    </div>
+                    <div class="book-item" data-title="Surrender" data-author="Bono">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0525521046-M.jpg" alt="Surrender" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Surrender</div><div class="book-placeholder-author">Bono</div></div>
+                    </div>
+                    <div class="book-item" data-title="Autobiography of Benjamin Franklin" data-author="Benjamin Franklin">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0486290735-M.jpg" alt="Autobiography of Benjamin Franklin" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Autobiography</div><div class="book-placeholder-author">Franklin</div></div>
+                    </div>
+                    <div class="book-item" data-title="Poor Richard's Almanack" data-author="Benjamin Franklin">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0880889187-M.jpg" alt="Poor Richard's Almanack" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Poor Richard's Almanack</div><div class="book-placeholder-author">Franklin</div></div>
+                    </div>
+                    <div class="book-item" data-title="Deng Xiaoping" data-author="Ezra Vogel">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0674725867-M.jpg" alt="Deng Xiaoping" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Deng Xiaoping</div><div class="book-placeholder-author">Ezra Vogel</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History & Civilization -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">🌍</span>
+                    <h3 class="books-category-title">History & Civilization</h3>
+                    <span class="books-category-count">20</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="The Decline and Fall of the Roman Empire" data-author="Edward Gibbon">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0140437649-M.jpg" alt="Decline and Fall" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Decline & Fall of Rome</div><div class="book-placeholder-author">Gibbon</div></div>
+                    </div>
+                    <div class="book-item" data-title="Emperor of Rome" data-author="Mary Beard">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1631497626-M.jpg" alt="Emperor of Rome" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Emperor of Rome</div><div class="book-placeholder-author">Mary Beard</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Peloponnesian War" data-author="Thucydides">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0140440399-M.jpg" alt="Peloponnesian War" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Peloponnesian War</div><div class="book-placeholder-author">Thucydides</div></div>
+                    </div>
+                    <div class="book-item" data-title="Our Oriental Heritage" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310125-M.jpg" alt="Our Oriental Heritage" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Our Oriental Heritage</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Life of Greece" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310222-M.jpg" alt="Life of Greece" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Life of Greece</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Renaissance" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310168-M.jpg" alt="The Renaissance" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Renaissance</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Reformation" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310176-M.jpg" alt="The Reformation" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Reformation</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Age of Reason Begins" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310184-M.jpg" alt="Age of Reason Begins" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Age of Reason Begins</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Age of Louis XIV" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310192-M.jpg" alt="Age of Louis XIV" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Age of Louis XIV</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Age of Voltaire" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310206-M.jpg" alt="Age of Voltaire" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Age of Voltaire</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="Rousseau and Revolution" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310214-M.jpg" alt="Rousseau and Revolution" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Rousseau & Revolution</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Age of Napoleon" data-author="Will Durant">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1567310249-M.jpg" alt="Age of Napoleon" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Age of Napoleon</div><div class="book-placeholder-author">Will Durant</div></div>
+                    </div>
+                    <div class="book-item" data-title="Rise and Fall of the Third Reich" data-author="William Shirer">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1451651686-M.jpg" alt="Rise and Fall of Third Reich" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Rise & Fall of Third Reich</div><div class="book-placeholder-author">Shirer</div></div>
+                    </div>
+                    <div class="book-item" data-title="The British Are Coming" data-author="Rick Atkinson">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1627790438-M.jpg" alt="The British Are Coming" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The British Are Coming</div><div class="book-placeholder-author">Atkinson</div></div>
+                    </div>
+                    <div class="book-item" data-title="Empire of the Summer Moon" data-author="S.C. Gwynne">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1416591060-M.jpg" alt="Empire of the Summer Moon" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Empire of Summer Moon</div><div class="book-placeholder-author">Gwynne</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Arms of Krupp" data-author="William Manchester">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0316529400-M.jpg" alt="Arms of Krupp" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Arms of Krupp</div><div class="book-placeholder-author">Manchester</div></div>
+                    </div>
+                    <div class="book-item" data-title="Empires of Light" data-author="Jill Jonnes">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0375758844-M.jpg" alt="Empires of Light" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Empires of Light</div><div class="book-placeholder-author">Jill Jonnes</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Decline of the West" data-author="Oswald Spengler">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1400097002-M.jpg" alt="Decline of the West" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Decline of the West</div><div class="book-placeholder-author">Spengler</div></div>
+                    </div>
+                    <div class="book-item" data-title="Collapse of Complex Societies" data-author="Joseph Tainter">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/052138673X-M.jpg" alt="Collapse of Complex Societies" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Collapse of Complex Societies</div><div class="book-placeholder-author">Tainter</div></div>
+                    </div>
+                    <div class="book-item" data-title="Turning Points in Modern History" data-author="Vejas Liulevicius">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1629970549-M.jpg" alt="Turning Points" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Turning Points in History</div><div class="book-placeholder-author">Liulevicius</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business & Strategy -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">📈</span>
+                    <h3 class="books-category-title">Business & Strategy</h3>
+                    <span class="books-category-count">11</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="Good Strategy Bad Strategy" data-author="Richard Rumelt">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0307886239-M.jpg" alt="Good Strategy Bad Strategy" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Good Strategy Bad Strategy</div><div class="book-placeholder-author">Rumelt</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Effective Executive" data-author="Peter Drucker">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0060833459-M.jpg" alt="The Effective Executive" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Effective Executive</div><div class="book-placeholder-author">Drucker</div></div>
+                    </div>
+                    <div class="book-item" data-title="Influence" data-author="Robert Cialdini">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/006124189X-M.jpg" alt="Influence" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Influence</div><div class="book-placeholder-author">Cialdini</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Psychology of Money" data-author="Morgan Housel">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0857197681-M.jpg" alt="Psychology of Money" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Psychology of Money</div><div class="book-placeholder-author">Housel</div></div>
+                    </div>
+                    <div class="book-item" data-title="Poor Charlie's Almanack" data-author="Charles Munger">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1578645018-M.jpg" alt="Poor Charlie's Almanack" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Poor Charlie's Almanack</div><div class="book-placeholder-author">Munger</div></div>
+                    </div>
+                    <div class="book-item" data-title="Working Backwards" data-author="Colin Bryar">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1250267595-M.jpg" alt="Working Backwards" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Working Backwards</div><div class="book-placeholder-author">Bryar</div></div>
+                    </div>
+                    <div class="book-item" data-title="How to Win Friends and Influence People" data-author="Dale Carnegie">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0671027034-M.jpg" alt="How to Win Friends" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Win Friends & Influence People</div><div class="book-placeholder-author">Carnegie</div></div>
+                    </div>
+                    <div class="book-item" data-title="7 Habits of Highly Effective People" data-author="Stephen Covey">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1982137274-M.jpg" alt="7 Habits" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">7 Habits of Effective People</div><div class="book-placeholder-author">Covey</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Subtle Art of Not Giving a F*ck" data-author="Mark Manson">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0062457713-M.jpg" alt="Subtle Art" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Subtle Art of Not Giving a F*ck</div><div class="book-placeholder-author">Manson</div></div>
+                    </div>
+                    <div class="book-item" data-title="Lords of Finance" data-author="Liaquat Ahamed">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143116800-M.jpg" alt="Lords of Finance" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Lords of Finance</div><div class="book-placeholder-author">Ahamed</div></div>
+                    </div>
+                    <div class="book-item" data-title="Thinking in Systems" data-author="Donella Meadows">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1603580557-M.jpg" alt="Thinking in Systems" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Thinking in Systems</div><div class="book-placeholder-author">Meadows</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Science, Mind & AI -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">🧠</span>
+                    <h3 class="books-category-title">Science, Mind & AI</h3>
+                    <span class="books-category-count">17</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="Sapiens" data-author="Yuval Noah Harari">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0062316095-M.jpg" alt="Sapiens" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Sapiens</div><div class="book-placeholder-author">Harari</div></div>
+                    </div>
+                    <div class="book-item" data-title="Homo Deus" data-author="Yuval Noah Harari">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0062464310-M.jpg" alt="Homo Deus" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Homo Deus</div><div class="book-placeholder-author">Harari</div></div>
+                    </div>
+                    <div class="book-item" data-title="A Brief History of Intelligence" data-author="Max Bennett">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0063286181-M.jpg" alt="Brief History of Intelligence" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Brief History of Intelligence</div><div class="book-placeholder-author">Bennett</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Beginning of Infinity" data-author="David Deutsch">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143121359-M.jpg" alt="Beginning of Infinity" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Beginning of Infinity</div><div class="book-placeholder-author">Deutsch</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Fabric of Reality" data-author="David Deutsch">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/014027541X-M.jpg" alt="Fabric of Reality" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Fabric of Reality</div><div class="book-placeholder-author">Deutsch</div></div>
+                    </div>
+                    <div class="book-item" data-title="Co-Intelligence" data-author="Ethan Mollick">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/059371671X-M.jpg" alt="Co-Intelligence" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Co-Intelligence</div><div class="book-placeholder-author">Mollick</div></div>
+                    </div>
+                    <div class="book-item" data-title="Dopamine Nation" data-author="Anna Lembke">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/152474672X-M.jpg" alt="Dopamine Nation" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Dopamine Nation</div><div class="book-placeholder-author">Lembke</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Molecule of More" data-author="Daniel Lieberman">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1946885118-M.jpg" alt="Molecule of More" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Molecule of More</div><div class="book-placeholder-author">Lieberman</div></div>
+                    </div>
+                    <div class="book-item" data-title="Determined" data-author="Robert Sapolsky">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0525560971-M.jpg" alt="Determined" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Determined</div><div class="book-placeholder-author">Sapolsky</div></div>
+                    </div>
+                    <div class="book-item" data-title="If Nietzsche Were a Narwhal" data-author="Justin Gregg">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0316388068-M.jpg" alt="Nietzsche Narwhal" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">If Nietzsche Were a Narwhal</div><div class="book-placeholder-author">Gregg</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Body Keeps the Score" data-author="Bessel van der Kolk">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143127748-M.jpg" alt="Body Keeps the Score" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Body Keeps the Score</div><div class="book-placeholder-author">van der Kolk</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Pattern Seekers" data-author="Simon Baron-Cohen">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1541647149-M.jpg" alt="Pattern Seekers" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Pattern Seekers</div><div class="book-placeholder-author">Baron-Cohen</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Righteous Mind" data-author="Jonathan Haidt">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0307455777-M.jpg" alt="Righteous Mind" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Righteous Mind</div><div class="book-placeholder-author">Haidt</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Anxious Generation" data-author="Jonathan Haidt">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0593655036-M.jpg" alt="Anxious Generation" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Anxious Generation</div><div class="book-placeholder-author">Haidt</div></div>
+                    </div>
+                    <div class="book-item" data-title="Science and Human Behavior" data-author="B.F. Skinner">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0029290406-M.jpg" alt="Science Human Behavior" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Science & Human Behavior</div><div class="book-placeholder-author">Skinner</div></div>
+                    </div>
+                    <div class="book-item" data-title="Power and Progress" data-author="Daron Acemoglu">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/1541702530-M.jpg" alt="Power and Progress" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Power and Progress</div><div class="book-placeholder-author">Acemoglu</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Civil War" data-author="Julius Caesar">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0140441875-M.jpg" alt="Civil War Caesar" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Civil War</div><div class="book-placeholder-author">Caesar</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Economics & Political Theory -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">⚖️</span>
+                    <h3 class="books-category-title">Economics & Political Theory</h3>
+                    <span class="books-category-count">4</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="Why Nations Fail" data-author="Daron Acemoglu">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0307719227-M.jpg" alt="Why Nations Fail" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Why Nations Fail</div><div class="book-placeholder-author">Acemoglu</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Road to Serfdom" data-author="F.A. Hayek">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0226320618-M.jpg" alt="Road to Serfdom" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Road to Serfdom</div><div class="book-placeholder-author">Hayek</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Origins of Political Order" data-author="Francis Fukuyama">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0374533229-M.jpg" alt="Origins of Political Order" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Origins of Political Order</div><div class="book-placeholder-author">Fukuyama</div></div>
+                    </div>
+                    <div class="book-item" data-title="Lords of Finance" data-author="Liaquat Ahamed">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143116800-M.jpg" alt="Lords of Finance" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Lords of Finance</div><div class="book-placeholder-author">Ahamed</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Literature & Memoir -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <span class="books-category-icon">📚</span>
+                    <h3 class="books-category-title">Literature & Memoir</h3>
+                    <span class="books-category-count">6</span>
+                </div>
+                <div class="books-grid">
+                    <div class="book-item" data-title="Crime and Punishment" data-author="Fyodor Dostoevsky">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0143058142-M.jpg" alt="Crime and Punishment" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Crime & Punishment</div><div class="book-placeholder-author">Dostoevsky</div></div>
+                    </div>
+                    <div class="book-item" data-title="Night" data-author="Elie Wiesel">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0374500010-M.jpg" alt="Night" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Night</div><div class="book-placeholder-author">Elie Wiesel</div></div>
+                    </div>
+                    <div class="book-item" data-title="The Godfather" data-author="Mario Puzo">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0451205766-M.jpg" alt="The Godfather" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">The Godfather</div><div class="book-placeholder-author">Mario Puzo</div></div>
+                    </div>
+                    <div class="book-item" data-title="A Moveable Feast" data-author="Ernest Hemingway">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/068482499X-M.jpg" alt="Moveable Feast" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">A Moveable Feast</div><div class="book-placeholder-author">Hemingway</div></div>
+                    </div>
+                    <div class="book-item" data-title="Harry Potter and the Sorcerer's Stone" data-author="J.K. Rowling">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/059035342X-M.jpg" alt="Harry Potter 1" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Harry Potter 1</div><div class="book-placeholder-author">Rowling</div></div>
+                    </div>
+                    <div class="book-item" data-title="Harry Potter and the Chamber of Secrets" data-author="J.K. Rowling">
+                        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/0439064872-M.jpg" alt="Harry Potter 2" onload="this.classList.add('loaded')" onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                        <div class="book-placeholder"><div class="book-placeholder-title">Harry Potter 2</div><div class="book-placeholder-author">Rowling</div></div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <hr>
+
+        <!-- ===== BIO ===== -->
+        <section>
+            <h2>bio</h2>
+            <div class="bio-box">
+                <p>Joaquin Abondano is the Chief Operating Officer at Innovative Eyewear Inc. (NASDAQ: LUCY), where he leads operations for the world's first ChatGPT-enabled smart eyewear company. Since joining in 2023, he has driven 163% year-over-year revenue growth and expanded distribution to 27+ countries.</p>
+                <p>Previously, he co-founded Groovy Toys and scaled it to $20M+ in revenue, launching over 500 consumer products including mobile apps, multiplayer games, and IoT devices. He holds a BS in Management with a Finance minor from Purdue University.</p>
+            </div>
+
+            <div class="personal-details">
+                <div class="personal-detail">
+                    <span>Personality:</span> INFP-A
+                </div>
+                <div class="personal-detail">
+                    <span>Philosophy:</span> Stoic
+                </div>
+                <div class="personal-detail">
+                    <span>Languages:</span> English, Spanish (Native)
+                </div>
+            </div>
+
+            <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.9375rem;">
+                <strong>Interests:</strong> Non-fiction reading, mentoring my kids, traveling the world, mindful meditation, cultural cooking, pursuing knowledge.
+            </p>
+        </section>
+
+        <hr>
+
+        <!-- ===== ROOTS ===== -->
+        <section>
+            <h2>roots</h2>
+            <p class="roots-content">
+                Caribbean upbringing in a bilingual household. Eldest of brothers. Started working in the family business as a teenager—first trips to Asian factories before university. Early internet native: built my first databases and discovered global communication through dial-up. Competitive equestrian through adolescence.
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="container">
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>
