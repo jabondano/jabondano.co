@@ -550,6 +550,11 @@
             height: 100%;
             object-fit: cover;
             transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .book-cover.loaded {
+            opacity: 1;
         }
 
         .book-cover.error {
@@ -569,12 +574,12 @@
             padding: 8px;
             text-align: center;
             background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s ease;
         }
 
-        .book-placeholder.visible {
-            opacity: 1;
+        .book-placeholder.hidden {
+            opacity: 0;
         }
 
         .book-placeholder-title {
@@ -1266,7 +1271,8 @@
             return `
                 <a class="book-item" href="${amazonUrl}" target="_blank" rel="noopener noreferrer" title="${book.title} by ${book.author}">
                     <img class="book-cover" src="${coverUrl}" alt="${book.title}" loading="lazy" 
-                         onerror="this.classList.add('error');this.nextElementSibling.classList.add('visible')">
+                         onload="if(this.naturalWidth > 10) { this.classList.add('loaded'); this.nextElementSibling.classList.add('hidden'); }"
+                         onerror="">
                     <div class="book-placeholder">
                         <div class="book-placeholder-title">${book.title}</div>
                         <div class="book-placeholder-author">${book.author}</div>
