@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joaquin Abondano – COO, Innovative Eyewear</title>
-    <meta name="description" content="Chief Operating Officer at Innovative Eyewear (NASDAQ: LUCY). Building AI-powered operations at the intersection of hardware, software, and smart wearables.">
+    <meta name="description" content="Chief Operating Officer at Innovative Eyewear (NASDAQ: LUCY). Building AI powered operations at the intersection of hardware, software, and smart wearables.">
     
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:title" content="Joaquin Abondano">
-    <meta property="og:description" content="COO at Innovative Eyewear (NASDAQ: LUCY). Building AI-powered operations at the intersection of hardware, software, and smart wearables.">
+    <meta property="og:description" content="COO at Innovative Eyewear (NASDAQ: LUCY). Building AI powered operations at the intersection of hardware, software, and smart wearables.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jabondano.co">
     <meta property="og:image" content="https://jabondano.co/assets/og-image.png">
@@ -22,7 +22,7 @@
     <meta name="twitter:site" content="@jabondano">
     <meta name="twitter:creator" content="@jabondano">
     <meta name="twitter:title" content="Joaquin Abondano">
-    <meta name="twitter:description" content="COO at Innovative Eyewear (NASDAQ: LUCY). Building AI-powered operations.">
+    <meta name="twitter:description" content="COO at Innovative Eyewear (NASDAQ: LUCY). Building AI powered operations.">
     <meta name="twitter:image" content="https://jabondano.co/assets/og-image.png">
     
     <!-- Favicon -->
@@ -33,6 +33,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c3e9b63344b7492dbb555924c4955a41"}'></script>
+    <!-- End Cloudflare Web Analytics -->
     
     <style>
         /* ===== CSS Variables ===== */
@@ -45,6 +49,7 @@
             --text-muted: #737373;
             --accent: #3b82f6;
             --accent-hover: #60a5fa;
+            --accent-subtle: rgba(59, 130, 246, 0.1);
             --border: #262626;
             --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-mono: 'IBM Plex Mono', monospace;
@@ -252,6 +257,155 @@
 
         .project-card.legacy h3::before {
             content: "🚀";
+        }
+
+        /* ===== POV / Thesis Section ===== */
+        .pov-content {
+            max-width: 600px;
+        }
+
+        .pov-main {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .pov-secondary {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ===== Consulting Section ===== */
+        .consulting-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .consulting-header {
+            margin-bottom: 24px;
+        }
+
+        .consulting-header h2 {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            text-transform: none;
+            font-size: 1.25rem;
+        }
+
+        .consulting-header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .consulting-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .consulting-card {
+            padding: 20px;
+            background-color: var(--bg-primary);
+            border-radius: 8px;
+        }
+
+        .consulting-card h4 {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .consulting-card p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+        }
+
+        .consulting-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .consulting-note {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ===== POV List ===== */
+        .pov-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pov-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        .pov-list li:last-child {
+            border-bottom: none;
+        }
+
+        .pov-list li strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ===== Simple Link Button ===== */
+        .btn-simple {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.2s ease;
+        }
+
+        .btn-simple:hover {
+            color: var(--accent-hover);
+        }
+
+        .btn-simple svg {
+            transition: transform 0.2s ease;
+        }
+
+        .btn-simple:hover svg {
+            transform: translateX(4px);
         }
 
         /* ===== Skills ===== */
@@ -463,6 +617,39 @@
             color: var(--text-muted);
         }
 
+        /* ===== Conversation Prompt ===== */
+        .conversation-prompt {
+            margin-top: 32px;
+            padding: 20px;
+            background: var(--accent-subtle);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .conversation-prompt p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .conversation-prompt p:last-child {
+            margin-bottom: 0;
+        }
+
+        .conversation-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .conversation-links a {
+            font-size: 0.875rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         /* ===== Footer ===== */
         footer {
             padding: 48px 0;
@@ -511,6 +698,14 @@
             .books-stats {
                 justify-content: center;
             }
+
+            .consulting-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .consulting-section {
+                padding: 24px;
+            }
         }
     </style>
 </head>
@@ -522,7 +717,7 @@
             <img src="assets/me.png" alt="Joaquin Abondano" class="hero-photo">
             <div class="hero-content">
                 <h1>Joaquin Abondano</h1>
-                <p class="tagline">Building AI-powered operations at the intersection of hardware, software, and smart wearables</p>
+                <p class="tagline">Building AI powered operations at the intersection of hardware, software, and smart wearables</p>
                 <div class="social-links">
                     <a href="https://twitter.com/jabondano" target="_blank">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -536,9 +731,44 @@
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         GitHub
                     </a>
-                    <a href="mailto:jabondano@gmail.com">
+                    <a href="/cdn-cgi/l/email-protection#ee848f8c81808a8f8081ae89838f8782c08d8183">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
                         Email
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== POV / PRINCIPLES ===== -->
+        <section id="pov">
+            <h2>things I believe</h2>
+            <ul class="pov-list">
+                <li><strong>Small teams should be dangerous.</strong> A 15 person team can move like a 150 person one. Not by working harder, but by eliminating the work that shouldn't exist.</li>
+                <li><strong>AI doesn't replace people.</strong> It replaces the soul crushing parts. The copy paste, the status updates, the hunting for information. What's left is judgment, creativity, relationships. The stuff worth doing.</li>
+                <li><strong>Systems beat willpower.</strong> Good architecture makes the right thing the easy thing. Bad architecture makes heroes out of people who should be sleeping.</li>
+                <li><strong>Survival is about metabolism, not efficiency.</strong> Biological systems grow, plateau, die. Cities escape this by staying dense enough that new connections form faster than old ones decay. Most organizations optimize themselves into rigidity. At the individual level, we're shaped by circuitry we didn't wire. The move isn't to fight the current. It's to design channels where the current flows somewhere useful.</li>
+                <li><strong>Physical and digital are converging.</strong> My whole career has been at the intersection. Toys that talk to apps, glasses that talk to AI, factories that talk to ERPs. The interesting problems live in the seams.</li>
+                <li><strong>Document everything.</strong> If it's in someone's head, it's a liability. If it's written down, it's an asset that compounds.</li>
+                <li><strong>First principles over best practices.</strong> What worked somewhere else might not work here. Start from the problem, not the playbook.</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <!-- ===== CONSULTING ===== -->
+        <section id="consulting">
+            <div class="consulting-section">
+                <div class="consulting-header">
+                    <h2>work with me</h2>
+                    <p>I help companies build operational systems where small teams punch above their weight. Architecture sprints, fractional advisory, or just a conversation to compare notes.</p>
+                </div>
+
+                <div class="consulting-cta" style="margin-top: 24px;">
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Working on something interesting? I like meeting people who build things.</p>
+                    <a href="/cdn-cgi/l/email-protection#3e565b5252517e545f5c51505a5f5051105d51014d4b5c545b5d4a03725b4a194d1b0c0e4a5f5255" class="btn-simple">
+                        Say hello →
                     </a>
                 </div>
             </div>
@@ -550,57 +780,10 @@
         <section>
             <h2>current</h2>
             <div class="timeline-item" style="margin-bottom: 0;">
-                <div class="timeline-date">2024 –</div>
+                <div class="timeline-date">2024</div>
                 <div class="timeline-content">
                     <h3><a href="https://lucyd.co" target="_blank">Chief Operating Officer</a> at <a href="https://www.nasdaq.com/market-activity/stocks/lucy" target="_blank">Innovative Eyewear</a> (NASDAQ: LUCY)</h3>
-                    <p>Leading operations for the world's first ChatGPT-enabled smart eyewear company. Driving 163% YoY revenue growth through AI-powered supply chain optimization, multi-channel sales across DTC, Amazon, and B2B wholesale, global expansion into 27+ countries, and strategic brand partnerships with Reebok, Nautica, and Eddie Bauer.</p>
-                </div>
-            </div>
-        </section>
-
-        <hr>
-
-        <!-- ===== TIMELINE ===== -->
-        <section>
-            <h2>timeline</h2>
-
-            <div class="timeline-item">
-                <div class="timeline-date">2023 – 2024</div>
-                <div class="timeline-content">
-                    <h3>VP E-Commerce & Supply Chain, Innovative Eyewear</h3>
-                    <p>Drove first ChatGPT-enabled smart eyewear launch. Built e-commerce operations across Shopify, Amazon US/Germany. Managed China manufacturing relationships and implemented NetSuite ERP.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">2012 – 2022</div>
-                <div class="timeline-content">
-                    <h3>VP Product Management & Co-founder, Groovy Toys LLC</h3>
-                    <p>Grew from startup to $20M+ revenue. Launched 500+ consumer products including mobile apps, multiplayer video games, and IoT toys. Managed cross-functional teams across Hong Kong, Colombia, and Florida. Clients included Walmart, Target, Canadian Tire, and Amazon.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">2010 – 2020</div>
-                <div class="timeline-content">
-                    <h3>CEO, Funky Planet</h3>
-                    <p>E-commerce operation serving Target, Walmart, Amazon, Best Buy, Macy's. 200% increase in online orders. Led digital marketing across Google, Facebook, Amazon Ads yielding 20% ROI improvements.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">2006 – 2008</div>
-                <div class="timeline-content">
-                    <h3>Business Development, Millbrook Ventures</h3>
-                    <p>Secured Environmental Impact Statement approval for $1.2B mixed-use development in upstate New York. Created DCF valuation models and investor pitch books for hedge fund partnerships.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">2002 – 2006</div>
-                <div class="timeline-content">
-                    <h3>Purdue University</h3>
-                    <p>BS Management with Minor in Finance. Graduated in 3.5 years.</p>
+                    <p>Leading operations for the world's first ChatGPT enabled smart eyewear company. Driving 65% annual revenue growth ($2.7M in 2025) through AI powered supply chain optimization, multi channel sales across DTC, Amazon, and B2B wholesale, global expansion into 27+ countries, and strategic brand partnerships with Reebok, Nautica, and Eddie Bauer.</p>
                 </div>
             </div>
         </section>
@@ -610,12 +793,17 @@
         <!-- ===== AI PROJECTS ===== -->
         <section>
             <h2>ai & technical projects</h2>
-            <p style="margin-bottom: 24px;">I build AI-powered systems that automate business operations.</p>
+            <p style="margin-bottom: 24px;">I build AI powered systems that automate business operations.</p>
 
             <div class="projects-grid">
                 <div class="project-card">
+                    <h3>Agentic Operating System</h3>
+                    <p>Building a COO in Claude. Structured operating units as AI agents, each with defined responsibilities, decision frameworks, and institutional knowledge. Workflows generate training data from daily operations. The system learns how we work so it can do more of the work. Designed for an agentic future where AI doesn't just assist but operates.</p>
+                </div>
+
+                <div class="project-card">
                     <h3>MCP Servers & Integrations</h3>
-                    <p>Built Model Context Protocol servers connecting Claude to enterprise systems. NetSuite for real-time inventory and financials. Shopify for order management. Airtable for product development workflows. Custom agents for content creation, supply chain optimization, and trade show strategy.</p>
+                    <p>Built Model Context Protocol servers connecting Claude to enterprise systems. NetSuite for real time inventory and financials. Shopify for order management. Airtable for product development workflows. Custom agents for content creation, supply chain optimization, and trade show strategy.</p>
                 </div>
 
                 <div class="project-card enterprise">
@@ -630,7 +818,7 @@
 
                 <div class="project-card legacy">
                     <h3>Legacy Products</h3>
-                    <p>X-Drone — DTC drone brand with $20M+ in sales. WebRC — First toys-to-virtual-world platform built on Unity (licensed by Toyota, Hummer, GM). AppRC — iOS/Android apps with Bluetooth dongle to control RC helicopters.</p>
+                    <p>X Drone: DTC drone brand with $20M+ in sales. WebRC: First toys to virtual world platform built on Unity (licensed by Toyota, Hummer, GM). AppRC: iOS/Android apps with Bluetooth dongle to control RC helicopters.</p>
                 </div>
             </div>
         </section>
@@ -642,23 +830,78 @@
             <h2>press & publications</h2>
             <ul class="press-list">
                 <li>
+                    <span class="press-date">Jan 2026</span>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-announces-record-breaking-65-annual-sales-growth-in-2025--insider-buying-intent-302654534.html" target="_blank">"Record-Breaking 65% Annual Sales Growth in 2025"</a>. $2.7M revenue, insider buying announced
+                </li>
+                <li>
+                    <span class="press-date">Nov 2025</span>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-unveils-four-new-lucyd-armor-chatgpt-enabled-smart-safety-glasses--new-ansi-certification-302599874.html" target="_blank">"Unveils Four New Lucyd Armor Smart Safety Glasses"</a>. Top 5 global logistics company order
+                </li>
+                <li>
+                    <span class="press-date">May 2025</span>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-reports-q1-2025-unaudited-financial-results-302454553.html" target="_blank">"Q1 2025 Financial Results"</a>. 19% revenue growth, Reebok launch
+                </li>
+                <li>
+                    <span class="press-date">Mar 2025</span>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-reports-full-year-2024-financial-results-302409943.html" target="_blank">"Full Year 2024 Financial Results"</a>. 42% YoY revenue growth
+                </li>
+                <li>
+                    <span class="press-date">Aug 2024</span>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-announces-lucyd-smart-eyewear-now-sold-on-targetcom-302233594.html" target="_blank">"Lucyd Smart Eyewear Now Sold on Target.com"</a>. Major retail expansion
+                </li>
+                <li>
                     <span class="press-date">Jun 2024</span>
-                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-announces-significant-progress-in-international-expansion-302172622.html" target="_blank">"Announces Significant Progress in International Expansion"</a> — First COO quote
-                </li>
-                <li>
-                    <span class="press-date">Apr 2024</span>
-                    <a href="https://lucyd.co/blogs/blog/innovative-eyewear-inc-partners-with-new-look-vision-group-to-provide-smart-eyewear-in-canada" target="_blank">"Partners with New Look Vision Group"</a> — Canada's largest optical chain
-                </li>
-                <li>
-                    <span class="press-date">Apr 2024</span>
-                    <a href="https://lucyd.co/blogs/blog/innovative-eyewear-inc-signs-distribution-partnership-with-windsor-eyes-inc" target="_blank">"Signs Distribution Partnership with Windsor Eyes"</a>
-                </li>
-                <li>
-                    <span class="press-date">Apr 2023</span>
-                    <a href="https://lucyd.co/blogs/blog/innovative-eyewear-inc-launches-the-first-chatgpt-enabled-smart-eyewear" target="_blank">"Launches The First ChatGPT Enabled Smart Eyewear"</a>
+                    <a href="https://www.prnewswire.com/news-releases/innovative-eyewear-inc-announces-significant-progress-in-international-expansion-302172622.html" target="_blank">"Significant Progress in International Expansion"</a>. First COO quote
                 </li>
             </ul>
             <p style="margin-top: 16px;"><a href="https://www.nasdaq.com/market-activity/stocks/lucy/press-releases" target="_blank">View all LUCY press releases →</a></p>
+        </section>
+
+        <hr>
+
+        <!-- ===== TIMELINE ===== -->
+        <section>
+            <h2>timeline</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2023</div>
+                <div class="timeline-content">
+                    <h3>VP E-Commerce & Supply Chain, Innovative Eyewear</h3>
+                    <p>Drove first ChatGPT enabled smart eyewear launch. Built e-commerce operations across Shopify, Amazon US/Germany. Managed China manufacturing relationships and implemented NetSuite ERP.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2012</div>
+                <div class="timeline-content">
+                    <h3>VP Product Management & Co-founder, Groovy Toys LLC</h3>
+                    <p>Grew from startup to $20M+ revenue. Launched 500+ consumer products including mobile apps, multiplayer video games, and IoT toys. Managed cross functional teams across Hong Kong, Colombia, and Florida. Clients included Walmart, Target, Canadian Tire, and Amazon.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2010</div>
+                <div class="timeline-content">
+                    <h3>CEO, Funky Planet</h3>
+                    <p>E-commerce operation serving Target, Walmart, Amazon, Best Buy, Macy's. 200% increase in online orders. Led digital marketing across Google, Facebook, Amazon Ads yielding 20% ROI improvements.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2006</div>
+                <div class="timeline-content">
+                    <h3>Business Development, Millbrook Ventures</h3>
+                    <p>Secured Environmental Impact Statement approval for $1.2B mixed use development in upstate New York. Created DCF valuation models and investor pitch books for hedge fund partnerships.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2002</div>
+                <div class="timeline-content">
+                    <h3>Purdue University</h3>
+                    <p>BS Management with Minor in Finance. Graduated in 3.5 years.</p>
+                </div>
+            </div>
         </section>
 
         <hr>
@@ -668,21 +911,35 @@
             <h2>expertise</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Product & Operations</h3>
+                    <h3>Operations</h3>
                     <ul>
-                        <li>Product Management</li>
-                        <li>Supply Chain (China Mfg)</li>
-                        <li>Project Management</li>
-                        <li>OEM/ODM Development</li>
+                        <li>Supply Chain Management</li>
+                        <li>China Manufacturing</li>
+                        <li>Global Logistics (3PL)</li>
+                        <li>ERP Implementation</li>
+                        <li>Process Optimization</li>
+                        <li>Vendor Management</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>E-Commerce & Growth</h3>
+                    <h3>Real Estate Development</h3>
                     <ul>
+                        <li>Commercial Development</li>
+                        <li>Financial Modeling (DCF)</li>
+                        <li>Investor Pitch Books</li>
+                        <li>Entitlements & Approvals</li>
+                        <li>Market Analysis</li>
+                        <li>Capital Structure</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Product & E-Commerce</h3>
+                    <ul>
+                        <li>Product Management</li>
+                        <li>OEM/ODM Development</li>
                         <li>Amazon (FBA, Ads)</li>
                         <li>Shopify Plus</li>
                         <li>Digital Marketing</li>
-                        <li>SEO/SEM/Paid Social</li>
                     </ul>
                 </div>
                 <div class="skill-category">
@@ -692,6 +949,7 @@
                         <li>Claude/LLM Agents</li>
                         <li>Workflow Automation</li>
                         <li>NetSuite/Airtable</li>
+                        <li>Agentic Operations</li>
                     </ul>
                 </div>
                 <div class="skill-category">
@@ -701,6 +959,7 @@
                         <li>Investor Relations</li>
                         <li>SEC Reporting</li>
                         <li>M&A Due Diligence</li>
+                        <li>IRR/MOIC Analysis</li>
                     </ul>
                 </div>
             </div>
@@ -712,40 +971,20 @@
         <section class="books-section" id="books">
             <h2>library</h2>
             
-            <div class="books-intro">
-                <p>Books that have shaped my thinking across philosophy, history, business, and science.</p>
-                <div class="books-stats">
-                    <div class="books-stat">
-                        <span class="books-stat-number">80+</span>
-                        <span class="books-stat-label">Books Read</span>
-                    </div>
-                    <div class="books-stat">
-                        <span class="books-stat-number">500+</span>
-                        <span class="books-stat-label">Hours Listened</span>
-                    </div>
-                    <div class="books-stat">
-                        <span class="books-stat-number">7</span>
-                        <span class="books-stat-label">Categories</span>
-                    </div>
-                </div>
-            </div>
+            <p class="section-intro">What I've been reading.</p>
 
             <!-- Philosophy & Stoicism -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">🏛️</span>
                     <h3 class="books-category-title">Philosophy & Stoicism</h3>
-                    <span class="books-category-count">12</span>
                 </div>
                 <div class="books-grid" id="philosophy-books"></div>
             </div>
 
-            <!-- Biography & Leadership -->
+            <!-- Biography -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">👤</span>
-                    <h3 class="books-category-title">Biography & Leadership</h3>
-                    <span class="books-category-count">14</span>
+                    <h3 class="books-category-title">Biography</h3>
                 </div>
                 <div class="books-grid" id="biography-books"></div>
             </div>
@@ -753,9 +992,7 @@
             <!-- History & Civilization -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">🌍</span>
                     <h3 class="books-category-title">History & Civilization</h3>
-                    <span class="books-category-count">20</span>
                 </div>
                 <div class="books-grid" id="history-books"></div>
             </div>
@@ -763,19 +1000,47 @@
             <!-- Business & Strategy -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">📈</span>
                     <h3 class="books-category-title">Business & Strategy</h3>
-                    <span class="books-category-count">11</span>
                 </div>
                 <div class="books-grid" id="business-books"></div>
+            </div>
+
+            <!-- Risk & Decision Making -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <h3 class="books-category-title">Risk & Decision Making</h3>
+                </div>
+                <div class="books-grid" id="riskDecisions-books"></div>
+            </div>
+
+            <!-- Leadership -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <h3 class="books-category-title">Leadership & Power</h3>
+                </div>
+                <div class="books-grid" id="leadership-books"></div>
+            </div>
+
+            <!-- Productivity -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <h3 class="books-category-title">Productivity & Focus</h3>
+                </div>
+                <div class="books-grid" id="productivity-books"></div>
+            </div>
+
+            <!-- Product -->
+            <div class="books-category">
+                <div class="books-category-header">
+                    <h3 class="books-category-title">Product & Design</h3>
+                </div>
+                <div class="books-grid" id="product-books"></div>
             </div>
 
             <!-- Science, Mind & AI -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">🧠</span>
                     <h3 class="books-category-title">Science, Mind & AI</h3>
-                    <span class="books-category-count">17</span>
                 </div>
                 <div class="books-grid" id="science-books"></div>
             </div>
@@ -783,9 +1048,7 @@
             <!-- Economics & Political Theory -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">⚖️</span>
                     <h3 class="books-category-title">Economics & Political Theory</h3>
-                    <span class="books-category-count">5</span>
                 </div>
                 <div class="books-grid" id="economics-books"></div>
             </div>
@@ -793,9 +1056,7 @@
             <!-- Literature & Memoir -->
             <div class="books-category">
                 <div class="books-category-header">
-                    <span class="books-category-icon">📚</span>
                     <h3 class="books-category-title">Literature & Memoir</h3>
-                    <span class="books-category-count">6</span>
                 </div>
                 <div class="books-grid" id="literature-books"></div>
             </div>
@@ -807,7 +1068,7 @@
         <section>
             <h2>bio</h2>
             <div class="bio-box">
-                <p>Joaquin Abondano is the Chief Operating Officer at Innovative Eyewear Inc. (NASDAQ: LUCY), where he leads operations for the world's first ChatGPT-enabled smart eyewear company. Since joining in 2023, he has driven 163% year-over-year revenue growth and expanded distribution to 27+ countries.</p>
+                <p>Joaquin Abondano is the Chief Operating Officer at Innovative Eyewear Inc. (NASDAQ: LUCY), where he leads operations for the world's first ChatGPT enabled smart eyewear company. Since joining in 2023, he has driven 65% annual revenue growth and expanded distribution to 27+ countries.</p>
                 <p>Previously, he co-founded Groovy Toys and scaled it to $20M+ in revenue, launching over 500 consumer products including mobile apps, multiplayer games, and IoT devices. He holds a BS in Management with a Finance minor from Purdue University.</p>
             </div>
 
@@ -834,7 +1095,7 @@
         <section>
             <h2>roots</h2>
             <p style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.8;">
-                Caribbean upbringing in a bilingual household. Eldest of brothers. Started working in the family business as a teenager—first trips to Asian factories before university. Early internet native: built my first databases and discovered global communication through dial-up. Competitive equestrian through adolescence.
+                Caribbean upbringing in a bilingual household. Eldest of brothers. Started working in the family business as a teenager, first trips to Asian factories before university. Early internet native: built my first databases and discovered global communication through dial up. Competitive equestrian through adolescence.
             </p>
         </section>
 
@@ -844,7 +1105,7 @@
         <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Book data organized by category
         const books = {
             philosophy: [
@@ -859,7 +1120,9 @@
                 { title: "Discourses and Selected Writings", author: "Epictetus", isbn: "0140449469" },
                 { title: "The Enchiridion", author: "Epictetus", isbn: "0486433595" },
                 { title: "Beyond Good and Evil", author: "Nietzsche", isbn: "0140449230" },
-                { title: "Thus Spoke Zarathustra", author: "Nietzsche", isbn: "0140441182" }
+                { title: "Thus Spoke Zarathustra", author: "Nietzsche", isbn: "0140441182" },
+                { title: "The Almanack of Naval Ravikant", author: "Eric Jorgenson", isbn: "1544514212" },
+                { title: "Principles", author: "Ray Dalio", isbn: "1501124021" }
             ],
             biography: [
                 { title: "Alexander Hamilton", author: "Ron Chernow", isbn: "0143034758" },
@@ -869,13 +1132,20 @@
                 { title: "Steve Jobs", author: "Walter Isaacson", isbn: "1451648537" },
                 { title: "Benjamin Franklin", author: "Walter Isaacson", isbn: "074325807X" },
                 { title: "Elon Musk", author: "Walter Isaacson", isbn: "1982181281" },
+                { title: "Einstein", author: "Walter Isaacson", isbn: "0743264746" },
+                { title: "Leonardo da Vinci", author: "Walter Isaacson", isbn: "1501139169" },
+                { title: "The Innovators", author: "Walter Isaacson", isbn: "1476708703" },
+                { title: "The Code Breaker", author: "Walter Isaacson", isbn: "1982115866" },
                 { title: "The Path to Power", author: "Robert Caro", isbn: "0679729453" },
                 { title: "Means of Ascent", author: "Robert Caro", isbn: "067973371X" },
                 { title: "Master of the Senate", author: "Robert Caro", isbn: "0394720954" },
                 { title: "The Last Lion: Alone", author: "William Manchester", isbn: "0385313314" },
                 { title: "Surrender", author: "Bono", isbn: "0525521046" },
                 { title: "Autobiography of Benjamin Franklin", author: "Benjamin Franklin", isbn: "0486290735" },
-                { title: "Deng Xiaoping", author: "Ezra Vogel", isbn: "0674725867" }
+                { title: "Deng Xiaoping", author: "Ezra Vogel", isbn: "0674725867" },
+                { title: "Shoe Dog", author: "Phil Knight", isbn: "1501135929" },
+                { title: "The Everything Store", author: "Brad Stone", isbn: "0316219282" },
+                { title: "Creativity, Inc.", author: "Ed Catmull", isbn: "0812993012" }
             ],
             history: [
                 { title: "The Decline and Fall of the Roman Empire", author: "Edward Gibbon", isbn: "0140437649" },
@@ -905,16 +1175,88 @@
                 { title: "Poor Charlie's Almanack", author: "Charlie Munger", isbn: "1578645018" },
                 { title: "Zero to One", author: "Peter Thiel", isbn: "0804139296" },
                 { title: "The Innovator's Dilemma", author: "Clayton Christensen", isbn: "0062060244" },
+                { title: "The Innovator's Solution", author: "Clayton Christensen", isbn: "1422196577" },
+                { title: "Competing Against Luck", author: "Clayton Christensen", isbn: "0062435612" },
                 { title: "Only the Paranoid Survive", author: "Andy Grove", isbn: "0385483821" },
                 { title: "High Output Management", author: "Andy Grove", isbn: "0679762884" },
                 { title: "The Hard Thing About Hard Things", author: "Ben Horowitz", isbn: "0062273205" },
                 { title: "Thinking in Bets", author: "Annie Duke", isbn: "0735216371" },
                 { title: "Thinking in Systems", author: "Donella Meadows", isbn: "1603580557" },
-                { title: "The Goal", author: "Eliyahu Goldratt", isbn: "0884271951" }
+                { title: "The Goal", author: "Eliyahu Goldratt", isbn: "0884271951" },
+                { title: "It's Not Luck", author: "Eliyahu Goldratt", isbn: "0884271153" },
+                { title: "Critical Chain", author: "Eliyahu Goldratt", isbn: "0884271536" },
+                { title: "Necessary But Not Sufficient", author: "Eliyahu Goldratt", isbn: "0884271706" },
+                { title: "The Choice", author: "Eliyahu Goldratt", isbn: "0884271897" },
+                { title: "Good to Great", author: "Jim Collins", isbn: "0066620996" },
+                { title: "Built to Last", author: "Jim Collins", isbn: "0060516402" },
+                { title: "Great by Choice", author: "Jim Collins", isbn: "0062120999" },
+                { title: "How the Mighty Fall", author: "Jim Collins", isbn: "0977326411" },
+                { title: "BE 2.0", author: "Jim Collins", isbn: "0593534484" },
+                { title: "Competitive Strategy", author: "Michael Porter", isbn: "0684841487" },
+                { title: "Competitive Advantage", author: "Michael Porter", isbn: "0684841460" },
+                { title: "Blue Ocean Strategy", author: "W. Chan Kim", isbn: "1591396190" },
+                { title: "Playing to Win", author: "A.G. Lafley", isbn: "142218739X" },
+                { title: "The Lean Startup", author: "Eric Ries", isbn: "0307887898" },
+                { title: "Measure What Matters", author: "John Doerr", isbn: "0525536221" },
+                { title: "Traction", author: "Gino Wickman", isbn: "1936661837" },
+                { title: "The E-Myth Revisited", author: "Michael Gerber", isbn: "0887307280" },
+                { title: "Profit First", author: "Mike Michalowicz", isbn: "073521414X" },
+                { title: "$100M Offers", author: "Alex Hormozi", isbn: "1737475715" },
+                { title: "Crossing the Chasm", author: "Geoffrey Moore", isbn: "0062292986" }
+            ],
+            riskDecisions: [
+                { title: "Fooled by Randomness", author: "Nassim Taleb", isbn: "0812975219" },
+                { title: "The Black Swan", author: "Nassim Taleb", isbn: "081297381X" },
+                { title: "Antifragile", author: "Nassim Taleb", isbn: "0812979680" },
+                { title: "Skin in the Game", author: "Nassim Taleb", isbn: "0425284646" },
+                { title: "The Bed of Procrustes", author: "Nassim Taleb", isbn: "0812982401" },
+                { title: "Thinking, Fast and Slow", author: "Daniel Kahneman", isbn: "0374533555" },
+                { title: "Influence", author: "Robert Cialdini", isbn: "006124189X" },
+                { title: "Never Split the Difference", author: "Chris Voss", isbn: "0062407805" },
+                { title: "Range", author: "David Epstein", isbn: "0735214484" },
+                { title: "Superforecasting", author: "Philip Tetlock", isbn: "0804136718" }
+            ],
+            leadership: [
+                { title: "Team of Teams", author: "Stanley McChrystal", isbn: "1591847486" },
+                { title: "Extreme Ownership", author: "Jocko Willink", isbn: "1250183863" },
+                { title: "Leaders Eat Last", author: "Simon Sinek", isbn: "1591845327" },
+                { title: "Start with Why", author: "Simon Sinek", isbn: "1591846447" },
+                { title: "Radical Candor", author: "Kim Scott", isbn: "1250235375" },
+                { title: "The Five Dysfunctions of a Team", author: "Patrick Lencioni", isbn: "0787960756" },
+                { title: "The 48 Laws of Power", author: "Robert Greene", isbn: "0140280197" },
+                { title: "The Laws of Human Nature", author: "Robert Greene", isbn: "0525428143" },
+                { title: "Mastery", author: "Robert Greene", isbn: "014312417X" },
+                { title: "The 33 Strategies of War", author: "Robert Greene", isbn: "0143112783" },
+                { title: "Turn the Ship Around!", author: "David Marquet", isbn: "1591846404" }
+            ],
+            productivity: [
+                { title: "Deep Work", author: "Cal Newport", isbn: "1455586692" },
+                { title: "Digital Minimalism", author: "Cal Newport", isbn: "0525536515" },
+                { title: "A World Without Email", author: "Cal Newport", isbn: "0525536558" },
+                { title: "So Good They Can't Ignore You", author: "Cal Newport", isbn: "1455509124" },
+                { title: "Slow Productivity", author: "Cal Newport", isbn: "0593544854" },
+                { title: "Atomic Habits", author: "James Clear", isbn: "0735211299" },
+                { title: "Getting Things Done", author: "David Allen", isbn: "0143126563" },
+                { title: "The 4-Hour Workweek", author: "Tim Ferriss", isbn: "0307465357" },
+                { title: "Essentialism", author: "Greg McKeown", isbn: "0804137382" }
+            ],
+            product: [
+                { title: "Inspired", author: "Marty Cagan", isbn: "1119387507" },
+                { title: "Empowered", author: "Marty Cagan", isbn: "1119691257" },
+                { title: "Hooked", author: "Nir Eyal", isbn: "1591847788" },
+                { title: "Sprint", author: "Jake Knapp", isbn: "150112174X" },
+                { title: "The Mom Test", author: "Rob Fitzpatrick", isbn: "1492180742" },
+                { title: "Obviously Awesome", author: "April Dunford", isbn: "1999023005" },
+                { title: "Made to Stick", author: "Chip Heath", isbn: "1400064287" },
+                { title: "Building a StoryBrand", author: "Donald Miller", isbn: "0718033329" },
+                { title: "The Design of Everyday Things", author: "Don Norman", isbn: "0465050654" },
+                { title: "Don't Make Me Think", author: "Steve Krug", isbn: "0321965515" }
             ],
             science: [
+                { title: "Scale", author: "Geoffrey West", isbn: "0143110926" },
                 { title: "Sapiens", author: "Yuval Noah Harari", isbn: "0062316117" },
                 { title: "Homo Deus", author: "Yuval Noah Harari", isbn: "0062464345" },
+                { title: "21 Lessons for the 21st Century", author: "Yuval Noah Harari", isbn: "0525512195" },
                 { title: "A Brief History of Intelligence", author: "Max Bennett", isbn: "0063286092" },
                 { title: "The Beginning of Infinity", author: "David Deutsch", isbn: "0143121359" },
                 { title: "The Fabric of Reality", author: "David Deutsch", isbn: "014027541X" },
@@ -922,6 +1264,7 @@
                 { title: "Dopamine Nation", author: "Anna Lembke", isbn: "152474672X" },
                 { title: "The Molecule of More", author: "Daniel Lieberman", isbn: "1946885118" },
                 { title: "Determined", author: "Robert Sapolsky", isbn: "0525560971" },
+                { title: "Behave", author: "Robert Sapolsky", isbn: "0143110918" },
                 { title: "If Nietzsche Were a Narwhal", author: "Justin Gregg", isbn: "0316388092" },
                 { title: "The Body Keeps the Score", author: "Bessel van der Kolk", isbn: "0143127748" },
                 { title: "The Pattern Seekers", author: "Simon Baron-Cohen", isbn: "1541647149" },
@@ -929,7 +1272,9 @@
                 { title: "The Anxious Generation", author: "Jonathan Haidt", isbn: "0593655036" },
                 { title: "Science and Human Behavior", author: "B.F. Skinner", isbn: "0029290406" },
                 { title: "Power and Progress", author: "Daron Acemoglu", isbn: "1541702530" },
-                { title: "Behave", author: "Robert Sapolsky", isbn: "0143110918" }
+                { title: "Outliers", author: "Malcolm Gladwell", isbn: "0316017930" },
+                { title: "The Tipping Point", author: "Malcolm Gladwell", isbn: "0316346624" },
+                { title: "Blink", author: "Malcolm Gladwell", isbn: "0316010669" }
             ],
             economics: [
                 { title: "Why Nations Fail", author: "Daron Acemoglu", isbn: "0307719227" },
@@ -970,10 +1315,9 @@
         document.getElementById('biography-books').innerHTML = books.biography.map(createBookHTML).join('');
         document.getElementById('history-books').innerHTML = books.history.map(createBookHTML).join('');
         document.getElementById('business-books').innerHTML = books.business.map(createBookHTML).join('');
+        document.getElementById('riskDecisions-books').innerHTML = books.riskDecisions.map(createBookHTML).join('');
+        document.getElementById('leadership-books').innerHTML = books.leadership.map(createBookHTML).join('');
+        document.getElementById('productivity-books').innerHTML = books.productivity.map(createBookHTML).join('');
+        document.getElementById('product-books').innerHTML = books.product.map(createBookHTML).join('');
         document.getElementById('science-books').innerHTML = books.science.map(createBookHTML).join('');
-        document.getElementById('economics-books').innerHTML = books.economics.map(createBookHTML).join('');
-        document.getElementById('literature-books').innerHTML = books.literature.map(createBookHTML).join('');
-    </script>
-
-</body>
-</html>
+        document.getElementById('econom
