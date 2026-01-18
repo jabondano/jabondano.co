@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal – Joaquin Abondano</title>
+    <meta name="description" content="Secure client portal for accessing research documents and project files.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* ===== CSS Variables (matching main site) ===== */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --accent-subtle: rgba(59, 130, 246, 0.1);
+            --border: #262626;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* ===== Layout ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Header ===== */
+        .portal-header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 48px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-link:hover {
+            color: var(--accent);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .portal-badge {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-email {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-logout {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+
+        /* ===== Main Content ===== */
+        main {
+            padding: 0 0 80px;
+        }
+
+        /* ===== Auth Screen ===== */
+        .auth-screen {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 48px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .auth-card h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .auth-card p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .auth-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .auth-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .auth-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Dashboard ===== */
+        .dashboard-header {
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header p {
+            color: var(--text-secondary);
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== Documents List ===== */
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .document-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .document-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .document-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .document-card h3 .icon {
+            font-size: 1.25rem;
+        }
+
+        .document-card p {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            margin-bottom: 12px;
+        }
+
+        .document-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* ===== Document View ===== */
+        .document-view {
+            display: none;
+        }
+
+        .document-view.active {
+            display: block;
+        }
+
+        .document-nav {
+            margin-bottom: 24px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: var(--font-sans);
+        }
+
+        .btn-back:hover {
+            color: var(--accent);
+        }
+
+        .document-title {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+
+        .document-description {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .document-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        /* Markdown Styles */
+        .markdown-body {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .markdown-body h1 { font-size: 1.75rem; }
+        .markdown-body h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .markdown-body h3 { font-size: 1.25rem; }
+        .markdown-body h4 { font-size: 1.125rem; }
+
+        .markdown-body p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .markdown-body ul,
+        .markdown-body ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .markdown-body li {
+            margin-bottom: 8px;
+        }
+
+        .markdown-body code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+        }
+
+        .markdown-body pre {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 16px;
+        }
+
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .markdown-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+        }
+
+        .markdown-body a:hover {
+            color: var(--accent-hover);
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+        }
+
+        .markdown-body th,
+        .markdown-body td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .markdown-body th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+        }
+
+        .markdown-body img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        /* ===== Comments Section ===== */
+        .comments-section {
+            margin-top: 32px;
+        }
+
+        .comments-section h3 {
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-form {
+            margin-bottom: 24px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-family: var(--font-sans);
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 12px;
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .comment-form .btn-submit {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .comment-form .btn-submit:hover {
+            background: var(--accent-hover);
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comment-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .comment-item.owner {
+            border-left: 3px solid var(--accent);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .comment-author {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .comment-author .badge {
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: var(--accent-subtle);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .comment-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .comment-content {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        /* ===== Upload Section ===== */
+        .upload-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .upload-section h3 {
+            margin-bottom: 16px;
+        }
+
+        .upload-dropzone {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .upload-dropzone:hover,
+        .upload-dropzone.dragover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        .upload-dropzone .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .upload-dropzone p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .upload-dropzone .hint {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .upload-dropzone input {
+            display: none;
+        }
+
+        .uploads-list {
+            margin-top: 24px;
+        }
+
+        .upload-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .upload-item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .upload-item-info .icon {
+            font-size: 1.25rem;
+        }
+
+        .upload-item-name {
+            font-size: 0.9375rem;
+        }
+
+        .upload-item-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .upload-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-icon:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .btn-icon.danger:hover {
+            color: var(--error);
+        }
+
+        /* ===== Loading States ===== */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== Toast Notifications ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.success {
+            border-color: var(--success);
+        }
+
+        .toast.error {
+            border-color: var(--error);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            .auth-card {
+                padding: 32px 24px;
+                margin: 0 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .document-content {
+                padding: 20px;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .document-meta {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+
+        /* ===== Hidden utility ===== */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Auth Screen -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-card">
+            <h1>Client Portal</h1>
+            <p>Enter your email to receive a secure login link.</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@company.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    Send Magic Link
+                </button>
+            </form>
+
+            <div id="authMessage" class="auth-message hidden"></div>
+
+            <a href="/" class="back-link">&larr; Back to jabondano.co</a>
+        </div>
+    </div>
+
+    <!-- Main Portal (hidden until authenticated) -->
+    <div id="portalMain" class="hidden">
+        <header class="portal-header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="/" class="logo-link">
+                        <span class="logo-text">Joaquin Abondano</span>
+                        <span class="portal-badge">Client Portal</span>
+                    </a>
+                    <div class="user-menu">
+                        <span class="user-email" id="userEmail"></span>
+                        <button class="btn-logout" id="logoutBtn">Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <!-- Dashboard View -->
+                <div id="dashboardView">
+                    <div class="dashboard-header">
+                        <h1>Welcome back</h1>
+                        <p>Access your research documents, upload files, and collaborate.</p>
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="documents">Documents</button>
+                        <button class="tab-btn" data-tab="uploads">My Uploads</button>
+                    </div>
+
+                    <!-- Documents Tab -->
+                    <div id="documentsTab" class="tab-content active">
+                        <div id="documentsList" class="documents-list">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Uploads Tab -->
+                    <div id="uploadsTab" class="tab-content">
+                        <div class="upload-section">
+                            <h3>Upload Files</h3>
+                            <div class="upload-dropzone" id="uploadDropzone">
+                                <div class="icon">&#128206;</div>
+                                <p>Drag & drop files here, or click to browse</p>
+                                <span class="hint">PDF, images, documents up to 10MB</span>
+                                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.md,.png,.jpg,.jpeg,.gif">
+                            </div>
+                        </div>
+
+                        <h3>Your Uploaded Files</h3>
+                        <div id="uploadsList" class="uploads-list">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document View (hidden by default) -->
+                <div id="documentView" class="document-view">
+                    <nav class="document-nav">
+                        <button class="btn-back" id="backToList">
+                            &larr; Back to documents
+                        </button>
+                    </nav>
+
+                    <h1 class="document-title" id="docTitle"></h1>
+                    <p class="document-description" id="docDescription"></p>
+
+                    <div class="document-content">
+                        <div class="markdown-body" id="docContent"></div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="comments-section">
+                        <h3>&#128172; Comments</h3>
+
+                        <form class="comment-form" id="commentForm">
+                            <textarea
+                                id="commentInput"
+                                placeholder="Add a comment or question..."
+                                required
+                            ></textarea>
+                            <button type="submit" class="btn-submit">Post Comment</button>
+                        </form>
+
+                        <div id="commentsList" class="comments-list"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // =====================================================
+        // CONFIGURATION - Update these with your Supabase details
+        // =====================================================
+        const SUPABASE_URL = 'https://acvgtacybmjdjpupttfa.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_RdqvD_xKkxN6vr4sPaOvDQ_i54KL_aF';
+
+        // =====================================================
+        // Initialize Supabase Client
+        // =====================================================
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // =====================================================
+        // State
+        // =====================================================
+        let currentUser = null;
+        let currentClient = null;
+        let currentDocument = null;
+
+        // =====================================================
+        // DOM Elements
+        // =====================================================
+        const authScreen = document.getElementById('authScreen');
+        const portalMain = document.getElementById('portalMain');
+        const loginForm = document.getElementById('loginForm');
+        const authMessage = document.getElementById('authMessage');
+        const userEmailEl = document.getElementById('userEmail');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const dashboardView = document.getElementById('dashboardView');
+        const documentView = document.getElementById('documentView');
+        const documentsList = document.getElementById('documentsList');
+        const uploadsList = document.getElementById('uploadsList');
+        const backToListBtn = document.getElementById('backToList');
+        const commentForm = document.getElementById('commentForm');
+        const commentsList = document.getElementById('commentsList');
+        const uploadDropzone = document.getElementById('uploadDropzone');
+        const fileInput = document.getElementById('fileInput');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // =====================================================
+        // Utility Functions
+        // =====================================================
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `${type === 'success' ? '&#10003;' : '&#10007;'} ${message}`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function getFileIcon(fileType) {
+            if (fileType?.includes('pdf')) return '&#128196;';
+            if (fileType?.includes('image')) return '&#128247;';
+            if (fileType?.includes('word') || fileType?.includes('document')) return '&#128196;';
+            return '&#128206;';
+        }
+
+        // =====================================================
+        // Authentication
+        // =====================================================
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (session) {
+                currentUser = session.user;
+                await loadClientProfile();
+                showPortal();
+            } else {
+                showAuthScreen();
+            }
+        }
+
+        async function loadClientProfile() {
+            const { data, error } = await supabase
+                .from('clients')
+                .select('*')
+                .eq('user_id', currentUser.id)
+                .single();
+
+            if (data) {
+                currentClient = data;
+            }
+        }
+
+        function showAuthScreen() {
+            authScreen.classList.remove('hidden');
+            portalMain.classList.add('hidden');
+        }
+
+        function showPortal() {
+            authScreen.classList.add('hidden');
+            portalMain.classList.remove('hidden');
+            userEmailEl.textContent = currentUser.email;
+            loadDocuments();
+            loadUploads();
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Sending...';
+
+            const { error } = await supabase.auth.signInWithOtp({
+                email,
+                options: {
+                    emailRedirectTo: window.location.origin + '/portal.html'
+                }
+            });
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Send Magic Link';
+
+            if (error) {
+                authMessage.className = 'auth-message error';
+                authMessage.textContent = error.message;
+                authMessage.classList.remove('hidden');
+            } else {
+                authMessage.className = 'auth-message success';
+                authMessage.textContent = 'Check your email for the login link!';
+                authMessage.classList.remove('hidden');
+            }
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            currentUser = null;
+            currentClient = null;
+            showAuthScreen();
+        });
+
+        // Listen for auth state changes
+        supabase.auth.onAuthStateChange(async (event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                currentUser = session.user;
+                await loadClientProfile();
+                showPortal();
+            } else if (event === 'SIGNED_OUT') {
+                showAuthScreen();
+            }
+        });
+
+        // =====================================================
+        // Documents
+        // =====================================================
+        async function loadDocuments() {
+            documentsList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            const { data, error } = await supabase
+                .from('documents')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                documentsList.innerHTML = `<div class="empty-state"><p>Error loading documents</p></div>`;
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                documentsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128196;</div>
+                        <p>No documents shared yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            documentsList.innerHTML = data.map(doc => `
+                <div class="document-card" data-id="${doc.id}">
+                    <h3>
+                        <span class="icon">${doc.file_type === 'markdown' ? '&#128209;' : '&#128196;'}</span>
+                        ${escapeHtml(doc.title)}
+                    </h3>
+                    <p>${escapeHtml(doc.description || 'No description')}</p>
+                    <div class="document-meta">
+                        <span>${formatDate(doc.created_at)}</span>
+                        <span>${doc.file_type || 'markdown'}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.document-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const docId = card.dataset.id;
+                    const doc = data.find(d => d.id === docId);
+                    if (doc) showDocument(doc);
+                });
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        async function showDocument(doc) {
+            currentDocument = doc;
+
+            document.getElementById('docTitle').textContent = doc.title;
+            document.getElementById('docDescription').textContent = doc.description || '';
+
+            // Render markdown content
+            const contentEl = document.getElementById('docContent');
+            if (doc.content_md) {
+                contentEl.innerHTML = marked.parse(doc.content_md);
+            } else if (doc.file_url) {
+                contentEl.innerHTML = `<p><a href="${doc.file_url}" target="_blank">Download file</a></p>`;
+            } else {
+                contentEl.innerHTML = '<p>No content available.</p>';
+            }
+
+            // Load comments
+            await loadComments(doc.id);
+
+            // Show document view
+            dashboardView.classList.add('hidden');
+            documentView.classList.add('active');
+        }
+
+        backToListBtn.addEventListener('click', () => {
+            documentView.classList.remove('active');
+            dashboardView.classList.remove('hidden');
+            currentDocument = null;
+        });
+
+        // =====================================================
+        // Comments
+        // =====================================================
+        async function loadComments(documentId) {
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('document_id', documentId)
+                .order('created_at', { ascending: true });
+
+            if (error || !data || data.length === 0) {
+                commentsList.innerHTML = '<p style="color: var(--text-muted);">No comments yet. Be the first to comment!</p>';
+                return;
+            }
+
+            commentsList.innerHTML = data.map(comment => `
+                <div class="comment-item ${comment.is_owner ? 'owner' : ''}">
+                    <div class="comment-header">
+                        <span class="comment-author">
+                            ${comment.is_owner ? 'Joaquin' : 'You'}
+                            ${comment.is_owner ? '<span class="badge">Author</span>' : ''}
+                        </span>
+                        <span class="comment-date">${formatDate(comment.created_at)}</span>
+                    </div>
+                    <div class="comment-content">${escapeHtml(comment.content)}</div>
+                </div>
+            `).join('');
+        }
+
+        commentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const content = document.getElementById('commentInput').value.trim();
+
+            if (!content || !currentDocument) return;
+
+            const { error } = await supabase
+                .from('comments')
+                .insert({
+                    document_id: currentDocument.id,
+                    user_id: currentUser.id,
+                    content,
+                    is_owner: false
+                });
+
+            if (error) {
+                showToast('Failed to post comment', 'error');
+                return;
+            }
+
+            document.getElementById('commentInput').value = '';
+            showToast('Comment posted!');
+            await loadComments(currentDocument.id);
+        });
+
+        // =====================================================
+        // Uploads
+        // =====================================================
+        async function loadUploads() {
+            const { data, error } = await supabase
+                .from('client_uploads')
+                .select('*')
+                .order('uploaded_at', { ascending: false });
+
+            if (error || !data || data.length === 0) {
+                uploadsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128206;</div>
+                        <p>No files uploaded yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            uploadsList.innerHTML = data.map(upload => `
+                <div class="upload-item" data-id="${upload.id}">
+                    <div class="upload-item-info">
+                        <span class="icon">${getFileIcon(upload.file_type)}</span>
+                        <div>
+                            <div class="upload-item-name">${escapeHtml(upload.filename)}</div>
+                            <div class="upload-item-meta">
+                                ${formatDate(upload.uploaded_at)}
+                                ${upload.file_size ? ' · ' + formatFileSize(upload.file_size) : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upload-item-actions">
+                        <button class="btn-icon" onclick="downloadFile('${upload.file_url}')" title="Download">
+                            &#8595;
+                        </button>
+                        <button class="btn-icon danger" onclick="deleteUpload('${upload.id}')" title="Delete">
+                            &#10005;
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function uploadFile(file) {
+            if (!currentClient) {
+                showToast('Client profile not found', 'error');
+                return;
+            }
+
+            const filePath = `${currentClient.id}/${Date.now()}_${file.name}`;
+
+            // Upload to storage
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('client-uploads')
+                .upload(filePath, file);
+
+            if (uploadError) {
+                showToast('Upload failed: ' + uploadError.message, 'error');
+                return;
+            }
+
+            // Get public URL
+            const { data: urlData } = supabase.storage
+                .from('client-uploads')
+                .getPublicUrl(filePath);
+
+            // Save to database
+            const { error: dbError } = await supabase
+                .from('client_uploads')
+                .insert({
+                    client_id: currentClient.id,
+                    filename: file.name,
+                    file_url: urlData.publicUrl,
+                    file_size: file.size,
+                    file_type: file.type
+                });
+
+            if (dbError) {
+                showToast('Failed to save upload record', 'error');
+                return;
+            }
+
+            showToast(`${file.name} uploaded successfully!`);
+            await loadUploads();
+        }
+
+        async function deleteUpload(uploadId) {
+            if (!confirm('Delete this file?')) return;
+
+            const { error } = await supabase
+                .from('client_uploads')
+                .delete()
+                .eq('id', uploadId);
+
+            if (error) {
+                showToast('Failed to delete', 'error');
+                return;
+            }
+
+            showToast('File deleted');
+            await loadUploads();
+        }
+
+        function downloadFile(url) {
+            window.open(url, '_blank');
+        }
+
+        // Drag and drop
+        uploadDropzone.addEventListener('click', () => fileInput.click());
+
+        uploadDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadDropzone.classList.add('dragover');
+        });
+
+        uploadDropzone.addEventListener('dragleave', () => {
+            uploadDropzone.classList.remove('dragover');
+        });
+
+        uploadDropzone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            uploadDropzone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            for (const file of files) {
+                await uploadFile(file);
+            }
+        });
+
+        fileInput.addEventListener('change', async (e) => {
+            const files = e.target.files;
+            for (const file of files) {
+                await uploadFile(file);
+            }
+            fileInput.value = '';
+        });
+
+        // =====================================================
+        // Tabs
+        // =====================================================
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+
+                // Update buttons
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Update content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tabId + 'Tab').classList.add('active');
+            });
+        });
+
+        // =====================================================
+        // Initialize
+        // =====================================================
+        checkAuth();
+    </script>
+</body>
+</html>
