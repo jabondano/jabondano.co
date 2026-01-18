@@ -35,6 +35,7 @@ CREATE TABLE public.documents (
     client_id UUID REFERENCES public.clients(id) ON DELETE CASCADE NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
+    project_name TEXT, -- Group documents by project (e.g., "Q1 Research", "Strategy Review")
     content_md TEXT, -- Markdown content (for text documents)
     file_url TEXT,   -- Storage URL (for uploaded files)
     file_type TEXT DEFAULT 'markdown', -- 'markdown', 'pdf', 'image', etc.

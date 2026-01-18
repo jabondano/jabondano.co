@@ -371,6 +371,78 @@
             opacity: 0.5;
         }
 
+        .empty-state h3 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            margin-bottom: 16px;
+        }
+
+        .empty-state .hint {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Projects Grid ===== */
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .project-card .project-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .project-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .project-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-card .project-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .project-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: var(--accent-subtle);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
         /* ===== Document View ===== */
         .document-view {
             display: none;
@@ -873,17 +945,27 @@
                 <!-- Dashboard View -->
                 <div id="dashboardView">
                     <div class="dashboard-header">
-                        <h1>Welcome back</h1>
-                        <p>Access your research documents, upload files, and collaborate.</p>
+                        <h1 id="welcomeTitle">Welcome back</h1>
+                        <p id="welcomeMessage">Access your research documents, upload files, and collaborate.</p>
                     </div>
 
                     <div class="tabs">
-                        <button class="tab-btn active" data-tab="documents">Documents</button>
+                        <button class="tab-btn active" data-tab="projects">Projects</button>
+                        <button class="tab-btn" data-tab="documents">All Documents</button>
                         <button class="tab-btn" data-tab="uploads">My Uploads</button>
                     </div>
 
+                    <!-- Projects Tab -->
+                    <div id="projectsTab" class="tab-content active">
+                        <div id="projectsList" class="projects-list">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Documents Tab -->
-                    <div id="documentsTab" class="tab-content active">
+                    <div id="documentsTab" class="tab-content">
                         <div id="documentsList" class="documents-list">
                             <div class="loading">
                                 <div class="spinner"></div>
@@ -1054,6 +1136,13 @@
             authScreen.classList.add('hidden');
             portalMain.classList.remove('hidden');
             userEmailEl.textContent = currentUser.email;
+
+            // Personalize welcome message
+            if (currentClient && currentClient.name) {
+                document.getElementById('welcomeTitle').textContent = `Welcome, ${currentClient.name.split(' ')[0]}`;
+            }
+
+            loadProjects();
             loadDocuments();
             loadUploads();
         }
@@ -1106,6 +1195,88 @@
         });
 
         // =====================================================
+        // Projects
+        // =====================================================
+        let allDocuments = [];
+        const projectsList = document.getElementById('projectsList');
+
+        async function loadProjects() {
+            projectsList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            const { data, error } = await supabase
+                .from('documents')
+                .select('*')
+                .order('project_name', { ascending: true })
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                projectsList.innerHTML = `<div class="empty-state"><p>Error loading projects</p></div>`;
+                return;
+            }
+
+            allDocuments = data || [];
+
+            if (!data || data.length === 0) {
+                projectsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128194;</div>
+                        <h3>No projects yet</h3>
+                        <p>Your shared research documents and projects will appear here.</p>
+                        <span class="hint">Joaquin will add documents for you to review.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group documents by project_name
+            const projects = {};
+            data.forEach(doc => {
+                const projectName = doc.project_name || 'General';
+                if (!projects[projectName]) {
+                    projects[projectName] = {
+                        name: projectName,
+                        documents: [],
+                        latestUpdate: doc.updated_at || doc.created_at
+                    };
+                }
+                projects[projectName].documents.push(doc);
+            });
+
+            const projectIcons = ['&#128194;', '&#128200;', '&#128161;', '&#128640;', '&#128202;', '&#128218;'];
+
+            projectsList.innerHTML = Object.values(projects).map((project, index) => `
+                <div class="project-card" data-project="${escapeHtml(project.name)}">
+                    <div class="project-icon">${projectIcons[index % projectIcons.length]}</div>
+                    <h3>${escapeHtml(project.name)}</h3>
+                    <p>${project.documents.length} document${project.documents.length !== 1 ? 's' : ''}</p>
+                    <div class="project-meta">
+                        <span>Updated ${formatDate(project.latestUpdate)}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers for project cards
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectName = card.dataset.project;
+                    showProjectDocuments(projectName);
+                });
+            });
+        }
+
+        function showProjectDocuments(projectName) {
+            // Switch to documents tab and filter by project
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tab="documents"]').classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('documentsTab').classList.add('active');
+
+            // Filter and display documents for this project
+            const projectDocs = allDocuments.filter(d => (d.project_name || 'General') === projectName);
+            renderDocuments(projectDocs, projectName);
+        }
+
+        // =====================================================
         // Documents
         // =====================================================
         async function loadDocuments() {
@@ -1121,18 +1292,46 @@
                 return;
             }
 
+            allDocuments = data || [];
+
             if (!data || data.length === 0) {
                 documentsList.innerHTML = `
                     <div class="empty-state">
                         <div class="icon">&#128196;</div>
-                        <p>No documents shared yet.</p>
+                        <h3>No documents yet</h3>
+                        <p>Documents shared with you will appear here.</p>
                     </div>
                 `;
                 return;
             }
 
-            documentsList.innerHTML = data.map(doc => `
+            renderDocuments(data);
+        }
+
+        function renderDocuments(data, projectFilter = null) {
+            if (!data || data.length === 0) {
+                documentsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128196;</div>
+                        <p>No documents ${projectFilter ? 'in this project' : 'shared'} yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let header = '';
+            if (projectFilter) {
+                header = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">${escapeHtml(projectFilter)}</h2>
+                        <button onclick="loadDocuments()" style="background: none; border: 1px solid var(--border); color: var(--text-secondary); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">Show all documents</button>
+                    </div>
+                `;
+            }
+
+            documentsList.innerHTML = header + data.map(doc => `
                 <div class="document-card" data-id="${doc.id}">
+                    ${doc.project_name && !projectFilter ? `<span class="project-badge">${escapeHtml(doc.project_name)}</span>` : ''}
                     <h3>
                         <span class="icon">${doc.file_type === 'markdown' ? '&#128209;' : '&#128196;'}</span>
                         ${escapeHtml(doc.title)}

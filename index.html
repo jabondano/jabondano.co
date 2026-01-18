@@ -750,6 +750,21 @@
             color: var(--text-primary);
         }
 
+        .nav-portal-btn {
+            background: var(--accent);
+            color: white !important;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-portal-btn:hover {
+            background: var(--accent-hover);
+            color: white !important;
+            transform: translateY(-1px);
+        }
+
         .nav-toggle {
             display: none;
             background: none;
@@ -858,6 +873,7 @@
                 <li><a href="#timeline">Timeline</a></li>
                 <li><a href="#books">Library</a></li>
                 <li><a href="#bio">Bio</a></li>
+                <li><a href="/portal.html" class="nav-portal-btn">Client Portal</a></li>
             </ul>
         </div>
     </nav>
