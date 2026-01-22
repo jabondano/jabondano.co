@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes – Joaquin Abondano</title>
+    <meta name="description" content="Essays and notes on AI operations, building with Claude, and running a public company with AI agents.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Notes – Joaquin Abondano">
+    <meta property="og:description" content="Essays on AI operations, building with Claude, and running a public company with AI agents.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jabondano.co/notes">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #262626;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Layout ===== */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        /* ===== Typography ===== */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            margin-bottom: 32px;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ===== Page Header ===== */
+        .page-header {
+            margin-bottom: 48px;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Divider ===== */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* ===== Post List ===== */
+        .posts-list {
+            list-style: none;
+        }
+
+        .post-item {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .post-item:first-child {
+            padding-top: 0;
+        }
+
+        .post-item:last-child {
+            border-bottom: none;
+        }
+
+        .post-date {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .post-title a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .post-title a:hover {
+            color: var(--accent);
+        }
+
+        .post-excerpt {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .post-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .post-title {
+                font-size: 1.125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="nav">
+            <a href="/" class="nav-logo">JA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/notes.html" class="active">Notes</a>
+            </div>
+        </nav>
+
+        <!-- ===== PAGE HEADER ===== -->
+        <header class="page-header">
+            <h1>Notes</h1>
+            <p>Essays on building AI-powered operations, Claude Code workflows, and running a public company with autonomous agents.</p>
+        </header>
+
+        <hr>
+
+        <!-- ===== POSTS LIST ===== -->
+        <ul class="posts-list">
+            <li class="post-item">
+                <div class="post-date">January 2026</div>
+                <h2 class="post-title">
+                    <a href="/notes/agentic-ops-infrastructure.html">Building an AI Operating System for a Public Company</a>
+                </h2>
+                <p class="post-excerpt">
+                    How I built 10 specialized AI agents to run operations across 6 departments, automating everything from Monday morning briefings to board report compilation. Architecture, code patterns, and real results.
+                </p>
+                <div class="post-tags">
+                    <span class="post-tag">AI Agents</span>
+                    <span class="post-tag">Claude Code</span>
+                    <span class="post-tag">Operations</span>
+                    <span class="post-tag">MCP</span>
+                </div>
+            </li>
+        </ul>
+
+    </main>
+
+    <footer class="container">
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>

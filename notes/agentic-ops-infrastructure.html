@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building an AI Operating System for a Public Company – Joaquin Abondano</title>
+    <meta name="description" content="How I built 10 specialized AI agents to run operations across 6 departments at a NASDAQ-listed company. Architecture, code patterns, and real results.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Building an AI Operating System for a Public Company">
+    <meta property="og:description" content="How I built 10 specialized AI agents to run operations across 6 departments. Architecture, code patterns, and real results.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jabondano.co/notes/agentic-ops-infrastructure.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #262626;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Layout ===== */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        /* ===== Typography ===== */
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 48px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            margin-bottom: 32px;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ===== Article Header ===== */
+        .article-header {
+            margin-bottom: 48px;
+        }
+
+        .article-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .article-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== Article Content ===== */
+        .article-content {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+        }
+
+        .article-content p {
+            margin-bottom: 24px;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ===== Code Blocks ===== */
+        pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--accent);
+        }
+
+        pre code {
+            color: var(--text-secondary);
+        }
+
+        /* ===== Blockquote ===== */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+            margin: 24px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* ===== Tables ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            font-size: 0.9375rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 500;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        /* ===== ASCII Art / Diagram ===== */
+        .diagram {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            white-space: pre;
+        }
+
+        /* ===== Callout Box ===== */
+        .callout {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            font-size: 0.9375rem;
+        }
+
+        /* ===== Divider ===== */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Back Link ===== */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 32px;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            pre {
+                padding: 16px;
+                font-size: 0.75rem;
+            }
+
+            .diagram {
+                font-size: 0.625rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="nav">
+            <a href="/" class="nav-logo">JA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/notes.html" class="active">Notes</a>
+            </div>
+        </nav>
+
+        <!-- ===== BACK LINK ===== -->
+        <a href="/notes.html" class="back-link">
+            <span>&larr;</span> Back to Notes
+        </a>
+
+        <!-- ===== ARTICLE HEADER ===== -->
+        <header class="article-header">
+            <div class="article-meta">January 2026 &middot; 12 min read</div>
+            <h1>Building an AI Operating System for a Public Company</h1>
+            <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.6;">
+                How I built 10 specialized AI agents to run operations across 6 departments at a NASDAQ-listed company. The architecture, code patterns, and what actually worked.
+            </p>
+            <div class="article-tags">
+                <span class="article-tag">AI Agents</span>
+                <span class="article-tag">Claude Code</span>
+                <span class="article-tag">Operations</span>
+                <span class="article-tag">MCP</span>
+            </div>
+        </header>
+
+        <hr>
+
+        <!-- ===== ARTICLE CONTENT ===== -->
+        <article class="article-content">
+
+            <h2>The Problem</h2>
+
+            <p>As COO of a NASDAQ-listed company, I oversee six departments: Customer Support, Sales, Marketing, Design, Supply Chain, and App Development. Every Monday morning, I need to know: What happened last week? What's on fire? What needs my attention?</p>
+
+            <p>The information lives across multiple systems:</p>
+
+            <ul>
+                <li><strong>NetSuite</strong> &mdash; Revenue, inventory, financials</li>
+                <li><strong>Shopify</strong> &mdash; Orders, customer data, products</li>
+                <li><strong>Airtable</strong> &mdash; Project tracking, content calendars, Rx orders</li>
+                <li><strong>Intercom</strong> &mdash; Customer support tickets</li>
+                <li><strong>ShipStation</strong> &mdash; Fulfillment status</li>
+            </ul>
+
+            <p>Getting a complete picture meant logging into 5+ systems, running reports, copying data into spreadsheets, and synthesizing it into something actionable. This took hours every week. And by the time I had the data, it was already stale.</p>
+
+            <p>I needed a system that could:</p>
+
+            <ol>
+                <li>Pull data from multiple sources automatically</li>
+                <li>Synthesize it into executive-ready summaries</li>
+                <li>Alert me to anomalies in real-time</li>
+                <li>Run without constant babysitting</li>
+            </ol>
+
+            <h2>The Architecture</h2>
+
+            <p>The solution is a collection of 10 specialized AI agents, each with a single responsibility. They run on Claude Code via <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank">Model Context Protocol (MCP)</a> servers that connect directly to enterprise systems.</p>
+
+            <div class="diagram">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           AGENTIC OPS ARCHITECTURE                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐ │
+│   │   NETSUITE  │    │   SHOPIFY   │    │  AIRTABLE   │    │  SUPABASE   │ │
+│   │  (Revenue,  │    │  (Orders,   │    │  (Projects, │    │   (State,   │ │
+│   │ Inventory)  │    │ Customers)  │    │  Rx Orders) │    │   Logs)     │ │
+│   └──────┬──────┘    └──────┬──────┘    └──────┬──────┘    └──────┬──────┘ │
+│          │                  │                  │                  │        │
+│          └────────────┬─────┴─────────────┬────┴──────────────────┘        │
+│                       │                   │                                 │
+│                       ▼                   ▼                                 │
+│              ┌─────────────────────────────────────┐                        │
+│              │          MCP SERVERS                │                        │
+│              │   (NetSuite, Zapier, Airtable)      │                        │
+│              └─────────────────┬───────────────────┘                        │
+│                                │                                            │
+│                                ▼                                            │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │                        CLAUDE CODE                                   │  │
+│   │  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐        │  │
+│   │  │   DAILY   │  │ PERIODIC  │  │ REACTIVE  │  │  UTILITY  │        │  │
+│   │  │  AGENTS   │  │  AGENTS   │  │  AGENTS   │  │  AGENTS   │        │  │
+│   │  └───────────┘  └───────────┘  └───────────┘  └───────────┘        │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                │                                            │
+│                                ▼                                            │
+│                       ┌─────────────┐                                       │
+│                       │    SLACK    │                                       │
+│                       │  (Output)   │                                       │
+│                       └─────────────┘                                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘</div>
+
+            <h3>The Four Agent Categories</h3>
+
+            <p>Agents are organized by how and when they run:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Agent</th>
+                        <th>Trigger</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3"><strong>Daily</strong></td>
+                        <td>daily-ops-pulse</td>
+                        <td>6am EST</td>
+                        <td>Morning briefing with key metrics</td>
+                    </tr>
+                    <tr>
+                        <td>cs-ticket-triager</td>
+                        <td>On ticket</td>
+                        <td>Categorize and route support tickets</td>
+                    </tr>
+                    <tr>
+                        <td>inventory-watchdog</td>
+                        <td>4-hourly</td>
+                        <td>Low stock alerts</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><strong>Periodic</strong></td>
+                        <td>netsuite-shopify-reconciler</td>
+                        <td>Nightly 11pm</td>
+                        <td>Revenue reconciliation</td>
+                    </tr>
+                    <tr>
+                        <td>weekly-department-digest</td>
+                        <td>Friday 4pm</td>
+                        <td>Week-end department summary</td>
+                    </tr>
+                    <tr>
+                        <td>board-metrics-compiler</td>
+                        <td>Monthly 1st</td>
+                        <td>Board report metrics</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><strong>Reactive</strong></td>
+                        <td>rx-order-tracker</td>
+                        <td>On event</td>
+                        <td>Prescription order lifecycle</td>
+                    </tr>
+                    <tr>
+                        <td>order-anomaly-detector</td>
+                        <td>Hourly</td>
+                        <td>Fraud and high-value alerts</td>
+                    </tr>
+                    <tr>
+                        <td>project-status-aggregator</td>
+                        <td>Mon/Thu</td>
+                        <td>Cross-functional project health</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Utility</strong></td>
+                        <td>vendor-comm-drafter</td>
+                        <td>On-demand</td>
+                        <td>China factory communications</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Anatomy of an Agent</h2>
+
+            <p>Each agent is defined by a single <code>SKILL.md</code> file that specifies everything Claude needs to execute the task. Here's a simplified version of the daily-ops-pulse agent:</p>
+
+<pre><code>---
+name: daily-ops-pulse
+description: Morning operations briefing with key metrics
+model: haiku
+trigger: Daily 6am EST
+token_budget: 1500
+mcp_tools:
+  - netsuite (mcp__netsuite__)
+  - shopify (mcp__zapier-mcp__shopify_*)
+  - slack (mcp__zapier-mcp__slack_*)
+---
+
+# Daily Ops Pulse Agent
+
+Generate a concise morning operations briefing for the COO.
+
+## Data Collection Steps
+
+### 1. Yesterday's Revenue (NetSuite)
+
+SELECT
+  SUM(tl.netamount) * -1 as revenue,
+  COUNT(DISTINCT t.id) as order_count
+FROM transaction t
+JOIN transactionline tl ON t.id = tl.transaction
+WHERE t.trandate = CURRENT_DATE - 1
+  AND t.type IN ('CashSale', 'CustInvc')
+  ...
+
+### 2. Order Status (Shopify)
+
+Use mcp__zapier-mcp__shopify_find_order to get:
+- Orders created yesterday
+- Orders with fulfillment_status = null
+
+## Output Format
+
+Post to Slack:
+
+:sunrise: *Daily Ops Pulse - {DATE}*
+
+*Revenue*
+- Yesterday: ${REVENUE} ({CHANGE}% vs prior day)
+- MTD: ${MTD_REVENUE}
+
+*Orders*
+- New: {COUNT} | Pending: {PENDING}
+
+*Inventory Alerts*
+{LOW_STOCK_ITEMS or "All stock healthy"}</code></pre>
+
+            <div class="callout">
+                <div class="callout-title">Key Design Principle</div>
+                <p>Each SKILL.md is self-contained. It specifies the data sources, queries, output format, and error handling. Claude doesn't need to figure out what to do &mdash; it just executes the playbook.</p>
+            </div>
+
+            <h2>The Token Efficiency Problem</h2>
+
+            <p>Running 10 agents with full context would burn through tokens fast. If each agent loaded the full company context, system documentation, and historical data, we'd hit 55,000+ tokens per session.</p>
+
+            <p>The solution is <strong>context layering</strong>:</p>
+
+            <ol>
+                <li><strong>Core context</strong> (~800 tokens) &mdash; Loaded once per session. Contains company overview, KPI definitions, and output templates.</li>
+                <li><strong>Agent-specific context</strong> (~1,500-2,500 tokens) &mdash; Only what that agent needs.</li>
+                <li><strong>Progressive loading</strong> &mdash; Start with summaries, drill into details only when needed.</li>
+            </ol>
+
+<pre><code># Context hierarchy
+~/.claude/agents/
+├── core/                          # Shared (load once)
+│   ├── company-context.md         # ~500 tokens
+│   ├── metrics-definitions.md     # ~300 tokens
+│   └── templates/
+│       ├── slack-formats.md
+│       └── report-structures.md
+│
+├── daily/                         # Lightweight (&lt;2k each)
+│   ├── daily-ops-pulse/
+│   ├── cs-ticket-triager/
+│   └── inventory-watchdog/
+│
+└── periodic/                      # Medium weight
+    ├── board-metrics-compiler/
+    └── weekly-department-digest/</code></pre>
+
+            <div class="callout">
+                <div class="callout-title">Results</div>
+                <p>Token usage dropped from ~55K to ~20K per full agent suite run. That's a <strong>63% reduction</strong> with no loss of capability.</p>
+            </div>
+
+            <h2>MCP: The API of AI</h2>
+
+            <p>The magic happens through <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank">Model Context Protocol (MCP)</a> servers. These create a standardized way for Claude to interact with external systems.</p>
+
+            <p>I run four MCP servers:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Server</th>
+                        <th>Tools Exposed</th>
+                        <th>Agents Using It</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>NetSuite</strong></td>
+                        <td>SuiteQL queries, record CRUD</td>
+                        <td>ops-pulse, reconciler, inventory, board</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Shopify</strong> (via Zapier)</td>
+                        <td>Orders, customers, products</td>
+                        <td>ops-pulse, reconciler, anomaly, rx-tracker</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Airtable</strong></td>
+                        <td>Records, comments, tables</td>
+                        <td>cs-triage, rx-tracker, project-status</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Slack</strong> (via Zapier)</td>
+                        <td>Messages, channels</td>
+                        <td>All agents</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>When the daily-ops-pulse agent runs, it calls:</p>
+
+<pre><code>// NetSuite revenue query
+mcp__netsuite__netsuite_search({
+  query: "SELECT SUM(tl.netamount) * -1 as revenue..."
+})
+
+// Shopify pending orders
+mcp__zapier-mcp__shopify_find_order({
+  instructions: "Find orders with null fulfillment_status",
+  output_hint: "order count and total value"
+})
+
+// Post to Slack
+mcp__zapier-mcp__slack_send_channel_message({
+  channel: "#ops-pulse",
+  text: "..."
+})</code></pre>
+
+            <h2>State Management</h2>
+
+            <p>Agents need to remember things between runs. The order-anomaly-detector needs to know which orders it's already flagged. The reconciler needs yesterday's numbers for comparison.</p>
+
+            <p>I use Supabase tables for state:</p>
+
+            <ul>
+                <li><code>agent_reconciliation_log</code> &mdash; Nightly reconciliation results</li>
+                <li><code>inventory_watchdog_log</code> &mdash; Historical low-stock alerts</li>
+                <li><code>order_anomaly_log</code> &mdash; Flagged orders with disposition</li>
+                <li><code>project_status_history</code> &mdash; Project snapshots over time</li>
+            </ul>
+
+            <p>This enables trend analysis. The board-metrics-compiler can pull from historical logs to show month-over-month changes without re-running expensive queries.</p>
+
+            <h2>What Actually Worked</h2>
+
+            <p>After months of iteration, here's what moved the needle:</p>
+
+            <h3>1. Single-responsibility agents beat multi-purpose ones</h3>
+
+            <p>Early versions tried to do too much. A "morning briefing" agent that also handled alerts and anomaly detection became unwieldy. Breaking it into focused agents made each one more reliable and easier to debug.</p>
+
+            <h3>2. Explicit output formats eliminate ambiguity</h3>
+
+            <p>Telling Claude "summarize the data" produces inconsistent results. Specifying exactly what the Slack message should look like, with placeholders for each value, produces consistent output every time.</p>
+
+            <h3>3. Error handling needs to be explicit</h3>
+
+            <p>When a NetSuite query fails, the agent shouldn't just crash. Each SKILL.md specifies what to do: note the failure in the output, continue with available data, flag for manual review.</p>
+
+            <h3>4. Model tiering saves money without sacrificing quality</h3>
+
+            <p>Daily agents use Haiku &mdash; it's fast, cheap, and good enough for structured queries. Periodic agents that need synthesis (like board reports) use Sonnet. Strategic planning (rarely needed) gets Opus.</p>
+
+            <h2>The Results</h2>
+
+            <p>Six months in, this system runs reliably:</p>
+
+            <ul>
+                <li><strong>Monday mornings:</strong> I wake up to a Slack message with the week's performance, flagged anomalies, and priority items</li>
+                <li><strong>Inventory alerts:</strong> Get notified before stockouts happen, not after</li>
+                <li><strong>Board reporting:</strong> What used to take a day now takes an hour of review</li>
+                <li><strong>Vendor communications:</strong> Consistent, professional factory emails in English and Chinese</li>
+            </ul>
+
+            <p>The biggest win isn't time saved &mdash; it's <strong>decision latency</strong>. I make better decisions faster because I have current data instead of stale reports.</p>
+
+            <h2>What's Next</h2>
+
+            <p>This is v1. The roadmap includes:</p>
+
+            <ul>
+                <li><strong>Dashboard integration:</strong> Agents feeding live dashboards on Cloudflare Pages</li>
+                <li><strong>Cross-agent communication:</strong> The anomaly detector triggering the customer support agent</li>
+                <li><strong>Natural language queries:</strong> Ask questions in Slack, get answers from agents</li>
+                <li><strong>Predictive alerts:</strong> Using historical patterns to predict problems before they happen</li>
+            </ul>
+
+            <hr>
+
+            <p>If you're building something similar, the key insight is this: <strong>AI agents aren't magic</strong>. They're automation with better interfaces. The work is in defining exactly what you want, connecting the data sources, and iterating on the output format until it's useful.</p>
+
+            <p>The tools are finally good enough. The question is: what operations problem is eating your time?</p>
+
+            <hr>
+
+            <p style="font-size: 0.9375rem; color: var(--text-muted);">
+                <em>I'm the COO at <a href="https://lucyd.co" target="_blank">Innovative Eyewear</a> (NASDAQ: LUCY). Follow me on <a href="https://twitter.com/jabondano" target="_blank">Twitter/X</a> for more on AI operations.</em>
+            </p>
+
+        </article>
+
+    </main>
+
+    <footer class="container">
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>
