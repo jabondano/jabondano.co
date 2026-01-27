@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day One with Clawdbot – Joaquin Abondano</title>
+    <meta name="description" content="I spent a full day tinkering with a system that runs on my server. Not an app. Not a dashboard. A terminal.">
+
+    <meta property="og:title" content="Day One with Clawdbot">
+    <meta property="og:description" content="I spent a full day tinkering with a system that runs on my server. Not an app. Not a dashboard. A terminal.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jabondano.co/notes/day-one-clawdbot.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #262626;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+        main { padding: 80px 0; }
+
+        h1 { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.2; }
+        h2 { font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-top: 32px; margin-bottom: 12px; }
+        p { color: var(--text-secondary); margin-bottom: 16px; }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { color: var(--accent-hover); }
+
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; margin-bottom: 32px; }
+        .nav-logo { font-weight: 600; font-size: 1rem; color: var(--text-primary); text-decoration: none; }
+        .nav-logo:hover { color: var(--accent); }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 0.9375rem; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a.active { color: var(--accent); }
+
+        .article-header { margin-bottom: 48px; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .article-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+        .article-author { font-size: 0.875rem; color: var(--text-secondary); }
+
+        hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+        .article-content { font-size: 1.125rem; line-height: 1.8; }
+        .article-content p { margin-bottom: 24px; }
+
+        .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
+        .post-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
+        footer p { font-size: 0.875rem; color: var(--text-muted); }
+
+        @media (max-width: 640px) { h1 { font-size: 1.75rem; } }
+    </style>
+</head>
+<body>
+    <main class="container">
+
+        <nav class="nav">
+            <a href="/" class="nav-logo">JA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/notes.html" class="active">Notes</a>
+            </div>
+        </nav>
+
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <span class="article-date">January 26, 2026</span>
+                    <span class="article-author">Joaquin Abondano</span>
+                </div>
+                <h1>Day One with Clawdbot</h1>
+            </header>
+
+            <hr>
+
+            <div class="article-content">
+                <p>I spent a full day tinkering with a system that runs on my server. Not an app. Not a dashboard. A terminal. And by the end of the day, I had built something that thinks alongside me.</p>
+
+                <h2>The structure</h2>
+
+                <p><strong>Morning</strong> — A briefing arrives. A quote from Marcus Aurelius or Montaigne. Weather. My calendar. Five news items I actually care about. My priorities. Not everything. Just what matters. The day starts with clarity.</p>
+
+                <p><strong>Throughout the day</strong> — Ten minutes before each meeting, a ping. But not just a reminder. Context. Who's attending, what we last discussed, relevant threads from email and Slack. The system distills the meeting's narrative and purpose so I walk in prepared — not scrambling to remember what this is about.</p>
+
+                <h2>The philosophy</h2>
+
+                <p>Someone asked me: why use AI for things you could do yourself?</p>
+
+                <p>Because I'd rather spend that mental energy on the person across from me. On the idea I'm presenting. On listening — actually listening — instead of half-remembering context. AI doesn't replace presence. It creates the conditions for it.</p>
+
+                <p>I tell my team that learning to work with AI is like building new reflexes. Looking at every workflow and asking: where's the friction? It's genuinely fun.</p>
+
+                <h2>A larger thought</h2>
+
+                <p>We're going back to terminals.</p>
+
+                <p>GUIs were an abstraction — visual interfaces built so humans could point and click their way to getting things done. But now? You type what you want. The system does it. No buttons. No menus. Just language in, action out.</p>
+
+                <p>The black screen is back. Not because we're regressing — because we've evolved past needing the visual layer. The computer reads, studies, gathers context. We direct.</p>
+
+                <p>This is day one. I'm curious what day thirty looks like.</p>
+            </div>
+
+            <div class="post-tags">
+                <span class="post-tag">AI</span>
+                <span class="post-tag">Clawdbot</span>
+                <span class="post-tag">Workflow</span>
+                <span class="post-tag">Philosophy</span>
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="container">
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>

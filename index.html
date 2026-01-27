@@ -438,6 +438,50 @@
             padding: 4px 0;
         }
 
+        /* ===== Recent Thoughts ===== */
+        .thoughts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .thought-item {
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .thought-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .thought-date {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .thought-item h3 {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .thought-item h3 a {
+            color: var(--text-primary);
+        }
+
+        .thought-item h3 a:hover {
+            color: var(--accent);
+        }
+
+        .thought-item p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
         /* ===== Press Links ===== */
         .press-list {
             list-style: none;
@@ -906,6 +950,26 @@
                     <p>Leading operations for the world's first ChatGPT enabled smart eyewear company. Driving 65% annual revenue growth ($2.7M in 2025) through AI powered supply chain optimization, multi channel sales across DTC, Amazon, and B2B wholesale, global expansion into 27+ countries, and strategic brand partnerships with Reebok, Nautica, and Eddie Bauer.</p>
                 </div>
             </div>
+        </section>
+
+        <hr>
+
+        <!-- ===== RECENT THOUGHTS ===== -->
+        <section id="thoughts">
+            <h2>recent thoughts</h2>
+            <div class="thoughts-list">
+                <div class="thought-item">
+                    <div class="thought-date">Jan 26, 2026</div>
+                    <h3><a href="/notes/day-one-clawdbot.html">Day One with Clawdbot</a></h3>
+                    <p>I spent a full day tinkering with a system that runs on my server. Not an app. Not a dashboard. A terminal. AI doesn't replace presence — it creates the conditions for it.</p>
+                </div>
+                <div class="thought-item">
+                    <div class="thought-date">Jan 26, 2026</div>
+                    <h3><a href="/notes/terminal-interface.html">The Terminal is the New Interface</a></h3>
+                    <p>GUIs are going extinct. Raw thoughts in, action out. A partner that understands you. That's the new interface.</p>
+                </div>
+            </div>
+            <p style="margin-top: 16px;"><a href="/notes.html">View all notes →</a></p>
         </section>
 
         <hr>
