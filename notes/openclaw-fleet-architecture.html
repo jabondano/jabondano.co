@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Fleet of AI Agents for Enterprise Operations – Joaquin Abondano</title>
+    <meta name="description" content="How I deployed 5 specialized AI agents across a public company's operations using OpenClaw, dividing responsibilities by business function.">
+
+    <meta property="og:title" content="Building a Fleet of AI Agents for Enterprise Operations">
+    <meta property="og:description" content="How I deployed 5 specialized AI agents across a public company's operations using OpenClaw.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jabondano.co/notes/openclaw-fleet-architecture.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #262626;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+        main { padding: 80px 0; }
+
+        h1 { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.2; }
+        h2 { font-size: 1.375rem; font-weight: 600; color: var(--text-primary); margin-top: 40px; margin-bottom: 16px; }
+        h3 { font-size: 1.125rem; font-weight: 600; color: var(--text-primary); margin-top: 32px; margin-bottom: 12px; }
+        p { color: var(--text-secondary); margin-bottom: 20px; }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { color: var(--accent-hover); }
+        strong { color: var(--text-primary); font-weight: 500; }
+        em { color: var(--text-muted); }
+
+        ul, ol { color: var(--text-secondary); margin-bottom: 20px; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; margin-bottom: 32px; }
+        .nav-logo { font-weight: 600; font-size: 1rem; color: var(--text-primary); text-decoration: none; }
+        .nav-logo:hover { color: var(--accent); }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-size: 0.9375rem; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a.active { color: var(--accent); }
+
+        .article-header { margin-bottom: 48px; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .article-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+
+        hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+        .article-content { font-size: 1.0625rem; line-height: 1.85; }
+        .article-content p { margin-bottom: 24px; }
+
+        .highlight-box {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent);
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .bot-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.9375rem;
+        }
+        .bot-table th, .bot-table td {
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .bot-table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .bot-table td { color: var(--text-secondary); }
+        .bot-table td:first-child { color: var(--text-primary); font-weight: 500; }
+
+        .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
+        .post-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .back-link { margin-top: 48px; }
+        .back-link a { color: var(--text-muted); font-size: 0.9375rem; }
+        .back-link a:hover { color: var(--accent); }
+
+        footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
+        footer p { font-size: 0.875rem; color: var(--text-muted); }
+        footer .footer-legacy { font-style: italic; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 12px; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.75rem; }
+            .bot-table { font-size: 0.8125rem; }
+            .bot-table th, .bot-table td { padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+
+        <nav class="nav">
+            <a href="/" class="nav-logo">JA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/notes.html" class="active">Notes</a>
+            </div>
+        </nav>
+
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <span class="article-date">February 7, 2026</span>
+                </div>
+                <h1>Building a Fleet of AI Agents for Enterprise Operations</h1>
+            </header>
+
+            <hr>
+
+            <div class="article-content">
+
+                <p>Last week I deployed five specialized AI agents across our company's operations. Not one monolithic assistant that knows a little about everything—a <em>fleet</em> of specialists, each with deep knowledge of their domain and direct access to the systems they need.</p>
+
+                <p>This is what I call <strong>agentic operations</strong>: business processes redesigned around AI collaboration, where autonomous agents handle routine work while humans focus on decisions that matter.</p>
+
+                <div class="highlight-box">
+                    <p><strong>The core insight:</strong> A single AI assistant trying to do everything becomes a jack of all trades, master of none. Division-specific agents with tailored knowledge and tool access consistently outperform generalists.</p>
+                </div>
+
+                <h2>The Architecture</h2>
+
+                <p>The system runs on two servers. The first hosts my personal assistant—the one I interact with via Telegram and phone. The second runs the "fleet": specialized bots for each business function.</p>
+
+                <table class="bot-table">
+                    <thead>
+                        <tr>
+                            <th>Agent</th>
+                            <th>Division</th>
+                            <th>Core Functions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>jbot</td>
+                            <td>Executive</td>
+                            <td>Email, calendar, general queries, delegation</td>
+                        </tr>
+                        <tr>
+                            <td>shipbot</td>
+                            <td>Fulfillment</td>
+                            <td>Order tracking, inventory alerts, late shipments</td>
+                        </tr>
+                        <tr>
+                            <td>mktgbot</td>
+                            <td>Marketing</td>
+                            <td>Campaign performance, content drafting, social</td>
+                        </tr>
+                        <tr>
+                            <td>salesbot</td>
+                            <td>Sales</td>
+                            <td>CRM updates, pipeline tracking, lead scoring</td>
+                        </tr>
+                        <tr>
+                            <td>financebot</td>
+                            <td>Finance</td>
+                            <td>Revenue dashboards, cash flow, board reports</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Each agent has access only to the systems it needs. Shipbot connects to Shopify and NetSuite for fulfillment data. Salesbot has Airtable access for the CRM. This isn't just security—it's focus. An agent that only sees fulfillment data thinks in fulfillment terms.</p>
+
+                <h2>Why Division-Based, Not Task-Based</h2>
+
+                <p>Early on, I tried organizing agents by task type: one for "writing," one for "data analysis," one for "scheduling." It didn't work. Real business problems cross those boundaries.</p>
+
+                <p>A marketing person doesn't want a "writing bot"—they want an agent that understands their campaigns, their metrics, their brand voice, and their deadlines. Division-based agents accumulate <strong>contextual intelligence</strong> that task-based agents never develop.</p>
+
+                <h3>The Specialist Advantage</h3>
+
+                <p>When I ask shipbot "what's late?", it doesn't need me to explain what "late" means. It knows our SLA targets, our carrier expectations, and which customers get priority. It returns actionable intelligence, not raw data.</p>
+
+                <p>Compare that to a generic assistant: "Please check Shopify for unfulfilled orders older than 3 days, cross-reference with NetSuite for shipping status, and flag any orders over $500..." The setup overhead kills the value.</p>
+
+                <h2>Human-in-the-Loop by Design</h2>
+
+                <p>These agents don't take autonomous action on anything external. They <strong>observe</strong>, <strong>analyze</strong>, and <strong>recommend</strong>. Final decisions stay with humans.</p>
+
+                <ul>
+                    <li><strong>Alerts go to Telegram</strong>: Low inventory? Late orders? I get a ping with the details and suggested action.</li>
+                    <li><strong>Drafts need approval</strong>: Marketing emails, vendor communications, customer responses—all staged for human review.</li>
+                    <li><strong>Phone access is read-only</strong>: The IVR system reads me summaries. It doesn't send emails or place orders.</li>
+                </ul>
+
+                <p>This isn't about not trusting AI. It's about <strong>auditability</strong>. When a public company's COO acts on AI recommendations, there needs to be a trail.</p>
+
+                <h2>The IVR Phone System</h2>
+
+                <p>The most unexpectedly useful feature: a phone number I can call to get status updates. Press 1 for email summary. Press 2 for today's calendar. Press 5 for project status.</p>
+
+                <p>Why phone instead of just Telegram? Because sometimes I'm driving. Sometimes I'm in a meeting and can't type. The phone interface is <strong>zero-friction status access</strong>.</p>
+
+                <p>There's also a "leave a message" option that records, transcribes, and sends to Telegram. Voice memos to myself, captured and processed without opening an app.</p>
+
+                <h2>Skills as Institutional Knowledge</h2>
+
+                <p>Each agent has "skills"—markdown files that encode how we do things. Not just process documentation, but <strong>reasoning frameworks</strong> the AI uses when handling tasks.</p>
+
+                <p>When a new marketing hire joins, they don't need weeks of shadowing. They ask mktgbot "how do we handle product launches?" and get our actual playbook, informed by years of institutional knowledge.</p>
+
+                <p>This is the real unlock of agentic operations: <strong>your best practices become ambient</strong>. They're not buried in wikis nobody reads. They're embedded in the tools everyone uses.</p>
+
+                <h2>What's Next</h2>
+
+                <p>The current system is mostly reactive—I ask, it answers. The next phase is proactive monitoring:</p>
+
+                <ul>
+                    <li>Daily morning briefings across all divisions</li>
+                    <li>Automatic escalation when metrics cross thresholds</li>
+                    <li>Cross-division coordination (shipbot alerts salesbot about delayed orders)</li>
+                    <li>Board report compilation from division-level summaries</li>
+                </ul>
+
+                <p>The goal isn't to replace the team. It's to give them <strong>sensors and synthesis</strong> they've never had. Make the organization smarter, not smaller.</p>
+
+                <hr>
+
+                <p><em>If you're thinking about building something similar, I've documented the technical architecture in my <a href="https://github.com/jabondano/agentic-ops-framework">Agentic Operations Framework</a> repo. The implementation uses <a href="https://openclaw.ai">OpenClaw</a>, an open-source AI agent platform.</em></p>
+
+                <div class="post-tags">
+                    <span class="post-tag">AI Agents</span>
+                    <span class="post-tag">OpenClaw</span>
+                    <span class="post-tag">Operations</span>
+                    <span class="post-tag">Enterprise AI</span>
+                    <span class="post-tag">Agentic Ops</span>
+                </div>
+
+                <div class="back-link">
+                    <a href="/notes.html">← Back to Notes</a>
+                </div>
+
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="container">
+        <p class="footer-legacy">This is who I was. What I thought. What I got wrong. What I figured out.</p>
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>
