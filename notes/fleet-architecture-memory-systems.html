@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designing Systems That Learn: Fleet Bots and Self-Recycling Memory – Joaquin Abondano</title>
+    <meta name="description" content="Building a fleet bot architecture with three-tier memory systems that get smarter over time. How distributed agents learn from their own operational history.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Designing Systems That Learn: Fleet Bots and Self-Recycling Memory">
+    <meta property="og:description" content="Building a fleet bot architecture with three-tier memory systems that get smarter over time. How distributed agents learn from their own operational history.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jabondano.co/notes/fleet-architecture-memory-systems.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #262626;
+            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Layout ===== */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        /* ===== Typography ===== */
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 48px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            margin-bottom: 32px;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ===== Article Header ===== */
+        .article-header {
+            margin-bottom: 48px;
+        }
+
+        .article-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .article-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== Article Content ===== */
+        .article-content {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+        }
+
+        .article-content p {
+            margin-bottom: 24px;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ===== Code Blocks ===== */
+        pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--accent);
+        }
+
+        pre code {
+            color: var(--text-secondary);
+        }
+
+        /* ===== Blockquote ===== */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+            margin: 24px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* ===== Tables ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            font-size: 0.9375rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 500;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        /* ===== ASCII Art / Diagram ===== */
+        .diagram {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            white-space: pre;
+        }
+
+        /* ===== Callout Box ===== */
+        .callout {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            font-size: 0.9375rem;
+        }
+
+        /* ===== Divider ===== */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        footer .footer-legacy {
+            font-style: italic;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+
+        /* ===== Back Link ===== */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 32px;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            pre {
+                padding: 16px;
+                font-size: 0.75rem;
+            }
+
+            .diagram {
+                font-size: 0.625rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="nav">
+            <a href="/" class="nav-logo">JA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/notes.html" class="active">Notes</a>
+            </div>
+        </nav>
+
+        <!-- ===== BACK LINK ===== -->
+        <a href="/notes.html" class="back-link">
+            <span>&larr;</span> Back to Notes
+        </a>
+
+        <!-- ===== ARTICLE HEADER ===== -->
+        <header class="article-header">
+            <div class="article-meta">February 2026 &middot; 10 min read</div>
+            <h1>Designing Systems That Learn: Fleet Bots and Self-Recycling Memory</h1>
+            <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.6;">
+                How I deployed three specialized bot fleets with memory systems that get smarter over time. It's not about what AI can do today &mdash; it's about designing systems that generate their own intelligence.
+            </p>
+            <div class="article-tags">
+                <span class="article-tag">AI Agents</span>
+                <span class="article-tag">Systems Design</span>
+                <span class="article-tag">OpenClaw</span>
+                <span class="article-tag">Memory Architecture</span>
+            </div>
+        </header>
+
+        <hr>
+
+        <!-- ===== ARTICLE CONTENT ===== -->
+        <article class="article-content">
+
+            <h2>The Problem With Smart Agents</h2>
+
+            <p>You can build an agent that's brilliant today. It queries your systems, synthesizes data, sends perfect reports. But tomorrow it has amnesia.</p>
+
+            <p>Every run starts from zero. It doesn't remember that last week's ad ROAS was 3.2x, that inventory of SKU-401 has been declining for three weeks, that this customer always responds to abandoned cart emails within 4 hours.</p>
+
+            <p>The agent is <em>reactive</em>, not <em>predictive</em>. It sees snapshots, not patterns. It tells you what happened, not what's about to happen.</p>
+
+            <p>The solution isn't smarter models. It's <strong>systems that remember</strong>.</p>
+
+            <h2>The Fleet Architecture</h2>
+
+            <p>Today I finished deploying three specialized bot fleets on a dedicated VPS. Each bot runs as its own OpenClaw gateway instance with systemd supervision &mdash; if it crashes, it restarts. If the server reboots, they come back up.</p>
+
+            <p>The architecture looks like this:</p>
+
+            <div class="diagram">
+┌───────────────────────────────────────────────────────────────────────────┐
+│                        FLEET BOT ARCHITECTURE                             │
+├───────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│   ┌─────────────────────┐   ┌─────────────────────┐   ┌────────────────┐ │
+│   │     SHIPBOT         │   │      MKTGBOT        │   │   SALESBOT     │ │
+│   │  (Operations)       │   │   (Marketing)       │   │   (Sales)      │ │
+│   ├─────────────────────┤   ├─────────────────────┤   ├────────────────┤ │
+│   │ pending-orders      │   │ review-monitor      │   │ lead-followup  │ │
+│   │   8:00am daily      │   │   9:00am daily      │   │   9:00am daily │ │
+│   │                     │   │                     │   │                │ │
+│   │ amazon-health       │   │ meta-ads-report     │   │ pipeline-      │ │
+│   │   7:00am daily      │   │   9:15am daily      │   │   monitor      │ │
+│   │                     │   │                     │   │   9:00am daily │ │
+│   │ stock-replenish     │   │ competitor-watch    │   │                │ │
+│   │   Mon 7:00pm        │   │   10:00am daily     │   │ dtc-promo      │ │
+│   │                     │   │                     │   │   Mon only     │ │
+│   │                     │   │ seo-pulse           │   │                │ │
+│   │                     │   │   Mon 8:00am        │   │ b2b-pipeline   │ │
+│   │                     │   │                     │   │   Mon only     │ │
+│   └──────────┬──────────┘   └──────────┬──────────┘   └────────┬───────┘ │
+│              │                         │                       │         │
+│              └─────────────────────────┼───────────────────────┘         │
+│                                        │                                 │
+│                                        ▼                                 │
+│                        ┌───────────────────────────┐                     │
+│                        │   SHARED DATA SOURCES     │                     │
+│                        │  NetSuite | Shopify       │                     │
+│                        │  Amazon   | Meta Ads      │                     │
+│                        │  Airtable | ShipStation   │                     │
+│                        └───────────────────────────┘                     │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘</div>
+
+            <p>Each bot is domain-focused:</p>
+
+            <ul>
+                <li><strong>Shipbot</strong> owns fulfillment: pending orders, Amazon seller health, inventory replenishment</li>
+                <li><strong>Mktgbot</strong> owns marketing signals: reviews, ad performance, competitor monitoring, SEO</li>
+                <li><strong>Salesbot</strong> owns pipeline: lead followup, deal monitoring, promotional tracking</li>
+            </ul>
+
+            <p>They're not siloed for permissions or security. They're siloed for <strong>cognitive clarity</strong>. Each bot has deep context about its domain. It knows the metrics that matter, the thresholds that trigger alerts, the stakeholders to notify.</p>
+
+            <h2>The Three-Tier Memory System</h2>
+
+            <p>Here's where it gets interesting. Each bot has a self-healing memory system with three layers:</p>
+
+            <h3>Layer 1: Daily Files</h3>
+
+            <p>Every weekday morning at 5:30am, a <code>context-keeper</code> agent wakes up and writes a daily file:</p>
+
+<pre><code>~/.openclaw/context/daily/
+├── 2026-02-03-monday.md
+├── 2026-02-04-tuesday.md
+├── 2026-02-05-wednesday.md
+├── 2026-02-06-thursday.md
+├── 2026-02-07-friday.md
+└── 2026-02-08-saturday.md</code></pre>
+
+            <p>Each file captures:</p>
+            <ul>
+                <li>What happened yesterday (orders, revenue, alerts)</li>
+                <li>Which agents ran and what they reported</li>
+                <li>Any anomalies or action items</li>
+            </ul>
+
+            <p>These files stay live for 14 days, then get moved to an archive folder. At 30 days, they're deleted.</p>
+
+            <h3>Layer 2: Weekly Summaries</h3>
+
+            <p>Every Sunday at 8pm, a <code>weekly-digest</code> agent synthesizes the week:</p>
+
+<pre><code>~/.openclaw/context/weekly/
+├── 2026-week-05.md
+├── 2026-week-06.md
+└── 2026-week-07.md</code></pre>
+
+            <p>The weekly digest pulls patterns across dailies:</p>
+            <ul>
+                <li>Week-over-week trends (revenue, orders, ad spend)</li>
+                <li>Recurring issues (same SKU going low stock repeatedly)</li>
+                <li>Performance deltas (fulfillment speed improving/degrading)</li>
+            </ul>
+
+            <p>Weeklies are kept for 12 weeks (~3 months).</p>
+
+            <h3>Layer 3: Permanent Memory</h3>
+
+            <p>Only truly significant information gets promoted to <code>MEMORY.md</code>:</p>
+
+            <ul>
+                <li>Major process changes (new vendor onboarded, warehouse moved)</li>
+                <li>Baseline thresholds learned from data (normal inventory burn rate)</li>
+                <li>Stakeholder preferences (CMO prefers weekly ad reports on Monday morning)</li>
+            </ul>
+
+            <p>This file is permanent and version-controlled.</p>
+
+            <div class="diagram">
+┌──────────────────────────────────────────────────────────────────────────┐
+│                       MEMORY LIFECYCLE & RECYCLING                       │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  Daily Events                                                            │
+│  ─────────────                                                           │
+│  Orders, alerts,      ┌──────────────┐                                  │
+│  agent runs      ──▶  │ Daily Files  │  (14 days live)                  │
+│                       │ Mon-Fri 5:30 │  → archive → delete at 30        │
+│                       └──────┬───────┘                                   │
+│                              │                                           │
+│                              │ synthesize                                │
+│                              ▼                                           │
+│                       ┌──────────────┐                                   │
+│                       │   Weekly     │  (12 weeks)                       │
+│                       │   Digest     │  Patterns, trends, WoW            │
+│                       │  Sunday 8pm  │                                   │
+│                       └──────┬───────┘                                   │
+│                              │                                           │
+│                              │ promote significant                       │
+│                              ▼                                           │
+│                       ┌──────────────┐                                   │
+│                       │  MEMORY.md   │  (permanent)                      │
+│                       │              │  Baselines, thresholds,           │
+│                       │              │  major changes only               │
+│                       └──────────────┘                                   │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘</div>
+
+            <h2>All Deployed Agents</h2>
+
+            <p>Here's the complete agent roster across all three bots:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bot</th>
+                        <th>Agent</th>
+                        <th>Schedule</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4"><strong>Shipbot</strong></td>
+                        <td>context-keeper</td>
+                        <td>5:30am Mon-Fri</td>
+                        <td>Write daily memory file</td>
+                    </tr>
+                    <tr>
+                        <td>pending-orders-alert</td>
+                        <td>8:00am daily</td>
+                        <td>Unfulfilled orders &gt; 24hrs</td>
+                    </tr>
+                    <tr>
+                        <td>amazon-health</td>
+                        <td>7:00am daily</td>
+                        <td>Seller health metrics</td>
+                    </tr>
+                    <tr>
+                        <td>stock-replenishment</td>
+                        <td>Mon 7:00pm</td>
+                        <td>Inventory reorder suggestions</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5"><strong>Mktgbot</strong></td>
+                        <td>context-keeper</td>
+                        <td>5:30am Mon-Fri</td>
+                        <td>Write daily memory file</td>
+                    </tr>
+                    <tr>
+                        <td>review-monitor</td>
+                        <td>9:00am daily</td>
+                        <td>New reviews across platforms</td>
+                    </tr>
+                    <tr>
+                        <td>meta-ads-report</td>
+                        <td>9:15am daily</td>
+                        <td>Yesterday's ad performance</td>
+                    </tr>
+                    <tr>
+                        <td>competitor-watch</td>
+                        <td>10:00am daily</td>
+                        <td>Competitor pricing/positioning</td>
+                    </tr>
+                    <tr>
+                        <td>seo-pulse</td>
+                        <td>Mon 8:00am</td>
+                        <td>Ranking changes, GSC data</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5"><strong>Salesbot</strong></td>
+                        <td>context-keeper</td>
+                        <td>5:30am Mon-Fri</td>
+                        <td>Write daily memory file</td>
+                    </tr>
+                    <tr>
+                        <td>lead-followup</td>
+                        <td>9:00am daily</td>
+                        <td>Stale leads needing outreach</td>
+                    </tr>
+                    <tr>
+                        <td>pipeline-monitor</td>
+                        <td>9:00am daily</td>
+                        <td>Deals at risk or closing soon</td>
+                    </tr>
+                    <tr>
+                        <td>dtc-promo-monitor</td>
+                        <td>Mon only</td>
+                        <td>Discount code usage analysis</td>
+                    </tr>
+                    <tr>
+                        <td>b2b-pipeline</td>
+                        <td>Mon only</td>
+                        <td>Wholesale deal velocity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>All Bots</strong></td>
+                        <td>weekly-digest</td>
+                        <td>Sun 8:00pm</td>
+                        <td>Synthesize week, archive dailies</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>The Cron Schedules</h2>
+
+            <p>Each bot's <code>crontab</code> looks like this:</p>
+
+<pre><code># Shipbot crontab
+30 5 * * 1-5 /usr/local/bin/openclaw agent run context-keeper
+0 7 * * * /usr/local/bin/openclaw agent run amazon-health
+0 8 * * * /usr/local/bin/openclaw agent run pending-orders-alert
+0 19 * * 1 /usr/local/bin/openclaw agent run stock-replenishment
+0 20 * * 0 /usr/local/bin/openclaw agent run weekly-digest
+
+# Mktgbot crontab
+30 5 * * 1-5 /usr/local/bin/openclaw agent run context-keeper
+0 9 * * * /usr/local/bin/openclaw agent run review-monitor
+15 9 * * * /usr/local/bin/openclaw agent run meta-ads-report
+0 10 * * * /usr/local/bin/openclaw agent run competitor-watch
+0 8 * * 1 /usr/local/bin/openclaw agent run seo-pulse
+0 20 * * 0 /usr/local/bin/openclaw agent run weekly-digest
+
+# Salesbot crontab
+30 5 * * 1-5 /usr/local/bin/openclaw agent run context-keeper
+0 9 * * * /usr/local/bin/openclaw agent run lead-followup
+0 9 * * * /usr/local/bin/openclaw agent run pipeline-monitor
+0 9 * * 1 /usr/local/bin/openclaw agent run dtc-promo-monitor
+0 9 * * 1 /usr/local/bin/openclaw agent run b2b-pipeline
+0 20 * * 0 /usr/local/bin/openclaw agent run weekly-digest</code></pre>
+
+            <h2>What Data Enables After Two Weeks</h2>
+
+            <p>Here's the thesis: <strong>AI isn't useful because it's smart today. It's useful when you design systems that get smarter over time.</strong></p>
+
+            <p>After two weeks of daily memory files, the bots can:</p>
+
+            <ul>
+                <li><strong>Detect velocity trends</strong> &mdash; Order volume increasing/decreasing. Fulfillment SLA improving/degrading.</li>
+                <li><strong>Establish baselines</strong> &mdash; Normal inventory burn rate. Typical ad ROAS by campaign. Average deal close time.</li>
+                <li><strong>Spot anomalies</strong> &mdash; This week's ROAS is 40% below the two-week average. Inventory of SKU-401 dropped faster than usual.</li>
+                <li><strong>Track sentiment</strong> &mdash; Review sentiment improving or declining. Common complaint themes emerging.</li>
+                <li><strong>Identify patterns</strong> &mdash; Deals always stall at the contract stage. Competitor price changes happen on Mondays.</li>
+            </ul>
+
+            <h2>What's Possible After 4-8 Weeks</h2>
+
+            <p>With a full month of data, the system unlocks predictive capabilities:</p>
+
+            <ul>
+                <li><strong>Predictive reorder points</strong> &mdash; Instead of "SKU-401 is low," the agent says "SKU-401 will hit zero in 9 days based on current burn rate. Order now for 3-week lead time."</li>
+                <li><strong>Campaign lifecycle modeling</strong> &mdash; "This Meta campaign's ROAS drops 15% after day 5. Rotate creative."</li>
+                <li><strong>Deal velocity tracking</strong> &mdash; "B2B deals average 23 days from qualified to closed. This deal is at 31 days &mdash; something's stuck."</li>
+                <li><strong>Seasonal demand patterns</strong> &mdash; "January orders typically 18% below December. We're at -24% &mdash; below normal."</li>
+                <li><strong>Automated board reporting</strong> &mdash; Week-over-week and month-over-month comparisons with context: "Revenue up 8% WoW, but down 3% vs. same week last year."</li>
+            </ul>
+
+            <div class="callout">
+                <div class="callout-title">The Compounding Effect</div>
+                <p>Every day the system runs, it gets smarter. Not because the model improved, but because the <em>data it's learning from</em> got richer. This is the difference between an assistant and an operating system.</p>
+            </div>
+
+            <h2>Why This Architecture Works</h2>
+
+            <h3>1. Separation of Concerns</h3>
+
+            <p>Each bot is narrowly focused. Shipbot doesn't care about ad ROAS. Mktgbot doesn't care about inventory. This makes each agent's context smaller, cheaper to run, and easier to debug.</p>
+
+            <h3>2. Self-Healing Memory</h3>
+
+            <p>The three-tier system prevents memory bloat. Dailies capture everything, weeklies compress patterns, permanent memory holds only what's truly significant. The system auto-prunes stale data.</p>
+
+            <h3>3. Systemd Supervision</h3>
+
+            <p>Each bot runs as a systemd service. If it crashes, systemd restarts it. If the server reboots, the bots come back up automatically. No babysitting.</p>
+
+<pre><code># /etc/systemd/system/shipbot.service
+[Unit]
+Description=Shipbot OpenClaw Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=shipbot
+WorkingDirectory=/home/shipbot
+ExecStart=/usr/local/bin/openclaw gateway start
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+
+            <h3>4. Cron-Driven Execution</h3>
+
+            <p>Agents don't run continuously. They wake up on schedule, do their work, write their findings, and go back to sleep. This keeps costs low and logs clean.</p>
+
+            <h2>What's Next</h2>
+
+            <p>The foundation is in place. Now comes the iteration:</p>
+
+            <ul>
+                <li><strong>Cross-bot communication</strong> &mdash; Shipbot detecting a spike in returns should trigger Mktgbot to check if a recent ad campaign caused it.</li>
+                <li><strong>Predictive alerts</strong> &mdash; "Based on current burn rate, you'll run out of SKU-401 in 8 days" instead of "SKU-401 is low."</li>
+                <li><strong>Automated responses</strong> &mdash; Low inventory triggers a draft PO for vendor approval, not just an alert.</li>
+                <li><strong>Feedback loops</strong> &mdash; When an agent suggests an action and a human takes it, log the outcome. Learn what worked.</li>
+            </ul>
+
+            <hr>
+
+            <p>This is not about replacing people. It's about giving them leverage. A COO shouldn't spend Monday morning pulling data from five systems to figure out what happened last week. The system should tell them &mdash; and tell them what it <em>means</em>.</p>
+
+            <p>The goal isn't smarter AI. It's <strong>systems that generate their own intelligence over time</strong>.</p>
+
+            <p>That's what I built today.</p>
+
+            <hr>
+
+            <p style="font-size: 0.9375rem; color: var(--text-muted);">
+                <em>I'm the COO at <a href="https://lucyd.co" target="_blank">Innovative Eyewear</a> (NASDAQ: LUCY). Building agentic operations infrastructure. Follow me on <a href="https://twitter.com/jabondano" target="_blank">Twitter/X</a> or check out <a href="https://openclaw.org" target="_blank">OpenClaw</a>.</em>
+            </p>
+
+        </article>
+
+    </main>
+
+    <footer class="container">
+        <p class="footer-legacy">This is who I was. What I thought. What I got wrong. What I figured out.</p>
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>
