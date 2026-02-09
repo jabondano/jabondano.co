@@ -13,79 +13,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #e5e5e5;
-            --text-secondary: #a3a3a3;
-            --text-muted: #737373;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --border: #262626;
-            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'IBM Plex Mono', monospace;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-sans);
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
-        main { padding: 80px 0; }
-
-        h1 { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.2; }
-        h2 { font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-top: 32px; margin-bottom: 12px; }
-        p { color: var(--text-secondary); margin-bottom: 16px; }
-        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
-        a:hover { color: var(--accent-hover); }
-
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; margin-bottom: 32px; }
-        .nav-logo { font-weight: 600; font-size: 1rem; color: var(--text-primary); text-decoration: none; }
-        .nav-logo:hover { color: var(--accent); }
-        .nav-links { display: flex; gap: 24px; }
-        .nav-links a { color: var(--text-secondary); font-size: 0.9375rem; }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a.active { color: var(--accent); }
-
-        .article-header { margin-bottom: 48px; }
-        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-        .article-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
-        .article-author { font-size: 0.875rem; color: var(--text-secondary); }
-
-        hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
-
-        .article-content { font-size: 1.125rem; line-height: 1.8; }
-        .article-content p { margin-bottom: 24px; }
-
-        .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
-        .post-tag {
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 4px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
-        footer p { font-size: 0.875rem; color: var(--text-muted); }
-        footer .footer-legacy { font-style: italic; font-size: 0.8125rem; color: var(--text-muted); opacity: 0.6; margin-bottom: 12px; }
-
-        @media (max-width: 640px) { h1 { font-size: 1.75rem; } }
-    </style>
+    <!-- Terminal Design System -->
+    <link rel="stylesheet" href="../css/terminal.css">
 </head>
 <body>
     <main class="container">

@@ -13,7 +13,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Terminal Design System -->
+    <link rel="stylesheet" href="css/terminal.css">
 
     <!-- Marked.js for Markdown rendering -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -22,51 +25,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* ===== CSS Variables (matching main site) ===== */
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #e5e5e5;
-            --text-secondary: #a3a3a3;
-            --text-muted: #737373;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --accent-subtle: rgba(59, 130, 246, 0.1);
-            --border: #262626;
-            --success: #22c55e;
-            --error: #ef4444;
-            --warning: #f59e0b;
-            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'IBM Plex Mono', monospace;
-        }
-
-        /* ===== Reset & Base ===== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-        }
-
-        /* ===== Layout ===== */
+        /* ===== Portal-Specific Overrides ===== */
         .container {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 0 24px;
         }
 
         /* ===== Header ===== */
@@ -86,25 +47,27 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--text-primary);
+            color: var(--green);
             text-decoration: none;
         }
 
         .logo-link:hover {
-            color: var(--accent);
+            color: var(--green-bright);
         }
 
         .logo-text {
+            font-family: var(--font-heading);
             font-weight: 600;
             font-size: 1.125rem;
         }
 
         .portal-badge {
+            font-family: var(--font-mono);
             font-size: 0.75rem;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
+            color: var(--green-muted);
+            background: var(--bg-card);
             padding: 4px 8px;
-            border-radius: 4px;
+            border-radius: 0;
             margin-left: 8px;
         }
 
@@ -116,23 +79,24 @@
 
         .user-email {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--green-dark);
         }
 
         .btn-logout {
+            font-family: var(--font-heading);
             font-size: 0.875rem;
-            color: var(--text-muted);
+            color: var(--green-muted);
             background: none;
             border: 1px solid var(--border);
             padding: 6px 12px;
-            border-radius: 4px;
+            border-radius: 0;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .btn-logout:hover {
-            color: var(--text-primary);
-            border-color: var(--text-muted);
+            color: var(--green);
+            border-color: var(--border-hover);
         }
 
         /* ===== Main Content ===== */
@@ -149,9 +113,9 @@
         }
 
         .auth-card {
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 0;
             padding: 48px;
             max-width: 420px;
             width: 100%;
@@ -164,7 +128,7 @@
         }
 
         .auth-card p {
-            color: var(--text-secondary);
+            color: var(--green-dark);
             margin-bottom: 32px;
         }
 
@@ -176,29 +140,29 @@
         .form-group label {
             display: block;
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--green-dark);
             margin-bottom: 8px;
         }
 
         .form-group input {
             width: 100%;
             padding: 12px 16px;
-            background: var(--bg-primary);
+            background: var(--bg-deep);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-primary);
+            border-radius: 0;
+            color: var(--green);
             font-size: 1rem;
-            font-family: var(--font-sans);
+            font-family: var(--font-body);
             transition: border-color 0.2s ease;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--green);
         }
 
         .form-group input::placeholder {
-            color: var(--text-muted);
+            color: var(--green-muted);
         }
 
         .btn-primary {
@@ -207,20 +171,20 @@
             justify-content: center;
             gap: 8px;
             width: 100%;
-            background: var(--accent);
-            color: white;
+            background: var(--green);
+            color: var(--bg-deep);
             padding: 12px 24px;
             border: none;
-            border-radius: 6px;
+            border-radius: 0;
             font-size: 1rem;
             font-weight: 500;
-            font-family: var(--font-sans);
+            font-family: var(--font-heading);
             cursor: pointer;
             transition: background 0.2s ease;
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
+            background: var(--green-bright);
         }
 
         .btn-primary:disabled {
@@ -231,25 +195,25 @@
         .auth-message {
             margin-top: 20px;
             padding: 12px;
-            border-radius: 6px;
+            border-radius: 0;
             font-size: 0.875rem;
         }
 
         .auth-message.success {
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--success);
+            background: rgba(0, 204, 51, 0.1);
+            color: var(--green);
         }
 
         .auth-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--error);
+            background: var(--magenta-dim);
+            color: var(--magenta);
         }
 
         .back-link {
             display: inline-block;
             margin-top: 24px;
             font-size: 0.875rem;
-            color: var(--text-muted);
+            color: var(--green-muted);
         }
 
         /* ===== Dashboard ===== */
@@ -263,7 +227,7 @@
         }
 
         .dashboard-header p {
-            color: var(--text-secondary);
+            color: var(--green-dark);
         }
 
         /* ===== Tabs ===== */
@@ -278,20 +242,20 @@
             padding: 12px 20px;
             background: none;
             border: none;
-            color: var(--text-secondary);
+            color: var(--green-dark);
             font-size: 0.9375rem;
-            font-family: var(--font-sans);
+            font-family: var(--font-heading);
             cursor: pointer;
             position: relative;
             transition: color 0.2s ease;
         }
 
         .tab-btn:hover {
-            color: var(--text-primary);
+            color: var(--green);
         }
 
         .tab-btn.active {
-            color: var(--accent);
+            color: var(--green);
         }
 
         .tab-btn.active::after {
@@ -301,7 +265,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: var(--accent);
+            background: var(--green);
         }
 
         .tab-content {
@@ -320,16 +284,16 @@
         }
 
         .document-card {
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 20px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .document-card:hover {
-            border-color: var(--accent);
+            border-color: var(--green);
             transform: translateY(-2px);
         }
 
@@ -346,7 +310,7 @@
         }
 
         .document-card p {
-            color: var(--text-secondary);
+            color: var(--green-dark);
             font-size: 0.9375rem;
             margin-bottom: 12px;
         }
@@ -355,14 +319,14 @@
             display: flex;
             gap: 16px;
             font-size: 0.8125rem;
-            color: var(--text-muted);
+            color: var(--green-muted);
             font-family: var(--font-mono);
         }
 
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: var(--text-secondary);
+            color: var(--green-dark);
         }
 
         .empty-state .icon {
@@ -388,17 +352,17 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-secondary);
+            color: var(--green-dark);
             font-size: 0.875rem;
             background: none;
             border: none;
             cursor: pointer;
             padding: 0;
-            font-family: var(--font-sans);
+            font-family: var(--font-body);
         }
 
         .btn-back:hover {
-            color: var(--accent);
+            color: var(--green);
         }
 
         .document-title {
@@ -407,21 +371,21 @@
         }
 
         .document-description {
-            color: var(--text-secondary);
+            color: var(--green-dark);
             margin-bottom: 24px;
         }
 
         .document-content {
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 32px;
             margin-bottom: 32px;
         }
 
         /* Markdown Styles */
         .markdown-body {
-            color: var(--text-primary);
+            color: var(--green);
             line-height: 1.8;
         }
 
@@ -432,23 +396,24 @@
             margin-top: 24px;
             margin-bottom: 16px;
             font-weight: 600;
+            color: var(--green-bright);
         }
 
         .markdown-body h1 { font-size: 1.75rem; }
-        .markdown-body h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .markdown-body h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; text-transform: none; letter-spacing: normal; }
         .markdown-body h3 { font-size: 1.25rem; }
         .markdown-body h4 { font-size: 1.125rem; }
 
         .markdown-body p {
             margin-bottom: 16px;
-            color: var(--text-secondary);
+            color: var(--green-dark);
         }
 
         .markdown-body ul,
         .markdown-body ol {
             margin-bottom: 16px;
             padding-left: 24px;
-            color: var(--text-secondary);
+            color: var(--green-dark);
         }
 
         .markdown-body li {
@@ -456,17 +421,17 @@
         }
 
         .markdown-body code {
-            background: var(--bg-tertiary);
+            background: var(--bg-card);
             padding: 2px 6px;
-            border-radius: 4px;
+            border-radius: 0;
             font-family: var(--font-mono);
             font-size: 0.875em;
         }
 
         .markdown-body pre {
-            background: var(--bg-tertiary);
+            background: var(--bg-card);
             padding: 16px;
-            border-radius: 8px;
+            border-radius: 0;
             overflow-x: auto;
             margin-bottom: 16px;
         }
@@ -477,19 +442,19 @@
         }
 
         .markdown-body blockquote {
-            border-left: 3px solid var(--accent);
+            border-left: 3px solid var(--green);
             padding-left: 16px;
             margin: 16px 0;
-            color: var(--text-secondary);
+            color: var(--green-dark);
             font-style: italic;
         }
 
         .markdown-body a {
-            color: var(--accent);
+            color: var(--green);
         }
 
         .markdown-body a:hover {
-            color: var(--accent-hover);
+            color: var(--green-bright);
         }
 
         .markdown-body table {
@@ -506,13 +471,14 @@
         }
 
         .markdown-body th {
-            background: var(--bg-tertiary);
+            background: var(--bg-card);
             font-weight: 600;
+            color: var(--green-bright);
         }
 
         .markdown-body img {
             max-width: 100%;
-            border-radius: 8px;
+            border-radius: 0;
         }
 
         /* ===== Comments Section ===== */
@@ -535,12 +501,12 @@
         .comment-form textarea {
             width: 100%;
             padding: 12px 16px;
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-primary);
+            border-radius: 0;
+            color: var(--green);
             font-size: 0.9375rem;
-            font-family: var(--font-sans);
+            font-family: var(--font-body);
             resize: vertical;
             min-height: 100px;
             margin-bottom: 12px;
@@ -548,23 +514,24 @@
 
         .comment-form textarea:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--green);
         }
 
         .comment-form .btn-submit {
-            background: var(--accent);
-            color: white;
+            background: var(--green);
+            color: var(--bg-deep);
             border: none;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 0;
             font-size: 0.875rem;
             font-weight: 500;
+            font-family: var(--font-heading);
             cursor: pointer;
             transition: background 0.2s ease;
         }
 
         .comment-form .btn-submit:hover {
-            background: var(--accent-hover);
+            background: var(--green-bright);
         }
 
         .comments-list {
@@ -574,14 +541,14 @@
         }
 
         .comment-item {
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 16px;
         }
 
         .comment-item.owner {
-            border-left: 3px solid var(--accent);
+            border-left: 3px solid var(--green);
         }
 
         .comment-header {
@@ -594,33 +561,34 @@
         .comment-author {
             font-weight: 500;
             font-size: 0.875rem;
+            color: var(--green-bright);
         }
 
         .comment-author .badge {
             font-size: 0.75rem;
-            color: var(--accent);
-            background: var(--accent-subtle);
+            color: var(--green);
+            background: var(--green-dim);
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 0;
             margin-left: 8px;
         }
 
         .comment-date {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--green-muted);
             font-family: var(--font-mono);
         }
 
         .comment-content {
-            color: var(--text-secondary);
+            color: var(--green-dark);
             font-size: 0.9375rem;
         }
 
         /* ===== Upload Section ===== */
         .upload-section {
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 32px;
             margin-bottom: 32px;
         }
@@ -631,7 +599,7 @@
 
         .upload-dropzone {
             border: 2px dashed var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 40px;
             text-align: center;
             cursor: pointer;
@@ -640,8 +608,8 @@
 
         .upload-dropzone:hover,
         .upload-dropzone.dragover {
-            border-color: var(--accent);
-            background: var(--accent-subtle);
+            border-color: var(--green);
+            background: var(--green-dim);
         }
 
         .upload-dropzone .icon {
@@ -651,13 +619,13 @@
         }
 
         .upload-dropzone p {
-            color: var(--text-secondary);
+            color: var(--green-dark);
             margin-bottom: 8px;
         }
 
         .upload-dropzone .hint {
             font-size: 0.8125rem;
-            color: var(--text-muted);
+            color: var(--green-muted);
         }
 
         .upload-dropzone input {
@@ -673,8 +641,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            background: var(--bg-tertiary);
-            border-radius: 6px;
+            background: var(--bg-card);
+            border-radius: 0;
             margin-bottom: 8px;
         }
 
@@ -690,11 +658,12 @@
 
         .upload-item-name {
             font-size: 0.9375rem;
+            color: var(--green);
         }
 
         .upload-item-meta {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--green-muted);
             font-family: var(--font-mono);
         }
 
@@ -706,20 +675,20 @@
         .btn-icon {
             background: none;
             border: none;
-            color: var(--text-muted);
+            color: var(--green-muted);
             cursor: pointer;
             padding: 6px;
-            border-radius: 4px;
+            border-radius: 0;
             transition: all 0.2s ease;
         }
 
         .btn-icon:hover {
-            color: var(--text-primary);
-            background: var(--bg-secondary);
+            color: var(--green);
+            background: var(--bg-panel);
         }
 
         .btn-icon.danger:hover {
-            color: var(--error);
+            color: var(--magenta);
         }
 
         /* ===== Loading States ===== */
@@ -734,7 +703,7 @@
             width: 32px;
             height: 32px;
             border: 3px solid var(--border);
-            border-top-color: var(--accent);
+            border-top-color: var(--green);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -748,18 +717,19 @@
             position: fixed;
             bottom: 24px;
             right: 24px;
-            z-index: 1000;
+            z-index: 10000;
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
         .toast {
-            background: var(--bg-secondary);
+            background: var(--bg-panel);
             border: 1px solid var(--border);
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: 0;
             font-size: 0.875rem;
+            color: var(--green);
             animation: slideIn 0.3s ease;
             display: flex;
             align-items: center;
@@ -767,11 +737,11 @@
         }
 
         .toast.success {
-            border-color: var(--success);
+            border-color: var(--green);
         }
 
         .toast.error {
-            border-color: var(--error);
+            border-color: var(--magenta);
         }
 
         @keyframes slideIn {
@@ -1202,7 +1172,7 @@
                 .order('created_at', { ascending: true });
 
             if (error || !data || data.length === 0) {
-                commentsList.innerHTML = '<p style="color: var(--text-muted);">No comments yet. Be the first to comment!</p>';
+                commentsList.innerHTML = '<p style="color: var(--green-muted);">No comments yet. Be the first to comment!</p>';
                 return;
             }
 

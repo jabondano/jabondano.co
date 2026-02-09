@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joaquin Abondano – COO, Innovative Eyewear</title>
     <meta name="description" content="Building smart eyewear for the voice-first future. COO at Innovative Eyewear (NASDAQ: LUCY). Creator of the JBOT Protocol for AI-native organizations.">
-    
+
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:title" content="Joaquin Abondano">
     <meta property="og:description" content="Building smart eyewear for the voice-first future. Creator of the JBOT Protocol for AI-native organizations.">
@@ -16,7 +16,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Joaquin Abondano - COO at Innovative Eyewear">
     <meta property="og:site_name" content="Joaquin Abondano">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@jabondano">
@@ -33,862 +33,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Terminal Design System -->
+    <link rel="stylesheet" href="css/terminal.css">
+
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c3e9b63344b7492dbb555924c4955a41"}'></script>
     <!-- End Cloudflare Web Analytics -->
-    
-    <style>
-        /* ===== CSS Variables ===== */
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #e5e5e5;
-            --text-secondary: #a3a3a3;
-            --text-muted: #737373;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --accent-subtle: rgba(59, 130, 246, 0.1);
-            --border: #262626;
-            --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'IBM Plex Mono', monospace;
-        }
-
-        /* ===== Reset & Base ===== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ===== Layout ===== */
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        main {
-            padding: 120px 0;
-        }
-
-        section {
-            margin-bottom: 64px;
-        }
-
-        /* ===== Typography ===== */
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        h2 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            text-transform: lowercase;
-            letter-spacing: 0.05em;
-        }
-
-        h3 {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--accent-hover);
-        }
-
-        /* ===== Header/Hero ===== */
-        .hero {
-            display: flex;
-            align-items: flex-start;
-            gap: 32px;
-            margin-bottom: 48px;
-        }
-
-        .hero-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 12px;
-            object-fit: cover;
-            background-color: var(--bg-tertiary);
-            flex-shrink: 0;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .tagline {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .social-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .social-links svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* ===== Divider ===== */
-        hr {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 48px 0;
-        }
-
-        /* ===== Timeline ===== */
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 24px;
-            margin-bottom: 40px;
-            align-items: start;
-        }
-
-        .timeline-date {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            padding-top: 4px;
-        }
-
-        .timeline-content h3 {
-            color: var(--text-primary);
-        }
-
-        .timeline-content p {
-            font-size: 0.9375rem;
-        }
-
-        .timeline-logo {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            background-color: var(--bg-tertiary);
-        }
-
-        /* ===== Projects Grid ===== */
-        .projects-grid {
-            display: grid;
-            gap: 24px;
-        }
-
-        .project-card {
-            padding: 20px;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-
-        .project-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .project-card h3::before {
-            content: "🔧";
-            font-size: 1rem;
-        }
-
-        .project-card.enterprise h3::before {
-            content: "📊";
-        }
-
-        .project-card.supply-chain h3::before {
-            content: "🏭";
-        }
-
-        .project-card.legacy h3::before {
-            content: "🚀";
-        }
-
-        /* ===== POV / Thesis Section ===== */
-        .pov-content {
-            max-width: 600px;
-        }
-
-        .pov-main {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-        }
-
-        .pov-secondary {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        /* ===== Consulting Section ===== */
-        .consulting-section {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 32px;
-        }
-
-        .consulting-header {
-            margin-bottom: 24px;
-        }
-
-        .consulting-header h2 {
-            margin-bottom: 8px;
-            color: var(--text-primary);
-            text-transform: none;
-            font-size: 1.25rem;
-        }
-
-        .consulting-header p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-
-        .consulting-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .consulting-card {
-            padding: 20px;
-            background-color: var(--bg-primary);
-            border-radius: 8px;
-        }
-
-        .consulting-card h4 {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 12px;
-        }
-
-        .consulting-card p {
-            font-size: 0.9375rem;
-            color: var(--text-secondary);
-        }
-
-        .consulting-cta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: background 0.2s ease, transform 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            color: white;
-            transform: translateY(-1px);
-        }
-
-        .consulting-note {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        /* ===== POV List ===== */
-        .pov-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .pov-list li {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-secondary);
-            font-size: 0.9375rem;
-            line-height: 1.7;
-        }
-
-        .pov-list li:last-child {
-            border-bottom: none;
-        }
-
-        .pov-list li strong {
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        /* ===== Simple Link Button ===== */
-        .btn-simple {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            font-weight: 500;
-            padding: 8px 0;
-            transition: color 0.2s ease;
-        }
-
-        .btn-simple:hover {
-            color: var(--accent-hover);
-        }
-
-        .btn-simple svg {
-            transition: transform 0.2s ease;
-        }
-
-        .btn-simple:hover svg {
-            transform: translateX(4px);
-        }
-
-        /* ===== Skills ===== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-        }
-
-        .skill-category h3 {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 12px;
-        }
-
-        .skill-category ul {
-            list-style: none;
-        }
-
-        .skill-category li {
-            color: var(--text-secondary);
-            font-size: 0.9375rem;
-            padding: 4px 0;
-        }
-
-        /* ===== Recent Thoughts ===== */
-        .thoughts-list {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .thought-item {
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .thought-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .thought-date {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .thought-item h3 {
-            font-size: 1.125rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .thought-item h3 a {
-            color: var(--text-primary);
-        }
-
-        .thought-item h3 a:hover {
-            color: var(--accent);
-        }
-
-        .thought-item p {
-            font-size: 0.9375rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ===== Press Links ===== */
-        .press-list {
-            list-style: none;
-        }
-
-        .press-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .press-list li:last-child {
-            border-bottom: none;
-        }
-
-        .press-date {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-right: 12px;
-        }
-
-        /* ===== Books Section ===== */
-        .books-section {
-            margin-bottom: 64px;
-        }
-
-        .books-intro {
-            margin-bottom: 32px;
-        }
-
-        .books-stats {
-            display: flex;
-            gap: 32px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
-
-        .books-stat {
-            text-align: center;
-        }
-
-        .books-stat-number {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        .books-stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .books-category {
-            margin-bottom: 32px;
-        }
-
-        .books-category-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .books-category-icon {
-            font-size: 1.25rem;
-        }
-
-        .books-category-title {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin: 0;
-        }
-
-        .books-category-count {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 12px;
-        }
-
-        .book-item {
-            position: relative;
-            aspect-ratio: 2/3;
-            border-radius: 4px;
-            overflow: hidden;
-            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .book-item:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        .book-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .book-cover.loaded {
-            opacity: 1;
-        }
-
-        .book-cover.error {
-            opacity: 0;
-        }
-
-        .book-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 8px;
-            text-align: center;
-            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .book-placeholder.hidden {
-            opacity: 0;
-        }
-
-        .book-placeholder-title {
-            font-size: 0.625rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            line-height: 1.2;
-            margin-bottom: 4px;
-        }
-
-        .book-placeholder-author {
-            font-size: 0.5rem;
-            color: var(--text-muted);
-        }
-
-        /* ===== Bio Box ===== */
-        .bio-box {
-            padding: 24px;
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 32px;
-        }
-
-        .bio-box p {
-            font-size: 0.9375rem;
-        }
-
-        .personal-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-top: 24px;
-        }
-
-        .personal-detail {
-            font-size: 0.875rem;
-        }
-
-        .personal-detail span {
-            color: var(--text-muted);
-        }
-
-        /* ===== Conversation Prompt ===== */
-        .conversation-prompt {
-            margin-top: 32px;
-            padding: 20px;
-            background: var(--accent-subtle);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 8px 8px 0;
-        }
-
-        .conversation-prompt p {
-            font-size: 0.9375rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        .conversation-prompt p:last-child {
-            margin-bottom: 0;
-        }
-
-        .conversation-links {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .conversation-links a {
-            font-size: 0.875rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* ===== Footer ===== */
-        footer {
-            padding: 48px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        footer p {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        footer .footer-legacy {
-            font-style: italic;
-            font-size: 0.8125rem;
-            color: var(--text-muted);
-            opacity: 0.6;
-            margin-bottom: 12px;
-        }
-
-        /* ===== Skip to Content (Accessibility) ===== */
-        .skip-to-content {
-            position: absolute;
-            top: -100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 0 0 8px 8px;
-            z-index: 1001;
-            transition: top 0.3s ease;
-            font-weight: 500;
-        }
-
-        .skip-to-content:focus {
-            top: 0;
-            color: white;
-        }
-
-        /* ===== Sticky Navigation ===== */
-        .nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-header.visible {
-            transform: translateY(0);
-        }
-
-        .nav-container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-weight: 600;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.9375rem;
-        }
-
-        .nav-brand:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            font-size: 0.8125rem;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        .nav-toggle svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 640px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .hero {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .timeline-date {
-                font-size: 0.75rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .books-grid {
-                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            }
-
-            .books-stats {
-                justify-content: center;
-            }
-
-            .consulting-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .consulting-section {
-                padding: 24px;
-            }
-
-            /* Mobile Navigation */
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: rgba(10, 10, 10, 0.98);
-                border-bottom: 1px solid var(--border);
-                padding: 16px 24px;
-                gap: 16px;
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .nav-links a {
-                font-size: 0.9375rem;
-                padding: 8px 0;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Skip to Content Link (Accessibility) -->
@@ -914,7 +70,7 @@
     </nav>
 
     <main class="container" id="main-content">
-        
+
         <!-- ===== HERO ===== -->
         <section class="hero">
             <img src="assets/me.png" alt="Joaquin Abondano" class="hero-photo">
@@ -950,7 +106,7 @@
 
         <!-- ===== CURRENT ===== -->
         <section>
-            <h2>current</h2>
+            <h2>// current</h2>
             <div class="timeline-item" style="margin-bottom: 24px;">
                 <div class="timeline-date">2024–</div>
                 <div class="timeline-content">
@@ -959,10 +115,10 @@
                 </div>
             </div>
             <div class="pov-content">
-                <p style="color: var(--text-secondary); line-height: 1.8;">
-                    <strong style="color: var(--text-primary);">My thesis:</strong> We're in the third wave of human-computer interaction. Mouse and GUI. Touch and screen. Now voice and agents. Glasses are the perfect wearable for this shift—a medical device billions already wear, with speakers by your ears and microphones by your mouth.
+                <p style="color: var(--green-dark); line-height: 1.8;">
+                    <strong style="color: var(--green-bright);">My thesis:</strong> We're in the third wave of human-computer interaction. Mouse and GUI. Touch and screen. Now voice and agents. Glasses are the perfect wearable for this shift—a medical device billions already wear, with speakers by your ears and microphones by your mouth.
                 </p>
-                <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 16px;">
+                <p style="color: var(--green-dark); line-height: 1.8; margin-top: 16px;">
                     I believe AI will liberate decision-making the way tractors liberated farming—not by replacing humans, but by amplifying what one person can do. I'm building the systems to prove it.
                 </p>
             </div>
@@ -972,11 +128,15 @@
 
         <!-- ===== OPEN SOURCE ===== -->
         <section>
-            <h2>open source</h2>
+            <h2>// open source</h2>
             <div class="projects-grid" style="gap: 16px;">
                 <div class="project-card" style="padding: 16px;">
                     <h3 style="font-size: 1rem;"><a href="https://github.com/jabondano/jbot-protocol" target="_blank">JBOT Protocol</a></h3>
-                    <p style="font-size: 0.875rem; margin-top: 8px;">A methodology for deploying AI agents across enterprise divisions. Includes templates, implementation guides, and lessons from running this at a public company.</p>
+                    <p style="font-size: 0.875rem; margin-top: 8px;">A methodology for building AI-native organizations — where agents own tasks end-to-end, not just assist. 6 pillars, architecture patterns, implementation guides for Claude Code and OpenClaw Fleet, model selection guide, and lessons from deploying this at a public company.</p>
+                </div>
+                <div class="project-card" style="padding: 16px;">
+                    <h3 style="font-size: 1rem;"><a href="https://github.com/jabondano/enterprise-ai-dashboards" target="_blank">Enterprise AI Dashboards</a></h3>
+                    <p style="font-size: 0.875rem; margin-top: 8px;">Open-source starter kit for AI-powered business dashboards. Astro, React, Cloudflare Workers. Built for operations teams that need real-time reporting without enterprise pricing.</p>
                 </div>
             </div>
         </section>
@@ -986,8 +146,13 @@
         <!-- ===== RECENT THOUGHTS ===== -->
         <!-- NOTE: Keep synced with notes.html - show 3 most recent posts -->
         <section id="thoughts">
-            <h2>recent thoughts</h2>
+            <h2>// recent thoughts</h2>
             <div class="thoughts-list">
+                <div class="thought-item">
+                    <div class="thought-date">Feb 8, 2026</div>
+                    <h3><a href="/notes/fleet-architecture-memory-systems.html">Designing Systems That Learn: Fleet Bots and Self-Recycling Memory</a></h3>
+                    <p>How I deployed three specialized bot fleets with memory systems that get smarter over time. It's not about what AI can do today — it's about designing systems that generate their own intelligence.</p>
+                </div>
                 <div class="thought-item">
                     <div class="thought-date">Feb 7, 2026</div>
                     <h3><a href="/notes/openclaw-fleet-architecture.html">Building a Fleet of AI Agents for Enterprise Operations</a></h3>
@@ -998,11 +163,6 @@
                     <h3><a href="/notes/day-one-clawdbot.html">Day One with Clawdbot</a></h3>
                     <p>I spent a full day tinkering with a system that runs on my server. Not an app. Not a dashboard. A terminal. AI doesn't replace presence — it creates the conditions for it.</p>
                 </div>
-                <div class="thought-item">
-                    <div class="thought-date">Jan 26, 2026</div>
-                    <h3><a href="/notes/terminal-interface.html">The Terminal is the New Interface</a></h3>
-                    <p>GUIs are going extinct. Raw thoughts in, action out. A partner that understands you. That's the new interface.</p>
-                </div>
             </div>
             <p style="margin-top: 16px;"><a href="/notes.html">View all notes →</a></p>
         </section>
@@ -1011,13 +171,13 @@
 
         <!-- ===== AI PROJECTS ===== -->
         <section id="projects">
-            <h2>ai & technical projects</h2>
+            <h2>// projects</h2>
             <p style="margin-bottom: 24px;">I build AI powered systems that automate business operations.</p>
 
             <div class="projects-grid">
                 <div class="project-card">
                     <h3>Agentic Operating System</h3>
-                    <p>Building a COO in Claude. Structured operating units as AI agents, each with defined responsibilities, decision frameworks, and institutional knowledge. Workflows generate training data from daily operations. The system learns how we work so it can do more of the work. Designed for an agentic future where AI doesn't just assist but operates.</p>
+                    <p>What became the JBOT Protocol started here. Structured operating units as AI agents, each with defined responsibilities, decision frameworks, and institutional knowledge. 20+ agents handling daily operations, periodic reporting, and reactive monitoring. The system learns how we work so it can do more of the work.</p>
                 </div>
 
                 <div class="project-card">
@@ -1025,17 +185,17 @@
                     <p>Built Model Context Protocol servers connecting Claude to enterprise systems. NetSuite for real time inventory and financials. Shopify for order management. Airtable for product development workflows. Custom agents for content creation, supply chain optimization, and trade show strategy.</p>
                 </div>
 
-                <div class="project-card enterprise">
+                <div class="project-card">
                     <h3>Enterprise Systems</h3>
                     <p>Full NetSuite ERP implementation for NASDAQ-listed company. CRM systems for customer lifecycle management across B2B and DTC channels. Real-time analytics dashboards for executive decision-making.</p>
                 </div>
 
-                <div class="project-card supply-chain">
+                <div class="project-card">
                     <h3>Supply Chain & Operations</h3>
                     <p>China factory relationship development, AQL inspections, BOM optimization. Global logistics across ocean, air, and land fulfillment. Led ANSI Z87.1+, CSA Z94.3, EN 166 safety certifications for smart safety eyewear.</p>
                 </div>
 
-                <div class="project-card legacy">
+                <div class="project-card">
                     <h3>Legacy Products</h3>
                     <p>X Drone: DTC drone brand with $20M+ in sales. WebRC: First toys to virtual world platform built on Unity (licensed by Toyota, Hummer, GM). AppRC: iOS/Android apps with Bluetooth dongle to control RC helicopters.</p>
                 </div>
@@ -1046,7 +206,7 @@
 
         <!-- ===== PRESS ===== -->
         <section>
-            <h2>press & publications</h2>
+            <h2>// press</h2>
             <ul class="press-list">
                 <li>
                     <span class="press-date">Jan 2026</span>
@@ -1080,7 +240,15 @@
 
         <!-- ===== TIMELINE ===== -->
         <section id="timeline">
-            <h2>timeline</h2>
+            <h2>// timeline</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2025</div>
+                <div class="timeline-content">
+                    <h3>JBOT Protocol</h3>
+                    <p>Formalized the AI operations architecture built at Lucyd into an open-source framework. Writing, building, documenting.</p>
+                </div>
+            </div>
 
             <div class="timeline-item">
                 <div class="timeline-date">2023</div>
@@ -1127,7 +295,7 @@
 
         <!-- ===== SKILLS ===== -->
         <section>
-            <h2>expertise</h2>
+            <h2>// expertise</h2>
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3>AI & Automation</h3>
@@ -1193,8 +361,8 @@
 
         <!-- ===== BOOKS ===== -->
         <section class="books-section" id="books">
-            <h2>library</h2>
-            
+            <h2>// library</h2>
+
             <div class="books-intro">
                 <p>Books that shape how I'm thinking right now. These aren't beliefs set in stone—they're lenses I'm looking through, subject to revision. Intellectual humility means holding ideas loosely while engaging with them seriously.</p>
                 <div class="books-stats">
@@ -1259,7 +427,7 @@
 
         <!-- ===== BIO ===== -->
         <section id="bio">
-            <h2>bio</h2>
+            <h2>// bio</h2>
             <div class="bio-box">
                 <p>Joaquin Abondano is the Chief Operating Officer at Innovative Eyewear Inc. (NASDAQ: LUCY), where he leads operations for the world's first ChatGPT enabled smart eyewear company. Since joining in 2023, he has driven 65% annual revenue growth and expanded distribution to 27+ countries.</p>
                 <p>Previously, he co-founded Groovy Toys and scaled it to $20M+ in revenue, launching over 500 consumer products including mobile apps, multiplayer games, and IoT devices. He holds a BS in Management with a Finance minor from Purdue University.</p>
@@ -1277,10 +445,10 @@
                 </div>
             </div>
 
-            <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.9375rem;">
+            <p style="margin-top: 24px; color: var(--green-muted); font-size: 0.9375rem;">
                 <strong>Interests:</strong> Non-fiction reading, mentoring my kids, traveling the world, mindful meditation, cultural cooking, pursuing knowledge.
             </p>
-            <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.9375rem;">
+            <p style="margin-top: 16px; color: var(--green-muted); font-size: 0.9375rem;">
                 I gravitate toward people who bring solutions, roll up their sleeves, and find ways to make someone's day better—whether it's a customer, a colleague, or a kid.
             </p>
         </section>
@@ -1289,11 +457,11 @@
 
         <!-- ===== ROOTS ===== -->
         <section>
-            <h2>roots</h2>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.8;">
+            <h2>// roots</h2>
+            <p style="color: var(--green-dark); font-size: 0.9375rem; line-height: 1.8;">
                 Caribbean upbringing in a bilingual household. Eldest of brothers. Started working in the family business as a teenager, first trips to Asian factories before university. Competitive equestrian through adolescence.
             </p>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.8; margin-top: 16px;">
+            <p style="color: var(--green-dark); font-size: 0.9375rem; line-height: 1.8; margin-top: 16px;">
                 Born in '83—analog childhood, figured out the internet as a teenager, built my first databases before most people had email. Now AI. I've watched companies adapt (or not) through each wave. That pattern recognition shapes how I think about tools and the people who choose them.
             </p>
         </section>
@@ -1309,7 +477,6 @@
         // Book data consolidated into 5 categories
         const books = {
             philosophy: [
-                // Stoicism & Ancient Wisdom
                 { title: "Meditations", author: "Marcus Aurelius", isbn: "0140449337" },
                 { title: "On the Shortness of Life", author: "Seneca", isbn: "0143036327" },
                 { title: "Letters from a Stoic", author: "Seneca", isbn: "0140442103" },
@@ -1319,13 +486,11 @@
                 { title: "The Enchiridion", author: "Epictetus", isbn: "0486433595" },
                 { title: "On the Good Life", author: "Cicero", isbn: "0140442448" },
                 { title: "On Duties", author: "Cicero", isbn: "0140440836" },
-                // Modern Philosophy & Principles
                 { title: "Man's Search for Meaning", author: "Viktor Frankl", isbn: "080701429X" },
                 { title: "Beyond Good and Evil", author: "Nietzsche", isbn: "0140449230" },
                 { title: "Thus Spoke Zarathustra", author: "Nietzsche", isbn: "0140441182" },
                 { title: "Principles", author: "Ray Dalio", isbn: "1501124021" },
                 { title: "The Almanack of Naval Ravikant", author: "Eric Jorgenson", isbn: "1544514212" },
-                // Decision Making & Risk
                 { title: "Fooled by Randomness", author: "Nassim Taleb", isbn: "0812975219" },
                 { title: "The Black Swan", author: "Nassim Taleb", isbn: "081297381X" },
                 { title: "Antifragile", author: "Nassim Taleb", isbn: "0812979680" },
@@ -1336,12 +501,10 @@
                 { title: "Never Split the Difference", author: "Chris Voss", isbn: "0062407805" }
             ],
             biography: [
-                // Ron Chernow
                 { title: "Alexander Hamilton", author: "Ron Chernow", isbn: "0143034758" },
                 { title: "Washington: A Life", author: "Ron Chernow", isbn: "0143119966" },
                 { title: "Grant", author: "Ron Chernow", isbn: "0143110632" },
                 { title: "Titan", author: "Ron Chernow", isbn: "1400077303" },
-                // Walter Isaacson
                 { title: "Steve Jobs", author: "Walter Isaacson", isbn: "1451648537" },
                 { title: "Benjamin Franklin", author: "Walter Isaacson", isbn: "074325807X" },
                 { title: "Elon Musk", author: "Walter Isaacson", isbn: "1982181281" },
@@ -1349,11 +512,9 @@
                 { title: "Leonardo da Vinci", author: "Walter Isaacson", isbn: "1501139169" },
                 { title: "The Innovators", author: "Walter Isaacson", isbn: "1476708703" },
                 { title: "The Code Breaker", author: "Walter Isaacson", isbn: "1982115866" },
-                // Robert Caro
                 { title: "The Path to Power", author: "Robert Caro", isbn: "0679729453" },
                 { title: "Means of Ascent", author: "Robert Caro", isbn: "067973371X" },
                 { title: "Master of the Senate", author: "Robert Caro", isbn: "0394720954" },
-                // History & Civilization
                 { title: "The Decline and Fall of the Roman Empire", author: "Edward Gibbon", isbn: "0140437649" },
                 { title: "Emperor of Rome", author: "Mary Beard", isbn: "1631496530" },
                 { title: "SPQR", author: "Mary Beard", isbn: "1631492225" },
@@ -1364,13 +525,11 @@
                 { title: "The Civil War", author: "Julius Caesar", isbn: "0199540624" },
                 { title: "Genghis Khan and the Making of the Modern World", author: "Jack Weatherford", isbn: "0609809644" },
                 { title: "Napoleon: A Life", author: "Andrew Roberts", isbn: "0143127853" },
-                // William Manchester
                 { title: "The Last Lion: Visions of Glory", author: "William Manchester", isbn: "0385313489" },
                 { title: "The Last Lion: Alone", author: "William Manchester", isbn: "0385313314" },
                 { title: "The Last Lion: Defender of the Realm", author: "William Manchester", isbn: "0345548639" },
                 { title: "The Arms of Krupp", author: "William Manchester", isbn: "0316529400" },
                 { title: "Deng Xiaoping", author: "Ezra Vogel", isbn: "0674725867" },
-                // Will Durant - Story of Civilization
                 { title: "Our Oriental Heritage", author: "Will Durant", isbn: "1567310125" },
                 { title: "The Life of Greece", author: "Will Durant", isbn: "0671418009" },
                 { title: "Caesar and Christ", author: "Will Durant", isbn: "1567310141" },
@@ -1383,7 +542,6 @@
                 { title: "Rousseau and Revolution", author: "Will Durant", isbn: "1567310214" },
                 { title: "The Age of Napoleon", author: "Will Durant", isbn: "1567310222" },
                 { title: "The Lessons of History", author: "Will & Ariel Durant", isbn: "143914995X" },
-                // Modern Business
                 { title: "Shoe Dog", author: "Phil Knight", isbn: "1501135929" },
                 { title: "The Everything Store", author: "Brad Stone", isbn: "0316219282" },
                 { title: "Creativity, Inc.", author: "Ed Catmull", isbn: "0812993012" },
@@ -1391,12 +549,10 @@
                 { title: "Autobiography of Benjamin Franklin", author: "Benjamin Franklin", isbn: "0486290735" }
             ],
             systems: [
-                // Systems & Complexity
                 { title: "Thinking in Systems", author: "Donella Meadows", isbn: "1603580557" },
                 { title: "Scale", author: "Geoffrey West", isbn: "0143110926" },
                 { title: "The Beginning of Infinity", author: "David Deutsch", isbn: "0143121359" },
                 { title: "The Fabric of Reality", author: "David Deutsch", isbn: "014027541X" },
-                // Human Nature & Psychology
                 { title: "Sapiens", author: "Yuval Noah Harari", isbn: "0062316117" },
                 { title: "Homo Deus", author: "Yuval Noah Harari", isbn: "0062464345" },
                 { title: "21 Lessons for the 21st Century", author: "Yuval Noah Harari", isbn: "0525512195" },
@@ -1408,25 +564,21 @@
                 { title: "Dopamine Nation", author: "Anna Lembke", isbn: "152474672X" },
                 { title: "The Molecule of More", author: "Daniel Lieberman", isbn: "1946885118" },
                 { title: "The Pattern Seekers", author: "Simon Baron-Cohen", isbn: "1541647149" },
-                // AI & Intelligence
                 { title: "A Brief History of Intelligence", author: "Max Bennett", isbn: "0063286092" },
                 { title: "Co-Intelligence", author: "Ethan Mollick", isbn: "059371671X" },
                 { title: "If Nietzsche Were a Narwhal", author: "Justin Gregg", isbn: "0316388092" },
                 { title: "Science and Human Behavior", author: "B.F. Skinner", isbn: "0029290406" },
-                // Economics & Society
                 { title: "Why Nations Fail", author: "Daron Acemoglu", isbn: "0307719227" },
                 { title: "Power and Progress", author: "Daron Acemoglu", isbn: "1541702530" },
                 { title: "The Road to Serfdom", author: "F.A. Hayek", isbn: "0226320553" },
                 { title: "Capitalism and Freedom", author: "Milton Friedman", isbn: "0226264211" },
                 { title: "The Wealth of Nations", author: "Adam Smith", isbn: "0553585975" },
                 { title: "The End of History", author: "Francis Fukuyama", isbn: "0743284550" },
-                // Malcolm Gladwell
                 { title: "Outliers", author: "Malcolm Gladwell", isbn: "0316017930" },
                 { title: "The Tipping Point", author: "Malcolm Gladwell", isbn: "0316346624" },
                 { title: "Blink", author: "Malcolm Gladwell", isbn: "0316010669" }
             ],
             business: [
-                // Strategy
                 { title: "Good Strategy Bad Strategy", author: "Richard Rumelt", isbn: "0307886239" },
                 { title: "7 Powers", author: "Hamilton Helmer", isbn: "0998116319" },
                 { title: "Competitive Strategy", author: "Michael Porter", isbn: "0684841487" },
@@ -1434,36 +586,29 @@
                 { title: "Blue Ocean Strategy", author: "W. Chan Kim", isbn: "1591396190" },
                 { title: "Playing to Win", author: "A.G. Lafley", isbn: "142218739X" },
                 { title: "Zero to One", author: "Peter Thiel", isbn: "0804139296" },
-                // Management & Execution
                 { title: "The Effective Executive", author: "Peter Drucker", isbn: "0060833459" },
                 { title: "High Output Management", author: "Andy Grove", isbn: "0679762884" },
                 { title: "The Hard Thing About Hard Things", author: "Ben Horowitz", isbn: "0062273205" },
                 { title: "Poor Charlie's Almanack", author: "Charlie Munger", isbn: "1578645018" },
                 { title: "How to Win Friends and Influence People", author: "Dale Carnegie", isbn: "0671027034" },
                 { title: "The 7 Habits of Highly Effective People", author: "Stephen Covey", isbn: "1982137274" },
-                // Innovation
                 { title: "The Innovator's Dilemma", author: "Clayton Christensen", isbn: "0062060244" },
                 { title: "Competing Against Luck", author: "Clayton Christensen", isbn: "0062435612" },
                 { title: "Crossing the Chasm", author: "Geoffrey Moore", isbn: "0062292986" },
                 { title: "The Lean Startup", author: "Eric Ries", isbn: "0307887898" },
-                // Jim Collins
                 { title: "Good to Great", author: "Jim Collins", isbn: "0066620996" },
                 { title: "Built to Last", author: "Jim Collins", isbn: "0060516402" },
-                // Goldratt - Theory of Constraints
                 { title: "The Goal", author: "Eliyahu Goldratt", isbn: "0884271951" },
                 { title: "It's Not Luck", author: "Eliyahu Goldratt", isbn: "0884271153" },
                 { title: "Critical Chain", author: "Eliyahu Goldratt", isbn: "0884271536" },
                 { title: "The Choice", author: "Eliyahu Goldratt", isbn: "0884271897" },
-                // Leadership & Teams
                 { title: "Extreme Ownership", author: "Jocko Willink", isbn: "1250183863" },
-                // Product & Growth
                 { title: "Inspired", author: "Marty Cagan", isbn: "1119387507" },
                 { title: "Empowered", author: "Marty Cagan", isbn: "1119691257" },
                 { title: "Hooked", author: "Nir Eyal", isbn: "1591847788" },
                 { title: "Sprint", author: "Jake Knapp", isbn: "150112174X" },
                 { title: "The Mom Test", author: "Rob Fitzpatrick", isbn: "1492180742" },
                 { title: "The Design of Everyday Things", author: "Don Norman", isbn: "0465050654" },
-                // Productivity & Operations
                 { title: "Atomic Habits", author: "James Clear", isbn: "0735211299" },
                 { title: "The 4-Hour Workweek", author: "Tim Ferriss", isbn: "0307465357" },
                 { title: "Measure What Matters", author: "John Doerr", isbn: "0525536221" }
@@ -1475,15 +620,13 @@
                 { title: "The Old Man and the Sea", author: "Ernest Hemingway", isbn: "0684801221" },
                 { title: "The Godfather", author: "Mario Puzo", isbn: "0451205766" },
                 { title: "Don Quixote", author: "Miguel de Cervantes", isbn: "0060934344" },
-                { title: "One Hundred Years of Solitude", author: "Gabriel García Márquez", isbn: "0060883286" }
+                { title: "One Hundred Years of Solitude", author: "Gabriel Garc\u00eda M\u00e1rquez", isbn: "0060883286" }
             ]
         };
 
-        // Function to create book HTML with dynamic covers and fallbacks
         function createBookHTML(book) {
             const amazonUrl = `https://www.amazon.com/dp/${book.isbn}`;
             const bookId = book.isbn.replace(/[^a-zA-Z0-9]/g, '');
-            
             return `
                 <a class="book-item" href="${amazonUrl}" target="_blank" rel="noopener noreferrer" title="${book.title} by ${book.author}" data-isbn="${book.isbn}" id="book-${bookId}">
                     <img class="book-cover" alt="${book.title}" loading="lazy">
@@ -1495,29 +638,20 @@
             `;
         }
 
-        // Try multiple cover sources with fallback
         function loadBookCover(bookElement) {
             const isbn = bookElement.dataset.isbn;
             const img = bookElement.querySelector('.book-cover');
             const placeholder = bookElement.querySelector('.book-placeholder');
-            
             const sources = [
                 `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
                 `https://books.google.com/books/content?vid=ISBN${isbn}&printsec=frontcover&img=1&zoom=1`,
                 `https://images-na.ssl-images-amazon.com/images/P/${isbn}.01._SCLZZZZZZZ_.jpg`
             ];
-            
             let sourceIndex = 0;
-            
             function tryNextSource() {
-                if (sourceIndex >= sources.length) {
-                    // All sources failed, keep placeholder visible
-                    return;
-                }
-                
+                if (sourceIndex >= sources.length) return;
                 const testImg = new Image();
                 testImg.onload = function() {
-                    // Check if it's a real image (not a 1x1 placeholder)
                     if (this.naturalWidth > 10 && this.naturalHeight > 10) {
                         img.src = sources[sourceIndex];
                         img.classList.add('loaded');
@@ -1533,18 +667,15 @@
                 };
                 testImg.src = sources[sourceIndex];
             }
-            
             tryNextSource();
         }
 
-        // Populate book grids and counts
         document.getElementById('philosophy-books').innerHTML = books.philosophy.map(createBookHTML).join('');
         document.getElementById('biography-books').innerHTML = books.biography.map(createBookHTML).join('');
         document.getElementById('systems-books').innerHTML = books.systems.map(createBookHTML).join('');
         document.getElementById('business-books').innerHTML = books.business.map(createBookHTML).join('');
         document.getElementById('literature-books').innerHTML = books.literature.map(createBookHTML).join('');
 
-        // Load covers with fallback for all books (lazy load when visible)
         const coverObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1553,79 +684,32 @@
                 }
             });
         }, { rootMargin: '200px' });
-        
         document.querySelectorAll('.book-item').forEach(book => coverObserver.observe(book));
 
-        // Update counts
         document.getElementById('philosophy-count').textContent = books.philosophy.length;
         document.getElementById('biography-count').textContent = books.biography.length;
         document.getElementById('systems-count').textContent = books.systems.length;
         document.getElementById('business-count').textContent = books.business.length;
         document.getElementById('literature-count').textContent = books.literature.length;
 
-        // Calculate and display total
         const totalBooks = books.philosophy.length + books.biography.length + books.systems.length + books.business.length + books.literature.length;
         document.getElementById('total-books').textContent = totalBooks;
 
-        // ===== Sticky Navigation =====
-        const navHeader = document.querySelector('.nav-header');
+        // Mobile menu toggle
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
-        const heroSection = document.querySelector('.hero');
 
-        // Show/hide nav based on scroll position
-        let lastScrollY = window.scrollY;
-        let heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-
-        function updateNav() {
-            const currentScrollY = window.scrollY;
-
-            // Show nav after scrolling past hero section
-            if (currentScrollY > heroBottom - 100) {
-                navHeader.classList.add('visible');
-            } else {
-                navHeader.classList.remove('visible');
-                // Close mobile menu when scrolling back to top
-                navLinks.classList.remove('open');
-                navToggle.setAttribute('aria-expanded', 'false');
-            }
-
-            lastScrollY = currentScrollY;
-        }
-
-        // Mobile menu toggle
         navToggle.addEventListener('click', () => {
             const isOpen = navLinks.classList.toggle('open');
             navToggle.setAttribute('aria-expanded', isOpen);
         });
 
-        // Close mobile menu when clicking a link
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('open');
                 navToggle.setAttribute('aria-expanded', 'false');
             });
         });
-
-        // Recalculate hero bottom on resize
-        window.addEventListener('resize', () => {
-            heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-        });
-
-        // Throttled scroll listener
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    updateNav();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // Initial check
-        updateNav();
     </script>
 </body>
 </html>
