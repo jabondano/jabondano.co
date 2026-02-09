@@ -13,16 +13,16 @@
 
     --green: #00cc33;
     --green-bright: #2ee866;
-    --green-dark: #4a9960;
-    --green-muted: #2d4a35;
-    --green-dim: rgba(0, 204, 51, 0.12);
+    --green-dark: #6fbf80;
+    --green-muted: #4a8a5a;
+    --green-dim: rgba(0, 204, 51, 0.15);
     --green-glow: rgba(0, 204, 51, 0.25);
 
     --magenta: #e8556d;
     --magenta-dim: rgba(232, 85, 109, 0.12);
     --amber: #e6a817;
 
-    --border: rgba(0, 204, 51, 0.1);
+    --border: rgba(0, 204, 51, 0.15);
     --border-hover: rgba(0, 204, 51, 0.25);
     --glass: rgba(0, 204, 51, 0.04);
 
@@ -316,6 +316,12 @@ hr {
     object-fit: cover;
     background-color: var(--bg-card);
     flex-shrink: 0;
+    filter: grayscale(1) brightness(0.85) contrast(1.15) sepia(0.4) hue-rotate(80deg) saturate(1.5);
+    transition: box-shadow 0.3s ease;
+}
+
+.hero-photo:hover {
+    box-shadow: 0 0 20px rgba(0, 204, 51, 0.2);
 }
 
 .hero-content {
