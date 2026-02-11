@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building the Operations Brain: How I Architected an AI Fleet That Runs My Business While I Sleep – Joaquin Abondano</title>
+    <meta name="description" content="How I went from chatbot demos to a production AI operations system — specialized bots, automated cron jobs, a data pipeline, and executive briefings before breakfast.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Building the Operations Brain: How I Architected an AI Fleet That Runs My Business While I Sleep">
+    <meta property="og:description" content="How I went from chatbot demos to a production AI operations system — specialized bots, automated cron jobs, and executive briefings before breakfast.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jabondano.co/notes/ai-operations-architecture.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Terminal Design System -->
+    <link rel="stylesheet" href="../css/terminal.css">
+</head>
+<body>
+    <main class="container">
+
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="nav">
+            <a href="/" class="nav-logo">JA</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/notes.html" class="active">Notes</a>
+            </div>
+        </nav>
+
+        <!-- ===== BACK LINK ===== -->
+        <a href="/notes.html" class="back-link">
+            <span>&larr;</span> Back to Notes
+        </a>
+
+        <!-- ===== ARTICLE HEADER ===== -->
+        <header class="article-header">
+            <div class="article-meta">February 10, 2026 &middot; 12 min read</div>
+            <h1>Building the Operations Brain: How I Architected an AI Fleet That Runs My Business While I Sleep</h1>
+            <p style="font-size: 1.125rem; color: var(--green-dark); line-height: 1.6;">
+                How I went from chatbot demos to a production AI operations system &mdash; specialized bots, automated schedules, a data pipeline, and executive briefings before breakfast.
+            </p>
+            <div class="article-tags">
+                <span class="article-tag">AI Operations</span>
+                <span class="article-tag">Architecture</span>
+                <span class="article-tag">Automation</span>
+                <span class="article-tag">Production Systems</span>
+            </div>
+        </header>
+
+        <hr>
+
+        <!-- ===== ARTICLE CONTENT ===== -->
+        <article class="article-content">
+
+            <h2>1. The Gap</h2>
+
+            <p>AI agents are everywhere. Production AI operations systems are nowhere.</p>
+
+            <p>Every week I see another demo. An agent that books meetings. An agent that summarizes emails. An agent that writes marketing copy when you ask it nicely. They all share the same problem: they wait for you.</p>
+
+            <p>I run operations at a public company that designs and sells smart audio eyewear. We're on NASDAQ. We manufacture overseas, half a day ahead of our US headquarters. We run DTC on Shopify and wholesale through retail partners. By the time I sit down at my desk, half the business day at our factories is already over.</p>
+
+            <p>The gap isn't "can AI do useful things." The gap is the distance between a chatbot that answers when prompted and an operations system that works while you don't. A system that monitors, collects, synthesizes, and reports &mdash; then tells you what matters before you've poured your coffee.</p>
+
+            <p>Here's what that gap looks like concretely:</p>
+
+            <ul>
+                <li><strong>Agents that don't report.</strong> They do work, but the output lives in a chat thread nobody checks.</li>
+                <li><strong>Data that doesn't flow.</strong> A bot knows your ad performance numbers, but your dashboard doesn't.</li>
+                <li><strong>Systems that don't monitor themselves.</strong> A scheduled job fails at 3am. You find out Thursday.</li>
+            </ul>
+
+            <p>I spent the last several months closing that gap. This is how.</p>
+
+            <h2>2. The Architecture</h2>
+
+            <p>The entire system runs on a low-cost cloud VPS. Four specialized bots, each with its own identity, domain expertise, and integrations.</p>
+
+            <p><strong>The fleet:</strong></p>
+
+            <table>
+                <thead>
+                    <tr><th>Bot</th><th>Domain</th><th>Key Integrations</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Logistics Bot</strong></td><td>Fulfillment & inventory</td><td>ERP, fulfillment platform, inventory APIs</td></tr>
+                    <tr><td><strong>Marketing Bot</strong></td><td>Advertising & creative</td><td>Ad platforms, email marketing, analytics</td></tr>
+                    <tr><td><strong>Sales Bot</strong></td><td>B2B pipeline & marketplace</td><td>CRM, marketplace APIs, wholesale orders</td></tr>
+                    <tr><td><strong>Orchestrator</strong></td><td>Synthesis & executive layer</td><td>All of the above + database, messaging</td></tr>
+                </tbody>
+            </table>
+
+            <p>Specialization matters. Early on I tried a single "do everything" agent. It was mediocre at everything. The moment I split responsibilities, each bot got dramatically better at its domain. The logistics bot doesn't need to know about ad performance. The marketing bot doesn't care about fulfillment exceptions. The orchestrator synthesizes across all of them but delegates the domain work down.</p>
+
+            <p>The runtime uses an open-source bot management framework with systemd ensuring services restart on failure. Each bot runs as its own process with its own workspace &mdash; identity files, skill definitions, persistent memory, and output reports.</p>
+
+            <p>Over a dozen automated scheduled jobs run every day across the fleet. Inventory checks every four hours. Marketing performance pulls every morning. Sales pipeline updates twice daily. The narrative compiler runs early morning and delivers to Slack before anyone's at their desk.</p>
+
+            <p>None of this requires a Kubernetes cluster. None of it requires a managed AI platform. It's process management, scheduled jobs, and structured prompts on a VPS that costs less than a lunch.</p>
+
+            <h2>3. The Data Pipeline</h2>
+
+            <p>Bots producing insights that live in chat messages are bots producing waste.</p>
+
+            <p>That was my first painful lesson. The marketing bot would calculate ad return metrics to two decimal places, the logistics bot would flag inventory running low on a best-seller, the sales bot would note a wholesale lead going cold &mdash; and all of it would scroll past in a messaging thread. Rich, structured, actionable data, completely inaccessible to anything except my eyeballs.</p>
+
+            <p>The fix was a nightly collection pipeline. The orchestrator acts as the collector. Every night, it reads the day's bot activity across the fleet, extracts structured metrics, and pushes them to a central database.</p>
+
+            <p>The database schema is deliberately simple:</p>
+
+            <ul>
+                <li><strong>Daily activity table</strong> &mdash; Structured metrics from each bot, each day. 30-day retention.</li>
+                <li><strong>Narrative archive</strong> &mdash; Synthesized narratives at three tiers: daily (90-day retention), weekly (12-month retention), monthly (kept forever).</li>
+            </ul>
+
+            <p>The retention policy follows a principle I call <strong>"summarize up, delete down."</strong> Daily granularity is useful for a month. After that, you only need weekly patterns. After a year, monthly is enough. The raw data compresses into narratives at each tier, and the granular data drops off.</p>
+
+            <p>The dashboard reads the database on every page load. No CSV exports, no manual data entry, no "let me pull that number for you." The bot generates the data. The pipeline moves it. The dashboard displays it. I look at it.</p>
+
+            <p>This is the part that separates an AI assistant from an AI operations system. The assistant answers your question. The system puts the answer where it needs to be before you ask.</p>
+
+            <h2>4. The Narrative Layer</h2>
+
+            <p>Raw data is necessary but insufficient. Executives don't read tables. They read stories about tables.</p>
+
+            <p>The narrative compiler is the most valuable piece of the entire system. It runs every morning and does three things:</p>
+
+            <ol>
+                <li><strong>Reads structured data</strong> from our ERP (revenue, orders), central database (bot activity, historical trends), and the fleet (service health, job success rates).</li>
+                <li><strong>Computes a health score</strong> &mdash; a single number from 0-100 that answers "how's the business doing right now."</li>
+                <li><strong>Generates an executive narrative</strong> that gets posted to Slack.</li>
+            </ol>
+
+            <p>The health score is a weighted composite. Revenue velocity, order volume trends, inventory levels on key SKUs, marketing efficiency, and system reliability all contribute.</p>
+
+            <p>The Slack message lands early morning. My CEO reads it in 30 seconds. He knows month-to-date revenue, which department needs attention, and if any systems are degraded. No meeting required.</p>
+
+<pre><code>DAILY OPERATIONS PULSE
+
+Health Score: 74 ████████░░
+
+Revenue MTD: on track | Orders: trending up
+Trend: +X% vs. prior period
+
+⚠ Marketing: Ad efficiency below target
+✓ Fulfillment: On track, no exceptions
+✓ Inventory: Key SKUs above safety stock
+
+Multiple data sources monitored | All scheduled jobs nominal</code></pre>
+
+            <p>The narrative compiler doesn't just report numbers. It contextualizes them. "Revenue is on track" is data. "Revenue is on track, up vs. prior period, driven by DTC with wholesale flat" is insight. The compiler produces the latter.</p>
+
+            <p>This is the layer where AI earns its keep in operations. Not by doing the work humans do, but by doing the synthesis humans don't have time to do &mdash; connecting data points across systems that don't talk to each other natively.</p>
+
+            <h2>5. The Monitoring Problem</h2>
+
+            <p>The hardest engineering problem in an autonomous system isn't building the system. It's knowing when it breaks.</p>
+
+            <p>Scheduled jobs fail silently. API keys expire. A bot process crashes at 2am and the process manager restarts it, but the restart loses context. If you don't actively monitor, you're running on faith. Faith is not an operations strategy.</p>
+
+            <p>I built bidirectional monitoring:</p>
+
+            <p><strong>Layer 1: Self-checks (every 30 minutes)</strong></p>
+
+            <p>The fleet runs its own health checks. Disk usage, memory, each bot's service status, scheduled job success rates. Results get logged and pushed to the central database.</p>
+
+            <p><strong>Layer 2: External watchdog (every 15 minutes)</strong></p>
+
+            <p>A separate lightweight process outside the fleet infrastructure validates that the fleet is alive and responsive. If the fleet goes down at 2am, I know by 2:15am.</p>
+
+            <p><strong>Alerting is redundant by design.</strong> Critical alerts go to both Slack and a secondary messaging channel. If Slack is down, the secondary still works. If the fleet can't reach Slack, the external watchdog catches it and alerts through a separate path.</p>
+
+            <table>
+                <thead>
+                    <tr><th>Metric</th><th>What It Catches</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Service status</td><td>Process crashes, failed restarts</td></tr>
+                    <tr><td>Job success rate</td><td>Silent scheduled job failures</td></tr>
+                    <tr><td>Disk usage</td><td>Log files filling up</td></tr>
+                    <tr><td>Memory</td><td>Memory leaks in long-running processes</td></tr>
+                    <tr><td>Last activity</td><td>Bot running but not actually producing output</td></tr>
+                </tbody>
+            </table>
+
+            <p>That last one &mdash; "last activity" &mdash; is the subtlest failure mode. A bot can be running, healthy by every system metric, and completely useless because an upstream API changed its response format. The bot "runs" but produces nothing. Tracking last meaningful output catches this.</p>
+
+            <h2>6. The Migration</h2>
+
+            <p>Before the cloud fleet, all of this ran on my laptop.</p>
+
+            <p>Local scheduled jobs, scripts with hardcoded paths. It worked &mdash; on my machine, while my machine was open, connected to WiFi, and not asleep.</p>
+
+            <p>That's not operations infrastructure. That's a demo that happens to be useful sometimes.</p>
+
+            <p>The moment that forced the migration wasn't a strategic decision. It was discovering that <strong>every single local agent had been silently failing for weeks.</strong> The binary paths were wrong after a system update. No alerts, no errors in any UI I checked, just quiet failure.</p>
+
+            <p>I had been operating without automated intelligence for weeks and didn't know it. That's the failure mode that should terrify any operations leader experimenting with AI agents. Not the dramatic failure &mdash; the silent one.</p>
+
+            <p>The migration happened in phases:</p>
+
+            <p><strong>Phase 1: Easy wins.</strong> Agents that only needed API access (no local file dependencies). Inventory checks, ad platform data pulls. These moved in a day.</p>
+
+            <p><strong>Phase 2: Integration-dependent agents.</strong> Anything that needed webhook delivery, database connections, or cross-bot communication. Adding webhook delivery to Slack was the single biggest unlock &mdash; it meant bots could report to where the team actually works.</p>
+
+            <p><strong>Phase 3: The orchestration layer.</strong> The narrative compiler, the data collection pipeline, the monitoring system. This was the most complex because it depended on everything else working first.</p>
+
+            <p>The key lesson: <strong>migrate in dependency order, not complexity order.</strong> The simplest agent might depend on the most complex integration. Map the dependency graph first, then sequence the migration.</p>
+
+            <h2>7. The Documentation Discipline</h2>
+
+            <p>Undocumented infrastructure is temporary infrastructure. It works until you forget how it works, which takes about three weeks.</p>
+
+            <p>Every AI operations system needs five living documents. Not "nice to have" &mdash; needs them the way a car needs brakes.</p>
+
+            <h3>1. System Architecture Map</h3>
+
+            <p>A visual diagram of all systems, data flows, and API connections. If you can't draw it, you don't understand it.</p>
+
+            <h3>2. Data Dictionary</h3>
+
+            <p>Every table, every field that matters, who writes to it, who reads from it, and its retention policy. When someone asks "where does this metric live?" the answer should take ten seconds to find.</p>
+
+            <h3>3. Operations Runbook</h3>
+
+            <p>Diagnosis steps, common fixes, escalation paths. When a scheduled inventory check fails, the runbook tells you: check the API credential expiry, verify network connectivity, check if the upstream system is in a maintenance window. In that order.</p>
+
+            <h3>4. Change Log</h3>
+
+            <p>Chronological record of every modification. Not git commits &mdash; those are too granular. A human-readable log of what changed, why, and what it affected.</p>
+
+            <h3>5. Integration Matrix</h3>
+
+            <p>Every credential, where it's stored, when it expires, what breaks if it lapses. This is the document you'll be most grateful for at 11pm when an API key expires and you need to know which component uses it.</p>
+
+            <p>These documents are never "done." They're updated every time the system changes. The discipline isn't writing them once &mdash; it's maintaining them as living artifacts. I treat documentation updates as part of the definition of done for any system change.</p>
+
+            <h2>8. What's Next</h2>
+
+            <p>The system works. It's not finished.</p>
+
+            <p>The current architecture handles collection, synthesis, and delivery well. What it doesn't do yet is <strong>close the loop</strong> &mdash; taking the insights it generates and feeding them back into operational decisions automatically.</p>
+
+            <p>Three things I'm building toward:</p>
+
+            <p><strong>Structured metrics extraction.</strong> Right now, some valuable data still lives as text in bot reports. When a bot identifies that ad return metrics have dropped, that number should land in a queryable column, not just in a narrative string. The pipeline needs to extract and store individual metrics, not just summaries.</p>
+
+            <p><strong>Cross-bot pattern detection.</strong> Today each bot monitors its own domain independently. The next step is correlation. Marketing spend increasing while inventory on the promoted SKU is trending low &mdash; that's a problem neither the marketing bot nor the logistics bot would catch alone. The orchestrator needs to watch for cross-domain patterns and flag them before they become fires.</p>
+
+            <p><strong>Decision-informed mornings.</strong> The goal isn't full automation. It's making sure that by 9am, the vast majority of operational decisions are informed by synthesized, cross-functional AI analysis. Not decided by AI. Informed by it. The human still calls the shots, but the shots are better because the data is already synthesized, contextualized, and delivered.</p>
+
+            <hr>
+
+            <h2>The Uncomfortable Truth</h2>
+
+            <p>None of this is technically impressive by Silicon Valley standards. It's a VPS, some scheduled jobs, a few database tables, and structured prompts. The total infrastructure cost is less than $10 a month.</p>
+
+            <p>The hard part was never the technology. It was the discipline. Defining what each bot should own. Building the data pipeline so insights don't die in chat threads. Setting up monitoring so silent failures get caught. Documenting everything so the system outlasts your memory of how you built it.</p>
+
+            <p>Most organizations experimenting with AI agents are stuck at the demo stage. The agent can do a thing. Impressive. But it doesn't do the thing reliably, autonomously, on a schedule, with monitoring, with data flowing to where decisions get made.</p>
+
+            <p>The gap between "AI can do this" and "AI does this every morning and tells me what I need to know before my first meeting" &mdash; that's the gap worth closing. It doesn't require cutting-edge models or massive infrastructure budgets. It requires treating AI agents like what they are: operations infrastructure. And infrastructure demands architecture, monitoring, documentation, and discipline.</p>
+
+            <p>The bots run while I sleep. But they run because I built the system that makes sure they do.</p>
+
+        </article>
+
+        <hr>
+
+        <!-- ===== AUTHOR ===== -->
+        <div class="author-box" style="margin-top: 32px; padding: 24px; border: 1px solid var(--green-border); border-radius: 4px;">
+            <p style="color: var(--green-dark); font-size: 0.9375rem; line-height: 1.7;">
+                <strong style="color: var(--green-bright);">Joaquin Abondano</strong> is the COO of <a href="https://lucyd.co" target="_blank">Innovative Eyewear</a> (NASDAQ: LUCY), where he oversees operations across customer support, sales, marketing, design, supply chain, and app development. He writes about AI operations, agentic systems, and building production infrastructure at <a href="https://jabondano.co">jabondano.co</a>.
+            </p>
+        </div>
+
+        <!-- ===== POST TAGS ===== -->
+        <div class="post-tags" style="margin-top: 24px;">
+            <span class="post-tag">AI Operations</span>
+            <span class="post-tag">Architecture</span>
+            <span class="post-tag">Automation</span>
+            <span class="post-tag">Production Systems</span>
+            <span class="post-tag">JBOT Protocol</span>
+        </div>
+
+    </main>
+
+    <footer class="container">
+        <p class="footer-legacy">This is who I was. What I thought. What I got wrong. What I figured out.</p>
+        <p>Built with pure HTML + CSS. No frameworks. <a href="https://github.com/jabondano/jabondano.co">View source</a>.</p>
+    </footer>
+
+</body>
+</html>
